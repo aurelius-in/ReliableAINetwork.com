@@ -1,0 +1,40 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project Estimator | Reliable AI Network</title>
+<meta name="description" content="Estimate scope, hours, and total price for a 5-week delivery with Reliable AI Network.">
+<link rel="icon" href="./rain-social.png" type="image/png"><link rel="stylesheet" href="./styles.css"></head>
+<body>
+<header class="nav"><div class="nav-inner container"><a class="brand" href="./"><img src="./rain-social.png" alt="RAIN logo"><span class="name">Reliable AI Network</span></a>
+<nav class="nav-links"><a href="./#industries" class="link">Industries</a><a href="./#pricing" class="link">Packages</a>
+<a class="cta" href="https://calendly.com/oliveraellison/15min" target="_blank" rel="noopener">Book a Call</a></nav></div></header>
+<main class="container section">
+  <h1>Project Estimator</h1>
+  <p class="lead">Pick a few details and we’ll estimate scope, hours, and a 5‑week delivery plan. We calculate using typical engineering effort and then apply a 4× productivity factor for AI‑accelerated development, rounding up to whole hours.</p>
+  <div class="panel"><div class="grid cols-2">
+    <div>
+      <label>Agents</label><select id="agents" class="input">
+        <option value="2">1–3 agents (typ. 2)</option><option value="5">4–6 agents (typ. 5)</option><option value="8">7–10 agents (typ. 8)</option></select>
+      <label style="margin-top:10px">Integrations / Tools</label><select id="integrations" class="input">
+        <option value="1">0–2 (typ. 1)</option><option value="4">3–5 (typ. 4)</option><option value="7">6–8 (typ. 7)</option></select>
+      <label style="margin-top:10px">Data Sources</label><select id="dataSources" class="input">
+        <option value="1">1</option><option value="3">2–3 (typ. 3)</option><option value="5">4+ (typ. 5)</option></select>
+      <label style="margin-top:10px">ETL / Data Complexity</label><select id="etl" class="input">
+        <option value="1.0">Simple exports (1.0×)</option><option value="1.2">Moderate cleaning (1.2×)</option><option value="1.5">Complex schemas & joins (1.5×)</option></select>
+      <label style="margin-top:10px">Safety & Compliance</label><select id="safety" class="input">
+        <option value="1.0">Basic guardrails (1.0×)</option><option value="1.2">Enhanced / light compliance (1.2×)</option><option value="1.5">Regulated workflows (1.5×)</option></select>
+      <label style="margin-top:10px">Deployment</label><select id="deploy" class="input">
+        <option value="1.0">Cloud PaaS, single‑tenant (1.0×)</option><option value="1.3">Hybrid or multiple clouds (1.3×)</option><option value="1.5">On‑prem / self‑hosted models (1.5×)</option></select>
+      <label style="margin-top:10px">UX Depth</label><select id="ux" class="input">
+        <option value="1.0">Chat + traces (1.0×)</option><option value="1.2">Dashboards + reports (1.2×)</option><option value="1.4">Multi‑role app & admin (1.4×)</option></select>
+      <details style="margin-top:10px"><summary>Advanced</summary>
+        <label style="margin-top:6px">Blended Rate (USD/hour)</label><input id="rate" class="input" type="number" value="220" min="50" max="1000" step="10"></details>
+      <div style="margin-top:12px"><button id="calc" class="cta">Calculate Estimate</button></div>
+    </div>
+    <div class="panel"><h3 class="title">Estimate</h3><div id="out"></div></div>
+  </div></div>
+  <div class="panel" style="margin-top:16px"><h3 class="title">Payment Plan & Promise</h3>
+    <p>We keep it simple: <strong>20% upfront</strong>, then <strong>20% at the end of each of the next 4 weeks</strong>. We promise delivery in ≤5 weeks with <strong>1 year of consultation and maintenance</strong> included.</p>
+    <div id="schedule"></div>
+  </div>
+</main>
+<footer class="footer"><p>© Reliable AI Network, LLC</p></footer>
+<script src="./estimator.js" defer></script></body></html>
