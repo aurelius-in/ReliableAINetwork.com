@@ -1,0 +1,129 @@
+[
+  {
+    "id": "healthcare",
+    "name": "Healthcare & Wellness",
+    "summary": "Clinical triage, patient navigation, benefits guidance, and population wellness analytics.",
+    "demos": [
+      {
+        "title": "AI Health Navigator",
+        "url": "https://github.com/aurelius-in/agentic-portfolio#ai-health-navigator"
+      },
+      {
+        "title": "MindTrace (Enterprise Wellness AI)",
+        "url": "https://github.com/aurelius-in/agentic-portfolio#mindtrace"
+      }
+    ],
+    "value": [
+      "Lower care navigation time",
+      "Reduce call volume",
+      "Improve member satisfaction",
+      "HIPAA-ready patterns"
+    ]
+  },
+  {
+    "id": "insurance",
+    "name": "Insurance & Claims",
+    "summary": "Automated intake, triage, and claims summarization with audit-ready outputs.",
+    "demos": [
+      {
+        "title": "Claims\u2011Triage AI",
+        "url": "https://github.com/aurelius-in/agentic-portfolio#claims-triage-ai"
+      }
+    ],
+    "value": [
+      "Faster FNOL triage",
+      "Consistent summaries",
+      "Loss ratio impact",
+      "Full traceability"
+    ]
+  },
+  {
+    "id": "risk-compliance",
+    "name": "Risk, Audit & Compliance",
+    "summary": "Policy-as-code guardrails, audit trails, risk scoring, and GRC dashboards.",
+    "demos": [
+      {
+        "title": "AI Governance Dashboard",
+        "url": "https://github.com/aurelius-in/agentic-portfolio#ai-governance-dashboard"
+      },
+      {
+        "title": "MyRiskAgent",
+        "url": "https://github.com/aurelius-in/agentic-portfolio#myriskagent"
+      }
+    ],
+    "value": [
+      "Audit-ready traces",
+      "Vendor risk insights",
+      "Automated evidence collection",
+      "Cost & safety budgets"
+    ]
+  },
+  {
+    "id": "recruiting",
+    "name": "Recruiting & HR",
+    "summary": "High-volume outreach, interview scheduling, ATS updates, and candidate journey tracking.",
+    "demos": [
+      {
+        "title": "High\u2011Volume Recruiter Agent",
+        "url": "https://github.com/aurelius-in/agentic-portfolio#recruiter-agent"
+      }
+    ],
+    "value": [
+      "Speed-to-lead",
+      "Higher booking rate",
+      "Better signal quality",
+      "Reduced manual ops"
+    ]
+  },
+  {
+    "id": "advertising",
+    "name": "Advertising & AdOps",
+    "summary": "Multi-agent campaign ops: ingestion \u2192 planning \u2192 QA \u2192 launch \u2192 pacing \u2192 reporting.",
+    "demos": [
+      {
+        "title": "AdOps Flightdeck (Multi\u2011Agent)",
+        "url": "https://github.com/aurelius-in/adops-flightdeck-multi-agent"
+      }
+    ],
+    "value": [
+      "Fewer makegoods",
+      "Unified reporting",
+      "Faster launch cycles",
+      "Budget protection"
+    ]
+  },
+  {
+    "id": "music-media",
+    "name": "Music, Media & Entertainment",
+    "summary": "Track analysis, embeddings, mood tagging, recommendations, and assisted generation.",
+    "demos": [
+      {
+        "title": "MuseAgent",
+        "url": "https://github.com/aurelius-in/MuseAgent"
+      }
+    ],
+    "value": [
+      "Better discovery",
+      "Editorial support",
+      "Audience insights",
+      "Shorten creative loops"
+    ]
+  },
+  {
+    "id": "finance",
+    "name": "Financial Services",
+    "summary": "Company insights, risk scoring, filings analysis, portfolio research with citations.",
+    "demos": [
+      {
+        "title": "MyRiskAgent (Capital Markets)",
+        "url": "https://github.com/aurelius-in/agentic-portfolio#myriskagent"
+      }
+    ],
+    "value": [
+      "Research acceleration",
+      "Explainable scores",
+      "Analyst productivity",
+      "Source-grounded answers"
+    ]
+  }
+]
