@@ -1,15 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Reliable AI Network | Agentic AI Consulting</title>
   <meta name="description" content="Reliable AI Network (RAIN) builds agentic AI systems: pilots in weeks, production v1 in 8–12 weeks. Multi-agent apps with guardrails, evals, traces, and real deployments.">
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="./rain-social.png" type="image/png">
   <link rel="stylesheet" href="./styles.css">
   <link rel="canonical" href="https://reliableainetwork.com/">
   <meta property="og:title" content="Reliable AI Network (RAIN)">
   <meta property="og:description" content="Agentic AI systems for enterprises. Pilots in weeks, production v1 in 8–12 weeks.">
-  <meta property="og:type" content="website"><meta property="og:url" content="https://reliableainetwork.com/"><meta property="og:image" content="https://reliableainetwork.com/assets/logo.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://reliableainetwork.com/">
+  <meta property="og:image" content="https://reliableainetwork.com/rain-social.png">
   <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">
   {
@@ -17,16 +20,22 @@
     "@type": "Organization",
     "name": "Reliable AI Network, LLC",
     "url": "https://reliableainetwork.com/",
-    "logo": "https://reliableainetwork.com/assets/logo.svg",
+    "logo": "https://reliableainetwork.com/rain-social.png",
     "sameAs": ["https://github.com/aurelius-in"]
   }
   </script>
 </head>
 <body>
+  <!-- Splash overlay: shows rain-ani.gif for up to 14s, then fades out -->
+  <div id="splash" class="splash" role="dialog" aria-label="Intro animation" aria-modal="true">
+    <img src="./rain-ani.gif" alt="Intro animation for Reliable AI Network">
+    <button id="skipSplash" class="skip" type="button" aria-label="Skip intro">Skip</button>
+  </div>
+
   <header class="nav" role="banner">
     <div class="nav-inner container" role="navigation" aria-label="Primary">
-      <a class="brand" href="#top">
-        <img src="./assets/logo.svg" alt="Reliable AI Network logo">
+      <a class="brand" href="#top" aria-label="Home">
+        <img src="./rain-social.png" alt="Reliable AI Network logo (black background)">
         <span class="name">Reliable AI Network</span>
       </a>
       <nav class="nav-links">
@@ -47,7 +56,7 @@
       <div class="kpis" style="margin-top:20px">
         <div class="kpi highlight"><div class="num">3–5 agents</div><div class="muted">Typical pilot graph</div></div>
         <div class="kpi highlight"><div class="num">8–12 weeks</div><div class="muted">Production v1 timeline</div></div>
-        <div class="kpi highlight"><div class="num">$4,400/week</div><div class="muted">Simple, milestone‑based billing</div></div>
+        <div class="kpi highlight"><div class="num">$4,400/week</div><div class="muted">Milestone‑based billing</div></div>
       </div>
     </section>
 
@@ -95,11 +104,6 @@
             <ul><li>Async Q&A · design reviews · risk audits</li><li>2 working sessions/month</li><li>Priority on tiny tasks and unblockers</li></ul>
             <a class="cta" href="https://calendly.com/oliveraellison/15min" target="_blank" rel="noopener">Discuss Retainer</a></article>
         </div>
-        <hr>
-        <div class="grid cols-2">
-          <div class="panel"><h3 class="title">Payment terms</h3><p>First payment of $4,400 is a kickoff retainer due at signing and applied to Week 1. After Week 1, each week is paid on milestone acceptance (Net 7).</p></div>
-          <div class="panel"><h3 class="title">Scope guardrails</h3><p>Hosted LLM, ≤3 data sources, ≤5 integrations, single tenant in v1. New ideas go to the backlog and are scheduled within weekly capacity.</p></div>
-        </div>
       </section>
     </section>
   </main>
@@ -108,5 +112,7 @@
     <p>© 2025 Reliable AI Network, LLC · All rights reserved.</p>
     <p><a href="https://github.com/aurelius-in/agentic-portfolio" target="_blank" rel="noopener">See portfolio on GitHub</a> · <a href="https://calendly.com/oliveraellison/15min" target="_blank" rel="noopener">Book a call</a></p>
   </footer>
+
   <script src="./script.js" defer></script>
-</body></html>
+</body>
+</html>
