@@ -24,7 +24,7 @@
     <div class="nav-inner container">
       <a class="brand" href="./"><img src="./rain-social.png" alt="RAIN logo"><span class="name">Reliable AI Network</span></a>
       <nav class="nav-links">
-        <a href="./estimator.html" class="cta">Estimate</a>
+        <a href="./estimator.html" class="cta">Quote</a>
         <a href="./portfolio.html" class="btn-dark">Portfolio</a>
       </nav>
     </div>
@@ -89,7 +89,6 @@
   </footer>
 
   <script>
-    // Source of truth (inlined) derived from README and repos.
     const PROJS = [
       { id:"health-nav", title:"Agentic AI Health Navigator",
         summary:"Healthcare navigation with multi‑agent triage, provider match, and coverage checks.",
@@ -127,7 +126,7 @@
         repo:"https://github.com/aurelius-in/high-volume-recruiter-ai-agent"
       },
       { id:"governance", title:"AI Governance Dashboard",
-        summary:"LLM proxy, policies‑as‑code, safety guardrails, compliance checks, real‑time cost monitoring.",
+        summary:"LLM proxy, policies‑as‑code guardrails, compliance checks, real‑time cost monitoring.",
         industries:["Platform / IT","Finance & Legal"],
         caps:["Governance","Guardrails","Compliance","UI & Traces","Agentic"],
         status:"Ready",
@@ -170,7 +169,6 @@
       }
     ];
 
-    // Ensure every project carries "Agentic"
     PROJS.forEach(p => { if(!p.caps.includes("Agentic")) p.caps.push("Agentic"); });
 
     const grid = document.getElementById('grid');

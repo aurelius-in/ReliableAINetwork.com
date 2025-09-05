@@ -7,11 +7,11 @@
   <link rel="icon" href="./rain-social.png" type="image/png">
   <link rel="stylesheet" href="./styles.css">
   <style>
-    /* Page-specific refinements */
     .estimator h1.hero-title{font-size:clamp(24px,3vw,36px);line-height:1.15;margin:0 0 6px;color:#dbe7fb}
-    .estimator p.lead{color:#9fb3ca;max-width:900px;margin:8px 0 18px}
+    .estimator p.lead{color:#9fb3ca;max-width:980px;margin:8px 0 18px}
     .estimator .wrap{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
-    .estimator .input-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .estimator .input-grid{display:grid;gap:12px}
+    @media (min-width: 980px){ .estimator .input-grid{grid-template-columns:1fr 1fr} }
     .estimator label{font-weight:700;color:#e2e8f0}
     .hint{font-size:12px;color:#94a3b8;margin-top:4px}
     .muted{color:#94a3b8}
@@ -32,7 +32,7 @@
     <div class="nav-inner container">
       <a class="brand" href="./"><img src="./rain-social.png" alt="RAIN logo"><span class="name">Reliable AI Network</span></a>
       <nav class="nav-links">
-        <a href="./estimator.html" class="cta">Estimate</a>
+        <a href="./estimator.html" class="cta">Quote</a>
         <a href="./portfolio.html" class="btn-dark">Portfolio</a>
       </nav>
     </div>
@@ -40,12 +40,11 @@
 
   <main class="container section estimator">
     <h1 class="hero-title">Build your quote</h1>
-    <p class="lead">Provide a few details. We’ll estimate low‑side senior engineering hours and generate a clear quote.</p>
+    <p class="lead">Provide a few details. We’ll estimate low‑side senior‑engineer hours and generate a clear quote you can print or save as a PDF—then send when you’re ready to begin.</p>
 
     <div class="wrap">
-      <!-- Inputs -->
       <section class="panel" aria-labelledby="inputs-title">
-        <p id="inputs-title" class="muted" style="margin:0 0 8px"><strong>Describe your project:</strong> agents, tools, data, safety, deployment, UX, and target timeline.</p>
+        <p id="inputs-title" class="muted" style="margin:0 0 8px"><strong>Describe your project.</strong></p>
         <div class="input-grid">
           <div>
             <label for="agents">Agents</label>
@@ -138,7 +137,6 @@
         </div>
       </section>
 
-      <!-- Outputs -->
       <section class="panel">
         <div class="two-up">
           <div class="panel">
@@ -162,7 +160,6 @@
       </section>
     </div>
 
-    <!-- Hidden print area for PDF -->
     <section id="printArea" style="display:none; background:#fff; color:#000; padding:24px">
       <h1 style="margin:0 0 4px">Reliable AI Network — Quote</h1>
       <div id="printContent"></div>
@@ -194,21 +191,18 @@
       const discPct = +discPctStr/100;
       const cadence = document.getElementById('cadence').value;
 
-      // Conservative, low-side senior engineering baseline
-      let base = 200;                   // baseline scope & scaffolding
-      let h_agents = 32 * agents;       // per agent
+      let base = 200;
+      let h_agents = 32 * agents;
       let h_integrations = 24 * integrations;
       let h_data = 28 * dataSources;
 
-      // Sum and apply scope multipliers
       let conventional = base + h_agents + h_integrations + h_data;
       conventional = ceil(conventional * etl);
       conventional = ceil(conventional * safety);
       conventional = ceil(conventional * deploy);
       conventional = ceil(conventional * ux);
 
-      // Low-side factor (senior + modern tooling)
-      let hours = ceil(conventional * 0.25 * 0.90); // ~1/4 time, biased low by 10%
+      let hours = ceil(conventional * 0.25 * 0.90);
 
       const grossPrice = RATE * hours;
       const discount = Math.round(grossPrice * discPct);
@@ -224,7 +218,6 @@
         : ('Down payment: ' + Math.round(downPct*100) + '% (no discount).')
       );
 
-      // Payment schedule
       const sched = document.getElementById('schedule');
       const periods = Math.max(1, cadence === 'weekly' ? weeks : ceil(weeks / 2));
       const label = cadence === 'weekly' ? 'Weekly payment ' : 'Biweekly payment ';
@@ -234,7 +227,6 @@
       const rows = [];
       rows.push(['Upfront (at signing)', upfront]);
       for (let i=1;i<=periods;i++){ rows.push([label + i, per]); }
-      // Adjust last payment to account for rounding
       const paidSoFar = upfront + per * periods;
       const delta = netPrice - paidSoFar;
       rows[rows.length-1][1] += delta;
@@ -247,27 +239,24 @@
         '<tfoot><tr><td style="text-align:right"><strong>Total</strong></td><td style="text-align:right"><strong>' + fmtUSD(netPrice) + '</strong></td></tr></tfoot>' +
         '</table>';
 
-      // Transparent calculation details (no template literals)
       const calcExplain = document.getElementById('calcExplain');
       calcExplain.innerHTML =
         '<div><strong>How this is calculated</strong></div>' +
         '<div><strong>Baseline</strong> 200 + 32×agents + 24×integrations + 28×data sources</div>' +
         '<div><strong>Multipliers</strong> Data=' + etl + '× · Safety=' + safety + '× · Deployment=' + deploy + '× · UX=' + ux + '×</div>' +
         '<div><strong>Hours</strong> Low‑side senior estimate (modern tooling)</div>' +
-        '<div><strong>Rate</strong> $' + RATE + ' / hour</div>' +
+        '<div><strong>Rate</strong> $' + 110 + ' / hour</div>' +
         '<div><strong>Discount</strong> ' + Math.round(discPct*100) + '% applied for chosen down payment</div>' +
         '<div class="hint">Estimates are conservative but credible—aimed at keeping surprises low.</div>';
 
-      // Enable PDF button
       document.getElementById('savepdf').disabled = false;
 
-      // Prepare printable content (no template literals)
       const printableRows = rows.map(function(r){ return '<tr><td>' + r[0] + '</td><td style="text-align:right">' + fmtUSD(r[1]) + '</td></tr>'; }).join('');
       const details =
         '<div style="font-size:18px"><strong>Your Project Quote</strong>: ' + fmtUSD(netPrice) + '</div>' +
         '<div><strong>Effort</strong>: ' + hours + ' hours</div>' +
         '<div><strong>Timeline</strong>: ' + weeks + ' weeks · ' + hoursPerWeek + ' hours/week</div>' +
-        '<div><strong>Rate</strong>: $' + RATE + '/hour</div>' +
+        '<div><strong>Rate</strong>: $' + 110 + '/hour</div>' +
         '<div><strong>Down payment</strong>: ' + Math.round(downPct*100) + '% · <strong>Discount</strong>: ' + Math.round(discPct*100) + '% (' + fmtUSD(discount) + ')</div>' +
         '<hr>' +
         '<div><strong>Project</strong>: Agents=' + agents + ', Other integrations & tools=' + integrations + ', Data sources=' + dataSources + '</div>' +
@@ -285,7 +274,6 @@
     }
 
     function savePDF(){
-      // Open a print-friendly window so the client can "Save as PDF"
       const content = document.getElementById('printArea').innerHTML;
       const w = window.open('', 'rain_quote', 'width=900,height=700');
       w.document.write('<!doctype html><html><head><title>RAIN Quote</title>' +
@@ -298,7 +286,7 @@
       w.print();
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function(){ 
       document.getElementById('calc').addEventListener('click', compute);
       document.getElementById('savepdf').addEventListener('click', savePDF);
       compute();
