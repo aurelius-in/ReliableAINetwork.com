@@ -1,40 +1,310 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Project Estimator | Reliable AI Network</title>
-<meta name="description" content="Estimate scope, hours, and total price for a 5-week delivery with Reliable AI Network.">
-<link rel="icon" href="./rain-social.png" type="image/png"><link rel="stylesheet" href="./styles.css"></head>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Estimate Your Project | Reliable AI Network</title>
+  <meta name="description" content="Quickly estimate effort, timeline, and a quote for your agentic AI project. Transparent, low-side senior engineering estimates.">
+  <link rel="icon" href="./rain-social.png" type="image/png">
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    /* Page-specific refinements */
+    .estimator h1.hero-title{font-size:clamp(24px,3vw,40px);line-height:1.15;margin:0 0 6px;color:#dbe7fb}
+    .estimator p.lead{color:#9fb3ca;max-width:900px;margin:8px 0 18px}
+    .estimator .wrap{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+    .estimator .input-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .estimator label{font-weight:700;color:#e2e8f0}
+    .hint{font-size:12px;color:#94a3b8;margin-top:4px}
+    .muted{color:#94a3b8}
+    .estimator .cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .estimator .side-by-side{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .quote-num{font-size:28px;font-weight:900}
+    .num-xxl{font-size:28px;font-weight:900}
+    .num-lg{font-size:22px;font-weight:800}
+    .btn{display:inline-block;padding:12px 16px;border-radius:12px;font-weight:700;background:linear-gradient(135deg,#4f46e5,#06b6d4);color:white;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+    .btn.secondary{background:rgba(2,6,23,.6);border:1px solid rgba(148,163,184,.18);color:#e2e8f0}
+    .spacer{height:6px}
+    @media print{.nav,.cta-row,.no-print,header,footer{display:none !important} body{background:#fff;color:#000} .panel{border:1px solid #999; box-shadow:none} a{color:#000;text-decoration:none} }
+  </style>
+</head>
 <body>
-<header class="nav"><div class="nav-inner container"><a class="brand" href="./"><img src="./rain-social.png" alt="RAIN logo"><span class="name">Reliable AI Network</span></a>
-<nav class="nav-links"><a href="./#industries" class="link">Industries</a><a href="./#pricing" class="link">Packages</a>
-<a class="cta" href="https://calendly.com/oliveraellison/15min" target="_blank" rel="noopener">Book a Call</a></nav></div></header>
-<main class="container section">
-  <h1>Project Estimator</h1>
-  <p class="lead">Pick a few details and we’ll estimate scope, hours, and a 5‑week delivery plan. We calculate using typical engineering effort and then apply a 4× productivity factor for AI‑accelerated development, rounding up to whole hours.</p>
-  <div class="panel"><div class="grid cols-2">
-    <div>
-      <label>Agents</label><select id="agents" class="input">
-        <option value="2">1–3 agents (typ. 2)</option><option value="5">4–6 agents (typ. 5)</option><option value="8">7–10 agents (typ. 8)</option></select>
-      <label style="margin-top:10px">Integrations / Tools</label><select id="integrations" class="input">
-        <option value="1">0–2 (typ. 1)</option><option value="4">3–5 (typ. 4)</option><option value="7">6–8 (typ. 7)</option></select>
-      <label style="margin-top:10px">Data Sources</label><select id="dataSources" class="input">
-        <option value="1">1</option><option value="3">2–3 (typ. 3)</option><option value="5">4+ (typ. 5)</option></select>
-      <label style="margin-top:10px">ETL / Data Complexity</label><select id="etl" class="input">
-        <option value="1.0">Simple exports (1.0×)</option><option value="1.2">Moderate cleaning (1.2×)</option><option value="1.5">Complex schemas & joins (1.5×)</option></select>
-      <label style="margin-top:10px">Safety & Compliance</label><select id="safety" class="input">
-        <option value="1.0">Basic guardrails (1.0×)</option><option value="1.2">Enhanced / light compliance (1.2×)</option><option value="1.5">Regulated workflows (1.5×)</option></select>
-      <label style="margin-top:10px">Deployment</label><select id="deploy" class="input">
-        <option value="1.0">Cloud PaaS, single‑tenant (1.0×)</option><option value="1.3">Hybrid or multiple clouds (1.3×)</option><option value="1.5">On‑prem / self‑hosted models (1.5×)</option></select>
-      <label style="margin-top:10px">UX Depth</label><select id="ux" class="input">
-        <option value="1.0">Chat + traces (1.0×)</option><option value="1.2">Dashboards + reports (1.2×)</option><option value="1.4">Multi‑role app & admin (1.4×)</option></select>
-      <details style="margin-top:10px"><summary>Advanced</summary>
-        <label style="margin-top:6px">Blended Rate (USD/hour)</label><input id="rate" class="input" type="number" value="220" min="50" max="1000" step="10"></details>
-      <div style="margin-top:12px"><button id="calc" class="cta">Calculate Estimate</button></div>
+  <header class="nav">
+    <div class="nav-inner container">
+      <a class="brand" href="./"><img src="./rain-social.png" alt="RAIN logo"><span class="name">Reliable AI Network</span></a>
+      <nav class="nav-links">
+        <a href="./estimator.html" class="link">Estimator</a>
+        <a href="./portfolio.html" class="cta">Portfolio</a>
+      </nav>
     </div>
-    <div class="panel"><h3 class="title">Estimate</h3><div id="out"></div></div>
-  </div></div>
-  <div class="panel" style="margin-top:16px"><h3 class="title">Payment Plan & Promise</h3>
-    <p>We keep it simple: <strong>20% upfront</strong>, then <strong>20% at the end of each of the next 4 weeks</strong>. We promise delivery in ≤5 weeks with <strong>1 year of consultation and maintenance</strong> included.</p>
-    <div id="schedule"></div>
-  </div>
-</main>
-<footer class="footer"><p>© Reliable AI Network, LLC</p></footer>
-<script src="./estimator.js" defer></script></body></html>
+  </header>
+
+  <main class="container section estimator">
+    <h1 class="hero-title">Get a tailored estimate</h1>
+    <p class="lead">Tell us what you need. We’ll estimate effort (low‑side senior engineering hours), timeline, and a clear quote.</p>
+
+    <div class="wrap">
+      <!-- Inputs -->
+      <section class="panel" aria-labelledby="inputs-title">
+        <h2 id="inputs-title" class="title" style="margin-top:0">Project details</h2>
+        <div class="input-grid">
+          <div>
+            <label for="agents">Agents</label>
+            <select id="agents" class="input">
+              <option value="2">1–3</option>
+              <option value="5">4–6</option>
+              <option value="8">7–10</option>
+            </select>
+          </div>
+          <div>
+            <label for="integrations">Integrations / Tools</label>
+            <select id="integrations" class="input">
+              <option value="1">0–2</option>
+              <option value="4">3–5</option>
+              <option value="7">6–8</option>
+            </select>
+          </div>
+          <div>
+            <label for="dataSources">Data Sources</label>
+            <select id="dataSources" class="input">
+              <option value="1">1</option>
+              <option value="3">2–3</option>
+              <option value="5">4+</option>
+            </select>
+          </div>
+          <div>
+            <label for="etl">Data Complexity</label>
+            <select id="etl" class="input">
+              <option value="1.0">Simple</option>
+              <option value="1.2">Moderate</option>
+              <option value="1.5">Complex</option>
+            </select>
+            <div class="hint">Impacts <em>hours</em> (not rate).</div>
+          </div>
+          <div>
+            <label for="safety">Safety &amp; Compliance</label>
+            <select id="safety" class="input">
+              <option value="1.0">Basic guardrails</option>
+              <option value="1.2">Enhanced / light compliance</option>
+              <option value="1.5">Regulated workflows</option>
+            </select>
+            <div class="hint">Impacts hours.</div>
+          </div>
+          <div>
+            <label for="deploy">Deployment</label>
+            <select id="deploy" class="input">
+              <option value="1.0">Cloud PaaS, single‑tenant</option>
+              <option value="1.3">Hybrid or multiple clouds</option>
+              <option value="1.5">On‑prem / self‑hosted models</option>
+            </select>
+            <div class="hint">Impacts hours.</div>
+          </div>
+          <div>
+            <label for="ux">UX Depth</label>
+            <select id="ux" class="input">
+              <option value="1.0">Chat + traces</option>
+              <option value="1.2">Dashboards + reports</option>
+              <option value="1.4">Multi‑role app &amp; admin</option>
+            </select>
+            <div class="hint">Impacts hours.</div>
+          </div>
+          <div>
+            <label for="weeks">Target timeline (weeks)</label>
+            <select id="weeks" class="input">
+              <option>3</option><option>4</option><option selected>6</option><option>8</option><option>10</option><option>12</option>
+            </select>
+            <div class="hint">We’ll calculate weekly effort for your chosen timeframe.</div>
+          </div>
+          <div>
+            <label for="rate">Rate (USD/hour)</label>
+            <input id="rate" class="input" type="number" value="110" min="50" max="1000" step="10">
+          </div>
+          <div>
+            <label for="plan">Payment plan</label>
+            <select id="plan" class="input">
+              <option value="20x5">20% upfront + 4 milestone payments</option>
+              <option value="50_50">50% upfront + 50% on delivery</option>
+              <option value="25x4">Four equal milestones (25% each)</option>
+            </select>
+          </div>
+        </div>
+        <div class="cta-row">
+          <button id="calc" class="btn">Calculate estimate</button>
+          <button id="savepdf" class="btn secondary no-print" disabled>Save Quote (PDF)</button>
+        </div>
+      </section>
+
+      <!-- Outputs -->
+      <section class="panel" aria-labelledby="estimate-title">
+        <h2 id="estimate-title" class="title" style="margin-top:0">Estimate</h2>
+        <div class="side-by-side">
+          <div class="panel">
+            <div><strong>Estimated effort</strong></div>
+            <div id="hours" class="num-xxl">—</div>
+          </div>
+          <div class="panel">
+            <div><strong>Timeline &amp; weekly effort</strong></div>
+            <div id="weekly" class="num-lg">—</div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:12px">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap">
+            <div><strong>Estimated Quote</strong></div>
+            <div id="quote" class="quote-num">—</div>
+          </div>
+          <div class="muted" id="rateLine">Based on a rate of $110 / hour.</div>
+        </div>
+
+        <div id="schedule" class="panel" style="margin-top:12px"></div>
+
+        <div class="panel" style="margin-top:12px">
+          <h3 class="title" style="margin:0 0 6px">How this is calculated</h3>
+          <div id="calcExplain" class="muted">
+            We start from typical engineering effort and apply scope multipliers (Data complexity, Safety, Deployment, UX). We then apply a conservative reduction to reflect senior engineers and modern tooling, aiming for a low‑side effort estimate.
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Hidden print area for PDF -->
+    <section id="printArea" style="display:none; background:#fff; color:#000; padding:24px">
+      <h1 style="margin:0 0 6px">Reliable AI Network — Quote</h1>
+      <div id="printContent"></div>
+      <p style="margin-top:16px;font-size:12px">Generated on 2025-09-05</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Reliable AI Network, LLC</p>
+  </footer>
+
+  <script>
+    function ceil(x){ return Math.ceil(x); }
+    function fmtUSD(n){ return n.toLocaleString(undefined, {style:'currency', currency:'USD', maximumFractionDigits:0}); }
+
+    function compute(){
+      const agents = +document.getElementById('agents').value;
+      const integrations = +document.getElementById('integrations').value;
+      const dataSources = +document.getElementById('dataSources').value;
+      const etl = +document.getElementById('etl').value;
+      const safety = +document.getElementById('safety').value;
+      const deploy = +document.getElementById('deploy').value;
+      const ux = +document.getElementById('ux').value;
+      const rate = +document.getElementById('rate').value;
+      const weeks = +document.getElementById('weeks').value;
+      const plan = document.getElementById('plan').value;
+
+      // Conservative, low-side senior engineering baseline
+      let base = 200;                   // baseline scope & scaffolding
+      let h_agents = 32 * agents;       // per agent
+      let h_integrations = 24 * integrations;
+      let h_data = 28 * dataSources;
+
+      // Sum and apply scope multipliers
+      let conventional = base + h_agents + h_integrations + h_data;
+      conventional = ceil(conventional * etl);
+      conventional = ceil(conventional * safety);
+      conventional = ceil(conventional * deploy);
+      conventional = ceil(conventional * ux);
+
+      // Low-side factor (senior + modern tooling)
+      // (kept internal; we simply present the final hours)
+      let hours = ceil(conventional * 0.25 * 0.90); // ~1/4 time, biased low by 10%
+
+      const hoursPerWeek = ceil(hours / weeks);
+      const totalPrice = rate * hours;
+
+      document.getElementById('hours').textContent = hours + ' hours';
+      document.getElementById('weekly').textContent = weeks + ' weeks · ' + hoursPerWeek + ' hours/week';
+      document.getElementById('quote').textContent = fmtUSD(totalPrice);
+      document.getElementById('rateLine').textContent = 'Based on a rate of ' + fmtUSD(rate) + ' / hour.';
+
+      // Payment schedule
+      const sched = document.getElementById('schedule');
+      let rows = [];
+      if (plan === '20x5') {
+        const pay = Math.round(totalPrice * 0.20);
+        rows = [
+          ['Upfront (at signing)', pay],
+          ['Milestone 1', pay],
+          ['Milestone 2', pay],
+          ['Milestone 3', pay],
+          ['Milestone 4', pay]
+        ];
+      } else if (plan === '50_50') {
+        rows = [
+          ['Upfront (at signing)', Math.round(totalPrice * 0.50)],
+          ['On delivery', Math.round(totalPrice * 0.50)]
+        ];
+      } else if (plan === '25x4') {
+        const pay = Math.round(totalPrice * 0.25);
+        rows = [
+          ['Milestone 1', pay],
+          ['Milestone 2', pay],
+          ['Milestone 3', pay],
+          ['Milestone 4', pay]
+        ];
+      }
+      let rowsHtml = rows.map(r => `<tr><td>\${r[0]}</td><td style="text-align:right">\${fmtUSD(r[1])}</td></tr>`).join('');
+      sched.innerHTML = `<h3 class="title" style="margin:0 0 6px">Payment plan</h3>
+        <table style="width:100%; border-collapse:collapse">
+          <thead><tr><th style="text-align:left">Milestone</th><th style="text-align:right">Amount</th></tr></thead>
+          <tbody>\${rowsHtml}</tbody>
+          <tfoot><tr><td style="text-align:right"><strong>Total</strong></td><td style="text-align:right"><strong>\${fmtUSD(totalPrice)}</strong></td></tr></tfoot>
+        </table>`;
+
+      // Transparent calculation details
+      const calcExplain = document.getElementById('calcExplain');
+      calcExplain.innerHTML = `
+        <div><strong>Baseline</strong>: 200 + 32×agents + 24×integrations + 28×data sources</div>
+        <div><strong>Multipliers</strong>: Data=\${etl}×, Safety=\${safety}×, Deployment=\${deploy}×, UX=\${ux}×</div>
+        <div><strong>Result</strong>: Senior engineering hours (low‑side), then cost at \${fmtUSD(rate)}/h</div>
+        <div class="hint">We keep estimates conservative but credible so you’re not surprised later.</div>
+      `;
+
+      // Enable PDF button
+      document.getElementById('savepdf').disabled = false;
+
+      // Prepare printable content
+      const details = `
+        <div><strong>Estimated Quote</strong>: \${fmtUSD(totalPrice)}</div>
+        <div><strong>Effort</strong>: \${hours} hours</div>
+        <div><strong>Timeline</strong>: \${weeks} weeks · \${hoursPerWeek} hours/week</div>
+        <hr>
+        <div><strong>Project</strong>: Agents=\${agents}, Integrations=\${integrations}, Data sources=\${dataSources}</div>
+        <div><strong>Scope</strong>: Data=\${etl}×, Safety=\${safety}×, Deployment=\${deploy}×, UX=\${ux}×</div>
+        <div><strong>Rate</strong>: \${fmtUSD(rate)}/hour</div>
+        <hr>
+        <div><strong>Payment plan</strong>:</div>
+        <div>
+          <table style="width:100%; border-collapse:collapse">
+            <thead><tr><th style="text-align:left">Milestone</th><th style="text-align:right">Amount</th></tr></thead>
+            <tbody>\${rowsHtml}</tbody>
+            <tfoot><tr><td style="text-align:right"><strong>Total</strong></td><td style="text-align:right"><strong>\${fmtUSD(totalPrice)}</strong></td></tr></tfoot>
+          </table>
+        </div>
+      `;
+      document.getElementById('printContent').innerHTML = details;
+    }
+
+    function savePDF(){
+      // Open a print-friendly window so the client can "Save as PDF"
+      const content = document.getElementById('printArea').innerHTML;
+      const w = window.open('', 'rain_quote', 'width=900,height=700');
+      w.document.write(`<!doctype html><html><head><title>RAIN Quote</title>
+        <meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+        <style>body{font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial; padding:24px}
+        h1{margin:0 0 8px} table{width:100%; border-collapse:collapse} th,td{padding:6px 4px; border-bottom:1px solid #ddd}
+        tfoot td{border-top:2px solid #000} .muted{color:#555}</style></head><body>\${content}</body></html>`);
+      w.document.close();
+      w.focus();
+      w.print();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('calc').addEventListener('click', compute);
+      document.getElementById('savepdf').addEventListener('click', savePDF);
+      compute();
+    });
+  </script>
+</body>
+</html>
