@@ -65,7 +65,7 @@ function setupSplash(){
   document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') SKIP(); });
   s.addEventListener('click', (e)=>{ if (e.target === s) SKIP(); });
 
-  // Auto hide after 9 seconds (was 14s)
+  // Auto hide after 9 seconds
   setTimeout(SKIP, 9000);
 }
 
