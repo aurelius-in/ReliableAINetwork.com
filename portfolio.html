@@ -21,26 +21,37 @@
 
   <main class="container section">
     <h1>Portfolio</h1>
-    <p class="lead">Examples of agent graphs, retrieval grounding, guardrails, and production‑ready UIs we’ve delivered or prototyped. These adapt quickly to your stack.</p>
+    <p class="lead">Production‑grade agentic systems. Browse by industry and status, then dive into the repositories.</p>
 
-    <div style="display:flex; gap:12px; align-items:center; margin:12px 0;">
-      <label for="filter" class="muted">Filter</label>
-      <select id="filter" class="input" aria-label="Filter by domain">
+    <div style="display:flex; gap:12px; align-items:center; margin:12px 0; flex-wrap:wrap">
+      <label for="filterIndustry" class="muted"><strong>Industry</strong></label>
+      <select id="filterIndustry" class="input" aria-label="Filter by industry" style="max-width:260px">
         <option value="">All</option>
         <option>Healthcare</option>
+        <option>IT/Ops</option>
         <option>Insurance</option>
-        <option>Risk/Compliance</option>
+        <option>Wellness</option>
         <option>Recruiting</option>
-        <option>Advertising</option>
+        <option>Risk/Compliance</option>
+        <option>Docs/Compliance</option>
         <option>Music/Media</option>
+        <option>Advertising</option>
+        <option>Perception/CV</option>
         <option>Finance</option>
+      </select>
+
+      <label for="filterStatus" class="muted" style="margin-left:8px"><strong>Status</strong></label>
+      <select id="filterStatus" class="input" aria-label="Filter by status" style="max-width:220px">
+        <option value="">All</option>
+        <option>Ready</option>
+        <option>Coming Soon</option>
       </select>
     </div>
 
     <div id="grid" class="grid cols-3" aria-live="polite"></div>
 
     <div class="panel" style="margin-top:18px">
-      <p>Want something like this in your stack? Use the <a href="./estimator.html">Estimator</a> for a fast scope & price signal.</p>
+      <p>Want something like this in your stack? Use the <a href="./estimator.html">Estimator</a> for a fast scope & quote.</p>
     </div>
   </main>
 
@@ -49,37 +60,52 @@
   </footer>
 
   <script>
+  // Canonical portfolio items (matching your repo)
+  // Ready items come from: AI Health Navigator, AutoOps Sentinel, Claims‑Triage AI, MindTrace, High‑Volume Recruiter Agent, AI Governance Dashboard, aiDa, MuseAgent, AdOps Flightdeck, Perception Lab.
+  // Coming soon: MyRiskAgent, EdgeSight QA.
   const PROJECTS = [
-    {title:"AI Health Navigator", domain:"Healthcare", summary:"Clinical triage & patient navigation with retrieval grounding and step-by-step traces.", tags:["RAG","Evals","Traces"], url:"https://github.com/aurelius-in/agentic-portfolio#ai-health-navigator"},
-    {title:"MindTrace (Enterprise Wellness AI)", domain:"Healthcare", summary:"Population wellness assistant: plan guidance, benefit pathways, and secure handoffs.", tags:["Wellness","Guardrails"], url:"https://github.com/aurelius-in/agentic-portfolio#mindtrace"},
-    {title:"Claims‑Triage AI", domain:"Insurance", summary:"Automated FNOL intake, normalization, and claims summarization with QA prompts.", tags:["Intake","Summarization"], url:"https://github.com/aurelius-in/agentic-portfolio#claims-triage-ai"},
-    {title:"AI Governance Dashboard", domain:"Risk/Compliance", summary:"Policy-as-code guardrails, risk scoring, vendor intelligence, and audit traces.", tags:["Guardrails","Risk"], url:"https://github.com/aurelius-in/agentic-portfolio#ai-governance-dashboard"},
-    {title:"MyRiskAgent", domain:"Risk/Compliance", summary:"Research copilot for vendor risk & capital markets with source-grounded answers.", tags:["RAG","Scoring"], url:"https://github.com/aurelius-in/agentic-portfolio#myriskagent"},
-    {title:"High‑Volume Recruiter Agent", domain:"Recruiting", summary:"Outbound reachouts, scheduling, ATS updates, and candidate journey tracking.", tags:["Automations","Scheduling"], url:"https://github.com/aurelius-in/agentic-portfolio#recruiter-agent"},
-    {title:"AdOps Flightdeck (Multi‑Agent)", domain:"Advertising", summary:"Campaign ingestion → planning → QA → launch → pacing → reporting across channels.", tags:["Agents","QA"], url:"https://github.com/aurelius-in/adops-flightdeck-multi-agent"},
-    {title:"MuseAgent", domain:"Music/Media", summary:"Track analysis, mood tagging, embeddings search, and assisted recommendations.", tags:["Embeddings","Recs"], url:"https://github.com/aurelius-in/MuseAgent"},
-    {title:"Capital Markets Research (MyRiskAgent)", domain:"Finance", summary:"Filings analysis, company insights, and explainable scoring with citations.", tags:["Filings","Citations"], url:"https://github.com/aurelius-in/agentic-portfolio#myriskagent"}
+    {title:"Agentic AI Health Navigator", industry:"Healthcare", status:"Ready", summary:"Clinical triage & navigation with retrieval grounding and step-by-step traces.", tags:["RAG","Evals","Traces"], url:"https://github.com/aurelius-in/AI-Health-Navigator-for-Patients"},
+    {title:"AutoOps Sentinel", industry:"IT/Ops", status:"Ready", summary:"Agentic AIOps: anomaly detection, forecasting, safe auto‑remediation, and exec‑ready insights.", tags:["AIOps","Forecasting","Runbooks"], url:"https://github.com/aurelius-in/AutoOps-Sentinel"},
+    {title:"Agentic Claims Triage AI", industry:"Insurance", status:"Ready", summary:"Decision support for claims classification, risk scoring, routing, and compliance.", tags:["Explainability","Policy","Dashboards"], url:"https://github.com/aurelius-in/Claims-Triage-AI"},
+    {title:"Enterprise Wellness AI (MindTrace)", industry:"Wellness", status:"Ready", summary:"Five‑agent wellness platform with privacy‑first design and organizational analytics.", tags:["Privacy","Agents","Analytics"], url:"https://github.com/aurelius-in/MindTrace"},
+    {title:"High‑Volume Recruiter Agent", industry:"Recruiting", status:"Ready", summary:"Outreach → screening → scheduling → ATS sync with live ops UI and audit trail.", tags:["Automations","SSE","Audit"], url:"https://github.com/aurelius-in/high-volume-recruiter-ai-agent"},
+    {title:"AI Governance Dashboard", industry:"Risk/Compliance", status:"Ready", summary:"LLM proxy, policy‑as‑code guardrails, automated checks, and cost monitoring.", tags:["Guardrails","OPA","Observability"], url:"https://github.com/aurelius-in/AI-Governance"},
+    {title:"AI Document Agent (aiDa)", industry:"Docs/Compliance", status:"Ready", summary:"Multi‑agent document analysis: ingest, classify, extract, assess risk, export evidence.", tags:["RAG","NER","Traces"], url:"https://github.com/aurelius-in/Smart-Document-Bot"},
+    {title:"MuseAgent", industry:"Music/Media", status:"Ready", summary:"Spectral features → embeddings → tagging → explainable recommendations with visuals.", tags:["Embeddings","Recs","Reports"], url:"https://github.com/aurelius-in/MuseAgent"},
+    {title:"AdOps Flightdeck (Multi‑Agent)", industry:"Advertising", status:"Ready", summary:"Plan, creative QA, pacing, anomaly response, attribution, and auditable reporting.", tags:["Agents","LangGraphJS","AWS"], url:"https://github.com/aurelius-in/adops-flightdeck-multi-agent"},
+    {title:"Perception Lab", industry:"Perception/CV", status:"Ready", summary:"Explore perception scenarios, fusion pipelines, metrics dashboards, and exports.", tags:["CV","Fusion","Metrics"], url:"https://github.com/aurelius-in/perception-lab"},
+
+    // Coming soon items explicitly requested
+    {title:"MyRiskAgent", industry:"Finance", status:"Coming Soon", summary:"Research copilot for vendor risk & capital markets with source‑grounded answers.", tags:["RAG","Scoring"], url:""},
+    {title:"EdgeSight QA", industry:"Advertising", status:"Coming Soon", summary:"Creative QA and brand‑safety evaluation with explainable checks and reports.", tags:["QA","Safety"], url:""}
   ];
 
   function card(p){
-    const tags = (p.tags||[]).map(t => `<span class='tag'>${t}</span>`).join(' ');
+    const tags = (p.tags||[]).map(t => `<span class='tag'>\${t}</span>`).join(' ');
+    const statusTag = p.status === 'Coming Soon' ? "<span class='tag'>Coming Soon</span>" : "";
+    const link = p.url ? `<a class="cta" href="\${p.url}" target="_blank" rel="noopener">View repository</a>` : "<span class='muted'>Repository link available at launch</span>";
     return `<article class="card panel fade-in">
-      <h3 class="title">${p.title}</h3>
-      <p class="muted" style="margin:6px 0"><strong>${p.domain}</strong></p>
-      <p class="muted">${p.summary}</p>
-      <div style="margin:10px 0; display:flex; gap:8px; flex-wrap:wrap;">${tags}</div>
-      <div><a class="cta" href="${p.url}" target="_blank" rel="noopener">View demo</a></div>
+      <h3 class="title">\${p.title}</h3>
+      <p class="muted" style="margin:6px 0"><strong>\${p.industry}</strong> \${statusTag}</p>
+      <p class="muted">\${p.summary}</p>
+      <div style="margin:10px 0; display:flex; gap:8px; flex-wrap:wrap;">\${tags}</div>
+      <div>\${link}</div>
     </article>`;
   }
 
   function render(list){ document.getElementById('grid').innerHTML = list.map(card).join(''); }
-  function applyFilter(){
-    const f = document.getElementById('filter').value;
-    render(f ? PROJECTS.filter(p => p.domain === f) : PROJECTS);
+
+  function applyFilters(){
+    const ind = document.getElementById('filterIndustry').value;
+    const st = document.getElementById('filterStatus').value;
+    const filtered = PROJECTS.filter(p => (ind ? p.industry === ind : true) && (st ? p.status === st : true));
+    render(filtered);
   }
+
   document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('filter').addEventListener('change', applyFilter);
-    applyFilter();
+    document.getElementById('filterIndustry').addEventListener('change', applyFilters);
+    document.getElementById('filterStatus').addEventListener('change', applyFilters);
+    applyFilters();
   });
   </script>
 </body>
