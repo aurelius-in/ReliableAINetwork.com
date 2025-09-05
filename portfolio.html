@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio | Reliable AI Network</title>
+  <meta name="description" content="Selected agentic AI projects and patterns by Reliable AI Network (RAIN).">
+  <link rel="icon" href="./rain-social.png" type="image/png">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="canonical" href="https://reliableainetwork.com/portfolio.html">
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner container">
+      <a class="brand" href="./"><img src="./rain-social.png" alt="RAIN logo"><span class="name">Reliable AI Network</span></a>
+      <nav class="nav-links">
+        <a href="./estimator.html" class="link">Estimator</a>
+        <a href="./portfolio.html" class="cta">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container section">
+    <h1>Portfolio</h1>
+    <p class="lead">Examples of agent graphs, retrieval grounding, guardrails, and production‑ready UIs we’ve delivered or prototyped. These adapt quickly to your stack.</p>
+
+    <div style="display:flex; gap:12px; align-items:center; margin:12px 0;">
+      <label for="filter" class="muted">Filter</label>
+      <select id="filter" class="input" aria-label="Filter by domain">
+        <option value="">All</option>
+        <option>Healthcare</option>
+        <option>Insurance</option>
+        <option>Risk/Compliance</option>
+        <option>Recruiting</option>
+        <option>Advertising</option>
+        <option>Music/Media</option>
+        <option>Finance</option>
+      </select>
+    </div>
+
+    <div id="grid" class="grid cols-3" aria-live="polite"></div>
+
+    <div class="panel" style="margin-top:18px">
+      <p>Want something like this in your stack? Use the <a href="./estimator.html">Estimator</a> for a fast scope & price signal.</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Reliable AI Network, LLC</p>
+  </footer>
+
+  <script>
+  const PROJECTS = [
+    {title:"AI Health Navigator", domain:"Healthcare", summary:"Clinical triage & patient navigation with retrieval grounding and step-by-step traces.", tags:["RAG","Evals","Traces"], url:"https://github.com/aurelius-in/agentic-portfolio#ai-health-navigator"},
+    {title:"MindTrace (Enterprise Wellness AI)", domain:"Healthcare", summary:"Population wellness assistant: plan guidance, benefit pathways, and secure handoffs.", tags:["Wellness","Guardrails"], url:"https://github.com/aurelius-in/agentic-portfolio#mindtrace"},
+    {title:"Claims‑Triage AI", domain:"Insurance", summary:"Automated FNOL intake, normalization, and claims summarization with QA prompts.", tags:["Intake","Summarization"], url:"https://github.com/aurelius-in/agentic-portfolio#claims-triage-ai"},
+    {title:"AI Governance Dashboard", domain:"Risk/Compliance", summary:"Policy-as-code guardrails, risk scoring, vendor intelligence, and audit traces.", tags:["Guardrails","Risk"], url:"https://github.com/aurelius-in/agentic-portfolio#ai-governance-dashboard"},
+    {title:"MyRiskAgent", domain:"Risk/Compliance", summary:"Research copilot for vendor risk & capital markets with source-grounded answers.", tags:["RAG","Scoring"], url:"https://github.com/aurelius-in/agentic-portfolio#myriskagent"},
+    {title:"High‑Volume Recruiter Agent", domain:"Recruiting", summary:"Outbound reachouts, scheduling, ATS updates, and candidate journey tracking.", tags:["Automations","Scheduling"], url:"https://github.com/aurelius-in/agentic-portfolio#recruiter-agent"},
+    {title:"AdOps Flightdeck (Multi‑Agent)", domain:"Advertising", summary:"Campaign ingestion → planning → QA → launch → pacing → reporting across channels.", tags:["Agents","QA"], url:"https://github.com/aurelius-in/adops-flightdeck-multi-agent"},
+    {title:"MuseAgent", domain:"Music/Media", summary:"Track analysis, mood tagging, embeddings search, and assisted recommendations.", tags:["Embeddings","Recs"], url:"https://github.com/aurelius-in/MuseAgent"},
+    {title:"Capital Markets Research (MyRiskAgent)", domain:"Finance", summary:"Filings analysis, company insights, and explainable scoring with citations.", tags:["Filings","Citations"], url:"https://github.com/aurelius-in/agentic-portfolio#myriskagent"}
+  ];
+
+  function card(p){
+    const tags = (p.tags||[]).map(t => `<span class='tag'>${t}</span>`).join(' ');
+    return `<article class="card panel fade-in">
+      <h3 class="title">${p.title}</h3>
+      <p class="muted" style="margin:6px 0"><strong>${p.domain}</strong></p>
+      <p class="muted">${p.summary}</p>
+      <div style="margin:10px 0; display:flex; gap:8px; flex-wrap:wrap;">${tags}</div>
+      <div><a class="cta" href="${p.url}" target="_blank" rel="noopener">View demo</a></div>
+    </article>`;
+  }
+
+  function render(list){ document.getElementById('grid').innerHTML = list.map(card).join(''); }
+  function applyFilter(){
+    const f = document.getElementById('filter').value;
+    render(f ? PROJECTS.filter(p => p.domain === f) : PROJECTS);
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('filter').addEventListener('change', applyFilter);
+    applyFilter();
+  });
+  </script>
+</body>
+</html>
