@@ -142,34 +142,45 @@
       </section>
 
       <!-- Outputs (hidden until calculated) -->
-      <section id="outputs" class="panel" style="display:none">
-        <div class="two-up">
-          <div class="panel">
-            <div><strong>Your Project Quote</strong></div>
-            <div id="quote" class="quote-num">—</div>
-            <div id="discountLine" class="muted" style="margin-top:6px"></div>
-          </div>
-          <div class="panel">
-            <div><strong>Effort &amp; timeline</strong></div>
-            <div id="hours" class="num-xxl">—</div>
-            <div id="weekly" class="num-lg muted">—</div>
-          </div>
-        </div>
 
-        <div id="schedule" class="panel" style="margin-top:12px"></div>
+<section id="outputs" class="panel" style="display:none">
+  <div class="two-up">
+    <div class="panel">
+      <div><strong>Your Project Quote</strong></div>
+      <div id="quote" class="quote-num">—</div>
+      <div id="discountLine" class="muted" style="margin-top:6px"></div>
+    </div>
+    <div class="panel">
+      <div><strong>Effort &amp; timeline</strong></div>
+      <div id="hours" class="num-xxl">—</div>
+      <div id="weekly" class="num-lg muted">—</div>
+    </div>
+  </div>
 
-        <div class="panel" style="margin-top:12px">
-          <h4 class="small-title">How this is calculated</h4>
-          <!-- per request: no body text -->
-        </div>
-      </section>
+  <div id="schedule" class="panel" style="margin-top:12px"></div>
+
+  <div class="panel" style="margin-top:12px">
+    <h4 class="small-title">How this is calculated</h4>
+    <div id="calcExplain" class="calc-list muted"></div>
+  </div>
+</section>
+
     </div>
 
     <!-- Hidden print area for PDF -->
     <section id="printArea" style="display:none; background:#fff; color:#000; padding:24px">
       <h1 style="margin:0 0 4px">Reliable AI Network — Quote</h1>
       <div id="printContent"></div>
-      <p style="margin-top:16px;font-size:12px">Generated on 2025-09-05</p>
+      <p style="margin-top:16px;font-size:12px">Generated on <span id="genDate"></span></p>
+<script>
+// Add this near your other DOMContentLoaded code:
+document.addEventListener('DOMContentLoaded', function () {
+  const d = new Date();
+  const fmt = d.toLocaleDateString(undefined, { year:'numeric', month:'2-digit', day:'2-digit' });
+  const node = document.getElementById('genDate');
+  if (node) node.textContent = fmt;
+});
+</script>
     </section>
   </main>
 
@@ -245,6 +256,14 @@
         '<tbody>' + rowsHtml + '</tbody>' +
         '<tfoot><tr><td style="text-align:right"><strong>Total</strong></td><td style="text-align:right"><strong>' + fmtUSD(netPrice) + '</strong></td></tr></tfoot>' +
         '</table>';
+
+const calcExplain = document.getElementById('calcExplain');
+calcExplain.innerHTML =
+  '<div><strong>Baseline</strong> 200 + 32×agents + 24×integrations + 28×data sources</div>' +
+  '<div><strong>Multipliers</strong> Data=' + etl + '× · Safety=' + safety + '× · Deployment=' + deploy + '× · UX=' + ux + '×</div>' +
+  '<div><strong>Hours</strong> Low-side senior estimate (modern tooling)</div>' +
+  '<div><strong>Rate</strong> $' + RATE + ' / hour</div>' +
+  '<div><strong>Discount</strong> ' + Math.round(discPct*100) + '% applied for chosen down payment</div>';
 
       // Enable outputs & buttons
       document.getElementById('outputs').style.display = 'block';
