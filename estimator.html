@@ -17,8 +17,8 @@
     .muted{color:#94a3b8}
     .estimator .cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
     .estimator .two-up{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-    .quote-num{font-size:22px;font-weight:800}    /* smaller to avoid sticker shock */
-    .num-xxl{font-size:20px;font-weight:800}      /* smaller hours number */
+    .quote-num{font-size:22px;font-weight:800}
+    .num-xxl{font-size:20px;font-weight:800}
     .num-lg{font-size:18px;font-weight:700}
     .btn{display:inline-block;padding:12px 16px;border-radius:12px;font-weight:700;background:linear-gradient(135deg,#4f46e5,#06b6d4);color:white;box-shadow:0 8px 20px rgba(0,0,0,.35)}
     .btn.secondary{background:rgba(2,6,23,.6);border:1px solid rgba(148,163,184,.18);color:#e2e8f0}
@@ -112,16 +112,24 @@
             <select id="weeks" class="input">
               <option>3</option><option>4</option><option selected>6</option><option>8</option><option>10</option><option>12</option>
             </select>
-            <div class="hint">We’ll calculate weekly effort and a biweekly payment plan.</div>
+            <div class="hint">We’ll calculate weekly effort and a payment schedule.</div>
           </div>
           <div>
-            <label for="plan">Payment plan (down payment → discount)</label>
+            <label for="plan">Down Payment</label>
             <select id="plan" class="input">
-              <option value="10|0">10% down → 0% discount (biweekly)</option>
-              <option value="20|2">20% down → 2% discount (biweekly)</option>
-              <option value="50|5">50% down → 5% discount (biweekly)</option>
+              <option value="10|0">10% down</option>
+              <option value="20|5">20% down (+5% discount)</option>
+              <option value="50|10">50% down (10% discount)</option>
             </select>
-            <div class="hint">Larger down payments unlock a bigger discount. All plans bill every 2 weeks.</div>
+            <div class="hint">Bigger down payment → bigger discount.</div>
+          </div>
+          <div>
+            <label for="cadence">Billing cadence</label>
+            <select id="cadence" class="input">
+              <option value="weekly">Weekly</option>
+              <option value="biweekly" selected>Biweekly</option>
+            </select>
+            <div class="hint">We’ll split the remaining balance across your cadence.</div>
           </div>
         </div>
         <div class="cta-row">
@@ -131,8 +139,7 @@
       </section>
 
       <!-- Outputs -->
-      <section class="panel" aria-labelledby="estimate-title">
-        <!-- no big heading per request -->
+      <section class="panel">
         <div class="two-up">
           <div class="panel">
             <div><strong>Your Project Quote</strong></div>
@@ -185,6 +192,7 @@
       const [downPctStr, discPctStr] = document.getElementById('plan').value.split('|');
       const downPct = +downPctStr/100;
       const discPct = +discPctStr/100;
+      const cadence = document.getElementById('cadence').value;
 
       // Conservative, low-side senior engineering baseline
       let base = 200;                   // baseline scope & scaffolding
@@ -211,64 +219,68 @@
       document.getElementById('hours').textContent = hours + ' hours';
       document.getElementById('weekly').textContent = weeks + ' weeks · ' + hoursPerWeek + ' hours/week';
       document.getElementById('quote').textContent = fmtUSD(netPrice);
-      document.getElementById('discountLine').textContent = (discount>0 ? ('Includes ' + (discPct*100).toFixed(0) + '% discount (' + fmtUSD(discount) + ') for a ' + (downPct*100).toFixed(0) + '% down payment.') : 'Biweekly plan with ' + (downPct*100).toFixed(0) + '% down.');
+      document.getElementById('discountLine').textContent = (discount>0
+        ? ('Includes ' + Math.round(discPct*100) + '% discount (' + fmtUSD(discount) + ') for a ' + Math.round(downPct*100) + '% down payment.')
+        : ('Down payment: ' + Math.round(downPct*100) + '% (no discount).')
+      );
 
-      // Payment schedule (biweekly)
+      // Payment schedule
       const sched = document.getElementById('schedule');
-      const periods = Math.max(1, ceil(weeks / 2)); // number of biweekly payments
+      const periods = Math.max(1, cadence === 'weekly' ? weeks : ceil(weeks / 2));
+      const label = cadence === 'weekly' ? 'Weekly payment ' : 'Biweekly payment ';
       const upfront = Math.round(netPrice * downPct);
       let remaining = netPrice - upfront;
       const per = Math.floor(remaining / periods);
       const rows = [];
       rows.push(['Upfront (at signing)', upfront]);
-      for (let i=1;i<=periods;i++){ rows.push(['Biweekly payment ' + i, per]); }
+      for (let i=1;i<=periods;i++){ rows.push([label + i, per]); }
       // Adjust last payment to account for rounding
       const paidSoFar = upfront + per * periods;
       const delta = netPrice - paidSoFar;
       rows[rows.length-1][1] += delta;
 
-      let rowsHtml = rows.map(r => `<tr><td>\${r[0]}</td><td style="text-align:right">\${fmtUSD(r[1])}</td></tr>`).join('');
-      sched.innerHTML = `<h3 class="title" style="margin:0 0 6px">Payment plan</h3>
-        <table style="width:100%; border-collapse:collapse">
-          <thead><tr><th style="text-align:left">Milestone</th><th style="text-align:right">Amount</th></tr></thead>
-          <tbody>\${rowsHtml}</tbody>
-          <tfoot><tr><td style="text-align:right"><strong>Total</strong></td><td style="text-align:right"><strong>\${fmtUSD(netPrice)}</strong></td></tr></tfoot>
-        </table>`;
+      let rowsHtml = rows.map(function(r){ return '<tr><td>' + r[0] + '</td><td style="text-align:right">' + fmtUSD(r[1]) + '</td></tr>'; }).join('');
+      sched.innerHTML = '<h3 class="title" style="margin:0 0 6px">Payment schedule</h3>' +
+        '<table style="width:100%; border-collapse:collapse">' +
+        '<thead><tr><th style="text-align:left">Milestone</th><th style="text-align:right">Amount</th></tr></thead>' +
+        '<tbody>' + rowsHtml + '</tbody>' +
+        '<tfoot><tr><td style="text-align:right"><strong>Total</strong></td><td style="text-align:right"><strong>' + fmtUSD(netPrice) + '</strong></td></tr></tfoot>' +
+        '</table>';
 
-      // Transparent calculation details (clean spacing)
+      // Transparent calculation details (no template literals)
       const calcExplain = document.getElementById('calcExplain');
-      calcExplain.innerHTML = `
-        <div><strong>Baseline</strong> 200 + 32×agents + 24×integrations + 28×data sources</div>
-        <div><strong>Multipliers</strong> Data=\${etl}× · Safety=\${safety}× · Deployment=\${deploy}× · UX=\${ux}×</div>
-        <div><strong>Hours</strong> Low‑side senior estimate (modern tooling)</div>
-        <div><strong>Rate</strong> \$\${RATE} / hour</div>
-        <div><strong>Discount</strong> \${(discPct*100).toFixed(0)}% applied for chosen down payment</div>
-        <div class="hint">Estimates are conservative but credible—aimed at keeping surprises low.</div>
-      `;
+      calcExplain.innerHTML =
+        '<div><strong>How this is calculated</strong></div>' +
+        '<div><strong>Baseline</strong> 200 + 32×agents + 24×integrations + 28×data sources</div>' +
+        '<div><strong>Multipliers</strong> Data=' + etl + '× · Safety=' + safety + '× · Deployment=' + deploy + '× · UX=' + ux + '×</div>' +
+        '<div><strong>Hours</strong> Low‑side senior estimate (modern tooling)</div>' +
+        '<div><strong>Rate</strong> $' + RATE + ' / hour</div>' +
+        '<div><strong>Discount</strong> ' + Math.round(discPct*100) + '% applied for chosen down payment</div>' +
+        '<div class="hint">Estimates are conservative but credible—aimed at keeping surprises low.</div>';
 
       // Enable PDF button
       document.getElementById('savepdf').disabled = false;
 
-      // Prepare printable content
-      const details = `
-        <div style="font-size:18px"><strong>Your Project Quote</strong>: \${fmtUSD(netPrice)}</div>
-        <div><strong>Effort</strong>: \${hours} hours</div>
-        <div><strong>Timeline</strong>: \${weeks} weeks · \${hoursPerWeek} hours/week</div>
-        <div><strong>Rate</strong>: \$\${RATE}/hour</div>
-        <div><strong>Down payment</strong>: \${(downPct*100).toFixed(0)}% · <strong>Discount</strong>: \${(discPct*100).toFixed(0)}% (\${fmtUSD(discount)})</div>
-        <hr>
-        <div><strong>Project</strong>: Agents=\${agents}, Other integrations & tools=\${integrations}, Data sources=\${dataSources}</div>
-        <div><strong>Scope</strong>: Data=\${etl}×, Safety=\${safety}×, Deployment=\${deploy}×, UX=\${ux}×</div>
-        <hr>
-        <div><strong>Payment plan (biweekly)</strong>:</div>
-        <div>
-          <table style="width:100%; border-collapse:collapse">
-            <thead><tr><th style="text-align:left">Milestone</th><th style="text-align:right">Amount</th></tr></thead>
-            <tbody>\${rowsHtml}</tbody>
-            <tfoot><tr><td style="text-align:right"><strong>Total</strong></td><td style="text-align:right"><strong>\${fmtUSD(netPrice)}</strong></td></tr></tfoot>
-          </table>
-        </div>
-      `;
+      // Prepare printable content (no template literals)
+      const printableRows = rows.map(function(r){ return '<tr><td>' + r[0] + '</td><td style="text-align:right">' + fmtUSD(r[1]) + '</td></tr>'; }).join('');
+      const details =
+        '<div style="font-size:18px"><strong>Your Project Quote</strong>: ' + fmtUSD(netPrice) + '</div>' +
+        '<div><strong>Effort</strong>: ' + hours + ' hours</div>' +
+        '<div><strong>Timeline</strong>: ' + weeks + ' weeks · ' + hoursPerWeek + ' hours/week</div>' +
+        '<div><strong>Rate</strong>: $' + RATE + '/hour</div>' +
+        '<div><strong>Down payment</strong>: ' + Math.round(downPct*100) + '% · <strong>Discount</strong>: ' + Math.round(discPct*100) + '% (' + fmtUSD(discount) + ')</div>' +
+        '<hr>' +
+        '<div><strong>Project</strong>: Agents=' + agents + ', Other integrations & tools=' + integrations + ', Data sources=' + dataSources + '</div>' +
+        '<div><strong>Scope</strong>: Data=' + etl + '×, Safety=' + safety + '×, Deployment=' + deploy + '×, UX=' + ux + '×</div>' +
+        '<hr>' +
+        '<div><strong>Payment schedule</strong>:</div>' +
+        '<div>' +
+          '<table style="width:100%; border-collapse:collapse">' +
+            '<thead><tr><th style="text-align:left">Milestone</th><th style="text-align:right">Amount</th></tr></thead>' +
+            '<tbody>' + printableRows + '</tbody>' +
+            '<tfoot><tr><td style="text-align:right"><strong>Total</strong></td><td style="text-align:right"><strong>' + fmtUSD(netPrice) + '</strong></td></tr></tfoot>' +
+          '</table>' +
+        '</div>';
       document.getElementById('printContent').innerHTML = details;
     }
 
@@ -276,17 +288,17 @@
       // Open a print-friendly window so the client can "Save as PDF"
       const content = document.getElementById('printArea').innerHTML;
       const w = window.open('', 'rain_quote', 'width=900,height=700');
-      w.document.write(`<!doctype html><html><head><title>RAIN Quote</title>
-        <meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
-        <style>body{font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial; padding:24px}
-        h1{margin:0 0 8px} table{width:100%; border-collapse:collapse} th,td{padding:6px 4px; border-bottom:1px solid #ddd}
-        tfoot td{border-top:2px solid #000} .muted{color:#555}</style></head><body>\${content}</body></html>`);
+      w.document.write('<!doctype html><html><head><title>RAIN Quote</title>' +
+        '<meta charset=\'utf-8\'><meta name=\'viewport\' content=\'width=device-width,initial-scale=1\'>' +
+        '<style>body{font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial; padding:24px}' +
+        'h1{margin:0 0 8px} table{width:100%; border-collapse:collapse} th,td{padding:6px 4px; border-bottom:1px solid #ddd}' +
+        'tfoot td{border-top:2px solid #000} .muted{color:#555}</style></head><body>' + content + '</body></html>');
       w.document.close();
       w.focus();
       w.print();
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('calc').addEventListener('click', compute);
       document.getElementById('savepdf').addEventListener('click', savePDF);
       compute();
