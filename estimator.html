@@ -22,8 +22,7 @@
     .num-lg{font-size:18px;font-weight:700}
     .btn{display:inline-block;padding:12px 16px;border-radius:12px;font-weight:700;background:linear-gradient(135deg,#4f46e5,#06b6d4);color:white;box-shadow:0 8px 20px rgba(0,0,0,.35)}
     .btn.secondary{background:rgba(2,6,23,.6);border:1px solid rgba(148,163,184,.18);color:#e2e8f0}
-    .calc-list{display:grid;gap:6px}
-    .calc-list div strong{display:inline-block;min-width:110px}
+    .small-title{font-size:13px;letter-spacing:.2px;color:#94a3b8;margin:0}
     @media print{.nav,.cta-row,.no-print,header,footer{display:none !important} body{background:#fff;color:#000} .panel{border:1px solid #999; box-shadow:none} a{color:#000;text-decoration:none} }
   </style>
 </head>
@@ -40,9 +39,13 @@
 
   <main class="container section estimator">
     <h1 class="hero-title">Build your quote</h1>
-    <p class="lead">Provide a few details. We’ll estimate low‑side senior‑engineer hours and generate a clear quote you can print or save as a PDF—then send when you’re ready to begin.</p>
+    <p class="lead">
+      Provide a few details. We’ll estimate low‑side senior‑engineer hours and generate a clear quote you can print or save as a PDF.<br>
+      <strong>Send us your locked‑in quote when you’re ready to begin!</strong>
+    </p>
 
     <div class="wrap">
+      <!-- Inputs -->
       <section class="panel" aria-labelledby="inputs-title">
         <p id="inputs-title" class="muted" style="margin:0 0 8px"><strong>Describe your project.</strong></p>
         <div class="input-grid">
@@ -132,12 +135,14 @@
           </div>
         </div>
         <div class="cta-row">
-          <button id="calc" class="btn">Quote</button>
+          <button id="calc" class="btn">Get Quote</button>
+          <button id="printQuote" class="btn secondary no-print" disabled>Print Quote</button>
           <button id="savepdf" class="btn secondary no-print" disabled>Save Quote (PDF)</button>
         </div>
       </section>
 
-      <section class="panel">
+      <!-- Outputs (hidden until calculated) -->
+      <section id="outputs" class="panel" style="display:none">
         <div class="two-up">
           <div class="panel">
             <div><strong>Your Project Quote</strong></div>
@@ -154,12 +159,13 @@
         <div id="schedule" class="panel" style="margin-top:12px"></div>
 
         <div class="panel" style="margin-top:12px">
-          <h3 class="title" style="margin:0 0 8px">How this is calculated</h3>
-          <div id="calcExplain" class="calc-list muted"></div>
+          <h4 class="small-title">How this is calculated</h4>
+          <!-- per request: no body text -->
         </div>
       </section>
     </div>
 
+    <!-- Hidden print area for PDF -->
     <section id="printArea" style="display:none; background:#fff; color:#000; padding:24px">
       <h1 style="margin:0 0 4px">Reliable AI Network — Quote</h1>
       <div id="printContent"></div>
@@ -218,6 +224,7 @@
         : ('Down payment: ' + Math.round(downPct*100) + '% (no discount).')
       );
 
+      // Payment schedule
       const sched = document.getElementById('schedule');
       const periods = Math.max(1, cadence === 'weekly' ? weeks : ceil(weeks / 2));
       const label = cadence === 'weekly' ? 'Weekly payment ' : 'Biweekly payment ';
@@ -239,18 +246,12 @@
         '<tfoot><tr><td style="text-align:right"><strong>Total</strong></td><td style="text-align:right"><strong>' + fmtUSD(netPrice) + '</strong></td></tr></tfoot>' +
         '</table>';
 
-      const calcExplain = document.getElementById('calcExplain');
-      calcExplain.innerHTML =
-        '<div><strong>How this is calculated</strong></div>' +
-        '<div><strong>Baseline</strong> 200 + 32×agents + 24×integrations + 28×data sources</div>' +
-        '<div><strong>Multipliers</strong> Data=' + etl + '× · Safety=' + safety + '× · Deployment=' + deploy + '× · UX=' + ux + '×</div>' +
-        '<div><strong>Hours</strong> Low‑side senior estimate (modern tooling)</div>' +
-        '<div><strong>Rate</strong> $' + 110 + ' / hour</div>' +
-        '<div><strong>Discount</strong> ' + Math.round(discPct*100) + '% applied for chosen down payment</div>' +
-        '<div class="hint">Estimates are conservative but credible—aimed at keeping surprises low.</div>';
-
+      // Enable outputs & buttons
+      document.getElementById('outputs').style.display = 'block';
+      document.getElementById('printQuote').disabled = false;
       document.getElementById('savepdf').disabled = false;
 
+      // Prepare printable content
       const printableRows = rows.map(function(r){ return '<tr><td>' + r[0] + '</td><td style="text-align:right">' + fmtUSD(r[1]) + '</td></tr>'; }).join('');
       const details =
         '<div style="font-size:18px"><strong>Your Project Quote</strong>: ' + fmtUSD(netPrice) + '</div>' +
@@ -273,7 +274,7 @@
       document.getElementById('printContent').innerHTML = details;
     }
 
-    function savePDF(){
+    function openPrintWindow(){
       const content = document.getElementById('printArea').innerHTML;
       const w = window.open('', 'rain_quote', 'width=900,height=700');
       w.document.write('<!doctype html><html><head><title>RAIN Quote</title>' +
@@ -282,14 +283,17 @@
         'h1{margin:0 0 8px} table{width:100%; border-collapse:collapse} th,td{padding:6px 4px; border-bottom:1px solid #ddd}' +
         'tfoot td{border-top:2px solid #000} .muted{color:#555}</style></head><body>' + content + '</body></html>');
       w.document.close();
-      w.focus();
-      w.print();
+      return w;
     }
 
-    document.addEventListener('DOMContentLoaded', function(){ 
+    function printQuote(){ const w = openPrintWindow(); w.focus(); w.print(); }
+    function savePDF(){ const w = openPrintWindow(); w.focus(); w.print(); } // browsers allow "Save as PDF" from print dialog
+
+    document.addEventListener('DOMContentLoaded', function(){
       document.getElementById('calc').addEventListener('click', compute);
+      document.getElementById('printQuote').addEventListener('click', printQuote);
       document.getElementById('savepdf').addEventListener('click', savePDF);
-      compute();
+      // Do not auto-compute; outputs remain hidden until user clicks "Get Quote"
     });
   </script>
 </body>
