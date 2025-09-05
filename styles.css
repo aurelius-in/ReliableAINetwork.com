@@ -27,7 +27,7 @@ a:hover{text-decoration:underline}
 .brand{display:flex;align-items:center;gap:12px}
 .brand img{height:40px;width:auto;display:block}
 .brand .name{font-weight:800;letter-spacing:.2px}
-.nav-links{margin-left:auto;display:flex;gap:40px;flex-wrap:wrap}
+.nav-links{margin-left:auto;display:flex;gap:40px;flex-wrap:wrap} /* ~half inch spacing */
 .nav a{color:var(--text);opacity:.92}
 
 /* Pill buttons in nav (consistent on every page) */
@@ -99,23 +99,31 @@ label{display:block;margin:6px 0 4px;color:#cbd5e1;font-size:14px;font-weight:70
   @keyframes fade{from{opacity:0; transform: translateY(8px)} to{opacity:1; transform:none}}
 }
 
-/* Splash overlay — GIF bigger and top-flush */
+/* Splash overlay: GIF full-height, crossfade to logo, then out */
 .splash{
   position:fixed; inset:0; background:#000;
   display:flex; align-items:flex-start; justify-content:center;
   z-index:1000; opacity:1; transition: opacity .8s ease;
-  padding-top:0;
 }
-.splash img{
-  max-width:92vw; max-height:92vh;
-  transform: scale(1.25);
-  transform-origin: top center;
-  border-radius:12px; box-shadow:0 10px 40px rgba(0,0,0,.6);
-  margin-top:0;
+.splash .layer{
+  position:absolute; inset:0;
+  display:flex; align-items:flex-start; justify-content:center;
+  opacity:0; transition: opacity 2s ease; /* 2s crossfade */
+}
+.splash .gif-layer{ opacity:1; }           /* start with GIF visible */
+.splash img.splash-media{
+  height:100vh; width:auto; /* fill vertically, maintain aspect */
+  object-fit:contain; object-position: top center;
+  margin:0; border:0;
 }
 .splash .skip{
   position:fixed; bottom:24px; right:24px; background:#111; color:#fff;
   border:1px solid rgba(255,255,255,.2); padding:10px 14px; border-radius:999px;
   cursor:pointer; font-weight:700
 }
-.splash.fade-out{opacity:0}.splash[hidden]{display:none}
+/* After 8s, show-logo toggles: */
+.splash.show-logo .gif-layer{ opacity:0; }
+.splash.show-logo .logo-layer{ opacity:1; }
+/* Fade out overlay entirely: */
+.splash.fade-out{ opacity:0; }
+.splash[hidden]{ display:none; }
