@@ -1,5 +1,4 @@
 
-// --- Industry helpers ---
 async function loadIndustries(){
   const res = await fetch('./data/industries.json');
   const data = await res.json();
@@ -31,9 +30,7 @@ function renderIndustryGrid(list, filterId){
       <p class="muted">${i.summary}</p>
       <div style="margin:10px 0; display:flex; gap:8px; flex-wrap:wrap;">${tags}</div>
       <div>${demos || '<span class="muted">Demo link on request</span>'}</div>
-      <div style="margin-top:10px">
-        <a class="cta" href="./estimator.html">Estimate your project</a>
-      </div>
+      <div style="margin-top:10px"><a class="cta" href="./estimator.html">Estimate your project</a></div>
     `;
     grid.appendChild(card);
   });
@@ -50,14 +47,16 @@ function switchTab(id){
   if (id === 'tab-industries' && !window.__INDUSTRIES__) loadIndustries();
 }
 
-// --- Splash overlay: always show, auto-hide after 9 seconds ---
+// Splash once per session, 14s
 function setupSplash(){
   const s = document.getElementById('splash');
   if (!s) return;
+  const seen = sessionStorage.getItem('splashSeen');
+  if (seen === '1') { s.setAttribute('hidden','true'); return; }
 
   const SKIP = () => {
     s.classList.add('fade-out');
-    setTimeout(() => { s.setAttribute('hidden','true'); }, 800);
+    setTimeout(() => { s.setAttribute('hidden','true'); sessionStorage.setItem('splashSeen','1'); }, 800);
   };
 
   const skipBtn = document.getElementById('skipSplash');
@@ -65,14 +64,12 @@ function setupSplash(){
   document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') SKIP(); });
   s.addEventListener('click', (e)=>{ if (e.target === s) SKIP(); });
 
-  // Auto hide after 9 seconds
-  setTimeout(SKIP, 9000);
+  setTimeout(SKIP, 14000);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   switchTab('tab-overview');
   document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.target)));
-  const sel = document.querySelector('#industrySelect');
-  sel && sel.addEventListener('change', onSelectIndustry);
+  const sel = document.querySelector('#industrySelect'); sel && sel.addEventListener('change', onSelectIndustry);
   setupSplash();
 });
