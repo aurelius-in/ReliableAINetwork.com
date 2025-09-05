@@ -12,8 +12,8 @@
     <div class="nav-inner container">
       <a class="brand" href="./"><img src="./rain-social.png" alt="RAIN logo"><span class="name">Reliable AI Network</span></a>
       <nav class="nav-links">
-        <a href="./estimator.html" class="btn-pill btn-estimate">Estimate</a>
-        <a href="./portfolio.html" class="btn-pill btn-portfolio">Portfolio</a>
+        <a href="./estimator.html" class="cta">Estimate</a>
+        <a href="./portfolio.html" class="btn-dark">Portfolio</a>
       </nav>
     </div>
   </header>
@@ -53,7 +53,6 @@
   </footer>
 
   <script>
-  // Project catalog — aligned to your portfolio
   const PROJECTS = [
     {title:"Agentic AI Health Navigator", industry:"Healthcare", readiness:"Ready", summary:"Clinical triage & navigation with retrieval grounding and step‑by‑step traces.", tags:["RAG","Evals","Traces"], url:"https://github.com/aurelius-in/AI-Health-Navigator-for-Patients"},
     {title:"AutoOps Sentinel", industry:"IT/Ops", readiness:"Ready", summary:"Agentic AIOps: anomaly detection, forecasting, safe auto‑remediation, and exec‑ready insights.", tags:["AIOps","Forecasting","Runbooks"], url:"https://github.com/aurelius-in/AutoOps-Sentinel"},
@@ -66,7 +65,6 @@
     {title:"AdOps Flightdeck (Multi‑Agent)", industry:"Advertising", readiness:"Ready", summary:"Plan, creative QA, pacing, anomaly response, attribution, and auditable reporting.", tags:["Agents","QA","AWS"], url:"https://github.com/aurelius-in/adops-flightdeck-multi-agent"},
     {title:"Perception Lab", industry:"Perception/CV", readiness:"Ready", summary:"Explore perception scenarios, fusion pipelines, metrics dashboards, and exports.", tags:["CV","Fusion","Metrics"], url:"https://github.com/aurelius-in/perception-lab"},
 
-    // Coming soon
     {title:"MyRiskAgent", industry:"Finance", readiness:"Coming Soon", summary:"Research copilot for vendor risk & capital markets with source‑grounded answers.", tags:["RAG","Scoring"], url:""},
     {title:"EdgeSight QA", industry:"Advertising", readiness:"Coming Soon", summary:"Creative QA and brand‑safety evaluation with explainable checks and reports.", tags:["QA","Safety"], url:""}
   ];
@@ -80,9 +78,7 @@
     });
   }
 
-  function unique(list) {
-    return Array.from(new Set(list));
-  }
+  function unique(list) { return Array.from(new Set(list)); }
 
   function initFilters() {
     const industryEl = document.getElementById('filterIndustry');

@@ -1,9 +1,121 @@
 
+:root{
+  --bg:#0b1020;--panel:#0f172a;--muted:#94a3b8;--text:#e5eef7;
+  --blue-dark:#0a1835;--blue:#1e3a8a;--radius:18px;--shadow:0 10px 30px rgba(0,0,0,.35);
+  --tab:#0c1428;--tab-active:#0f1c3a;--tab-border:rgba(148,163,184,.25)
+}
+*{box-sizing:border-box}html,body{height:100%}
+body{
+  margin:0;font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial;
+  color:var(--text);
+  background:radial-gradient(1200px 600px at 0% 0%, rgba(79,70,229,.12),transparent 60%),
+             radial-gradient(1000px 600px at 100% 100%, rgba(6,182,212,.08),transparent 60%),
+             var(--bg);
+  line-height:1.5
+}
+a{color:#a5f3fc;text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1200px;margin:0 auto;padding:24px}
 
-/* --- Pill buttons for top-right nav --- */
-.btn-pill{display:inline-flex;align-items:center;justify-content:center;padding:10px 18px;border-radius:999px;font-weight:700;box-shadow:var(--shadow);text-decoration:none !important;border:1px solid transparent}
-.btn-pill:hover{text-decoration:none !important;transform:translateY(-1px);transition:transform .12s ease}
-.btn-estimate{background:linear-gradient(135deg,#4f46e5,#06b6d4);color:#fff;border-color:transparent}
-.btn-portfolio{background:#000;color:#fff;border-color:#1f2937} /* deep black */
-.nav .btn-pill{opacity:1}
+/* Header gradient */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background: linear-gradient(90deg, #000 0%, #000 50%, var(--blue-dark) 80%, var(--blue) 100%);
+  border-bottom:1px solid rgba(148,163,184,.12)
+}
+.nav-inner{display:flex;align-items:center;gap:20px;padding:10px 24px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{height:40px;width:auto;display:block}
+.brand .name{font-weight:800;letter-spacing:.2px}
+.nav-links{margin-left:auto;display:flex;gap:40px;flex-wrap:wrap}
+.nav a{color:var(--text);opacity:.92}
 
+/* Pill buttons in nav (consistent on every page) */
+.nav .cta{background: linear-gradient(135deg,#4f46e5,#06b6d4);padding:10px 18px;border-radius:999px;font-weight:700;box-shadow:var(--shadow);display:inline-block}
+.nav .btn-dark{background:#000;color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.08);display:inline-block}
+.nav .cta:hover,.nav .btn-dark:hover{transform:translateY(-1px);text-decoration:none}
+
+/* Hero (smaller H1 + full-width paragraph) */
+.hero{padding:64px 24px 32px}
+.hero h1{font-size: clamp(22px, 3.2vw, 36px);line-height:1.12;margin:0 0 10px 0}
+.hero .hero-sub{max-width:none;font-size: clamp(15px, 2vw, 18px);color:var(--muted)}
+
+/* Panels, cards, grid */
+.panel{background: linear-gradient(180deg, rgba(15,23,42,.9), rgba(15,23,42,.75));border:1px solid rgba(148,163,184,.12);box-shadow: var(--shadow);border-radius: var(--radius);padding: 20px}
+.grid{display:grid;gap:18px}
+.grid.cols-3{grid-template-columns: repeat(auto-fill,minmax(280px,1fr))}
+.grid.cols-2{grid-template-columns: repeat(auto-fill,minmax(380px,1fr))}
+.section{padding:24px}
+.section h2{margin:0 0 8px;font-size:28px}
+.section p.lead{color:var(--muted);margin-top:0}
+.card{position:relative;overflow:hidden}
+.card .title{font-weight:700;font-size:18px;margin:0 0 8px}
+.card .muted{color:var(--muted);font-size:14px}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:6px 10px;border-radius:999px;background:rgba(148,163,184,.15);border:1px solid rgba(148,163,184,.18);color:#e2e8f0}
+
+/* Folder-style tabs */
+.tabs{
+  display:flex; gap:8px; align-items:flex-end; margin-bottom:0;
+  border-bottom:1px solid var(--tab-border);
+  padding:0 6px;
+}
+.tab-btn{
+  appearance:none; border:none; cursor:pointer;
+  color:#e2e8f0;
+  background:var(--tab);
+  padding:10px 16px;
+  border:1px solid var(--tab-border);
+  border-bottom:none;
+  border-top-left-radius:12px;border-top-right-radius:12px;
+  position:relative; top:1px;
+  transition:background .2s ease, transform .2s ease;
+}
+.tab-btn:hover{transform:translateY(-1px)}
+.tab-btn[aria-selected='true']{
+  background:var(--tab-active);
+  color:#fff;
+  box-shadow: 0 -2px 12px rgba(0,0,0,.25);
+  z-index:2;
+}
+.tab-panel{
+  border-top-left-radius:0;
+  margin-top:0;
+}
+
+/* Inputs */
+.input, select{width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(148,163,184,.2);background: rgba(2,6,23,.6); color:var(--text)}
+label{display:block;margin:6px 0 4px;color:#cbd5e1;font-size:14px;font-weight:700}
+
+/* Footer */
+.footer{padding:40px 24px;color:var(--muted);text-align:center;border-top:1px solid rgba(148,163,184,.12)}
+
+/* Pricing */
+.pricing{display:grid;gap:18px;grid-template-columns: repeat(auto-fit,minmax(280px,1fr))}
+.price-card .cta{display:inline-block;margin-top:10px;padding:12px 16px;border-radius:12px;font-weight:700;background: linear-gradient(135deg,#4f46e5,#06b6d4); color:white; box-shadow: var(--shadow)}
+
+/* Animations */
+@media (prefers-reduced-motion: no-preference){
+  .fade-in{animation:fade .6s ease-out both}
+  @keyframes fade{from{opacity:0; transform: translateY(8px)} to{opacity:1; transform:none}}
+}
+
+/* Splash overlay — GIF bigger and top-flush */
+.splash{
+  position:fixed; inset:0; background:#000;
+  display:flex; align-items:flex-start; justify-content:center;
+  z-index:1000; opacity:1; transition: opacity .8s ease;
+  padding-top:0;
+}
+.splash img{
+  max-width:92vw; max-height:92vh;
+  transform: scale(1.25);
+  transform-origin: top center;
+  border-radius:12px; box-shadow:0 10px 40px rgba(0,0,0,.6);
+  margin-top:0;
+}
+.splash .skip{
+  position:fixed; bottom:24px; right:24px; background:#111; color:#fff;
+  border:1px solid rgba(255,255,255,.2); padding:10px 14px; border-radius:999px;
+  cursor:pointer; font-weight:700
+}
+.splash.fade-out{opacity:0}.splash[hidden]{display:none}
