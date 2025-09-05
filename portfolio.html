@@ -6,52 +6,45 @@
   <meta name="description" content="Selected agentic AI projects and patterns by Reliable AI Network (RAIN).">
   <link rel="icon" href="./rain-social.png" type="image/png">
   <link rel="stylesheet" href="./styles.css">
-  <link rel="canonical" href="https://reliableainetwork.com/portfolio.html">
 </head>
 <body>
   <header class="nav">
     <div class="nav-inner container">
       <a class="brand" href="./"><img src="./rain-social.png" alt="RAIN logo"><span class="name">Reliable AI Network</span></a>
       <nav class="nav-links">
-        <a href="./estimator.html" class="link">Estimator</a>
-        <a href="./portfolio.html" class="cta">Portfolio</a>
+        <a href="./estimator.html" class="btn-pill btn-estimate">Estimate</a>
+        <a href="./portfolio.html" class="btn-pill btn-portfolio">Portfolio</a>
       </nav>
     </div>
   </header>
 
   <main class="container section">
     <h1>Portfolio</h1>
-    <p class="lead">Production‑grade agentic systems. Browse by industry and status, then dive into the repositories.</p>
+    <p class="lead">Production‑grade agentic systems. Filter by industry, capability, and readiness, then dive into the repositories.</p>
 
     <div style="display:flex; gap:12px; align-items:center; margin:12px 0; flex-wrap:wrap">
       <label for="filterIndustry" class="muted"><strong>Industry</strong></label>
-      <select id="filterIndustry" class="input" aria-label="Filter by industry" style="max-width:260px">
+      <select id="filterIndustry" class="input" aria-label="Filter by industry" style="max-width:220px">
         <option value="">All</option>
-        <option>Healthcare</option>
-        <option>IT/Ops</option>
-        <option>Insurance</option>
-        <option>Wellness</option>
-        <option>Recruiting</option>
-        <option>Risk/Compliance</option>
-        <option>Docs/Compliance</option>
-        <option>Music/Media</option>
-        <option>Advertising</option>
-        <option>Perception/CV</option>
-        <option>Finance</option>
       </select>
 
-      <label for="filterStatus" class="muted" style="margin-left:8px"><strong>Status</strong></label>
-      <select id="filterStatus" class="input" aria-label="Filter by status" style="max-width:220px">
+      <label for="filterCapability" class="muted" style="margin-left:8px"><strong>Capability</strong></label>
+      <select id="filterCapability" class="input" aria-label="Filter by capability" style="max-width:220px">
         <option value="">All</option>
-        <option>Ready</option>
-        <option>Coming Soon</option>
+      </select>
+
+      <label for="filterReadiness" class="muted" style="margin-left:8px"><strong>Readiness</strong></label>
+      <select id="filterReadiness" class="input" aria-label="Filter by readiness" style="max-width:200px">
+        <option value="">All</option>
+        <option value="Ready">Ready</option>
+        <option value="Coming Soon">Coming Soon</option>
       </select>
     </div>
 
     <div id="grid" class="grid cols-3" aria-live="polite"></div>
 
     <div class="panel" style="margin-top:18px">
-      <p>Want something like this in your stack? Use the <a href="./estimator.html">Estimator</a> for a fast scope & quote.</p>
+      <p>Want something like this in your stack? Use the <a href="./estimator.html">Estimator</a> for a fast scope &amp; quote.</p>
     </div>
   </main>
 
@@ -60,52 +53,125 @@
   </footer>
 
   <script>
-  // Canonical portfolio items (matching your repo)
-  // Ready items come from: AI Health Navigator, AutoOps Sentinel, Claims‑Triage AI, MindTrace, High‑Volume Recruiter Agent, AI Governance Dashboard, aiDa, MuseAgent, AdOps Flightdeck, Perception Lab.
-  // Coming soon: MyRiskAgent, EdgeSight QA.
+  // Project catalog — aligned to your portfolio
   const PROJECTS = [
-    {title:"Agentic AI Health Navigator", industry:"Healthcare", status:"Ready", summary:"Clinical triage & navigation with retrieval grounding and step-by-step traces.", tags:["RAG","Evals","Traces"], url:"https://github.com/aurelius-in/AI-Health-Navigator-for-Patients"},
-    {title:"AutoOps Sentinel", industry:"IT/Ops", status:"Ready", summary:"Agentic AIOps: anomaly detection, forecasting, safe auto‑remediation, and exec‑ready insights.", tags:["AIOps","Forecasting","Runbooks"], url:"https://github.com/aurelius-in/AutoOps-Sentinel"},
-    {title:"Agentic Claims Triage AI", industry:"Insurance", status:"Ready", summary:"Decision support for claims classification, risk scoring, routing, and compliance.", tags:["Explainability","Policy","Dashboards"], url:"https://github.com/aurelius-in/Claims-Triage-AI"},
-    {title:"Enterprise Wellness AI (MindTrace)", industry:"Wellness", status:"Ready", summary:"Five‑agent wellness platform with privacy‑first design and organizational analytics.", tags:["Privacy","Agents","Analytics"], url:"https://github.com/aurelius-in/MindTrace"},
-    {title:"High‑Volume Recruiter Agent", industry:"Recruiting", status:"Ready", summary:"Outreach → screening → scheduling → ATS sync with live ops UI and audit trail.", tags:["Automations","SSE","Audit"], url:"https://github.com/aurelius-in/high-volume-recruiter-ai-agent"},
-    {title:"AI Governance Dashboard", industry:"Risk/Compliance", status:"Ready", summary:"LLM proxy, policy‑as‑code guardrails, automated checks, and cost monitoring.", tags:["Guardrails","OPA","Observability"], url:"https://github.com/aurelius-in/AI-Governance"},
-    {title:"AI Document Agent (aiDa)", industry:"Docs/Compliance", status:"Ready", summary:"Multi‑agent document analysis: ingest, classify, extract, assess risk, export evidence.", tags:["RAG","NER","Traces"], url:"https://github.com/aurelius-in/Smart-Document-Bot"},
-    {title:"MuseAgent", industry:"Music/Media", status:"Ready", summary:"Spectral features → embeddings → tagging → explainable recommendations with visuals.", tags:["Embeddings","Recs","Reports"], url:"https://github.com/aurelius-in/MuseAgent"},
-    {title:"AdOps Flightdeck (Multi‑Agent)", industry:"Advertising", status:"Ready", summary:"Plan, creative QA, pacing, anomaly response, attribution, and auditable reporting.", tags:["Agents","LangGraphJS","AWS"], url:"https://github.com/aurelius-in/adops-flightdeck-multi-agent"},
-    {title:"Perception Lab", industry:"Perception/CV", status:"Ready", summary:"Explore perception scenarios, fusion pipelines, metrics dashboards, and exports.", tags:["CV","Fusion","Metrics"], url:"https://github.com/aurelius-in/perception-lab"},
+    {title:"Agentic AI Health Navigator", industry:"Healthcare", readiness:"Ready", summary:"Clinical triage & navigation with retrieval grounding and step‑by‑step traces.", tags:["RAG","Evals","Traces"], url:"https://github.com/aurelius-in/AI-Health-Navigator-for-Patients"},
+    {title:"AutoOps Sentinel", industry:"IT/Ops", readiness:"Ready", summary:"Agentic AIOps: anomaly detection, forecasting, safe auto‑remediation, and exec‑ready insights.", tags:["AIOps","Forecasting","Runbooks"], url:"https://github.com/aurelius-in/AutoOps-Sentinel"},
+    {title:"Agentic Claims Triage AI", industry:"Insurance", readiness:"Ready", summary:"Decision support for claims classification, risk scoring, routing, and compliance.", tags:["Explainability","Policy","Dashboards"], url:"https://github.com/aurelius-in/Claims-Triage-AI"},
+    {title:"Enterprise Wellness AI (MindTrace)", industry:"Wellness", readiness:"Ready", summary:"Five‑agent wellness platform with privacy‑first design and organizational analytics.", tags:["Privacy","Agents","Analytics"], url:"https://github.com/aurelius-in/MindTrace"},
+    {title:"High‑Volume Recruiter Agent", industry:"Recruiting", readiness:"Ready", summary:"Outreach → screening → scheduling → ATS sync with live ops UI and audit trail.", tags:["Automations","Scheduling","Ops"], url:"https://github.com/aurelius-in/high-volume-recruiter-ai-agent"},
+    {title:"AI Governance Dashboard", industry:"Risk/Compliance", readiness:"Ready", summary:"LLM proxy, policy‑as‑code guardrails, automated checks, and cost monitoring.", tags:["Guardrails","OPA","Observability"], url:"https://github.com/aurelius-in/AI-Governance"},
+    {title:"AI Document Agent (aiDa)", industry:"Docs/Compliance", readiness:"Ready", summary:"Multi‑agent document analysis: ingest, classify, extract, assess risk, export evidence.", tags:["RAG","NER","Traces"], url:"https://github.com/aurelius-in/Smart-Document-Bot"},
+    {title:"MuseAgent", industry:"Music/Media", readiness:"Ready", summary:"Spectral features → embeddings → tagging → explainable recommendations with visuals.", tags:["Embeddings","Recs","Reports"], url:"https://github.com/aurelius-in/MuseAgent"},
+    {title:"AdOps Flightdeck (Multi‑Agent)", industry:"Advertising", readiness:"Ready", summary:"Plan, creative QA, pacing, anomaly response, attribution, and auditable reporting.", tags:["Agents","QA","AWS"], url:"https://github.com/aurelius-in/adops-flightdeck-multi-agent"},
+    {title:"Perception Lab", industry:"Perception/CV", readiness:"Ready", summary:"Explore perception scenarios, fusion pipelines, metrics dashboards, and exports.", tags:["CV","Fusion","Metrics"], url:"https://github.com/aurelius-in/perception-lab"},
 
-    // Coming soon items explicitly requested
-    {title:"MyRiskAgent", industry:"Finance", status:"Coming Soon", summary:"Research copilot for vendor risk & capital markets with source‑grounded answers.", tags:["RAG","Scoring"], url:""},
-    {title:"EdgeSight QA", industry:"Advertising", status:"Coming Soon", summary:"Creative QA and brand‑safety evaluation with explainable checks and reports.", tags:["QA","Safety"], url:""}
+    // Coming soon
+    {title:"MyRiskAgent", industry:"Finance", readiness:"Coming Soon", summary:"Research copilot for vendor risk & capital markets with source‑grounded answers.", tags:["RAG","Scoring"], url:""},
+    {title:"EdgeSight QA", industry:"Advertising", readiness:"Coming Soon", summary:"Creative QA and brand‑safety evaluation with explainable checks and reports.", tags:["QA","Safety"], url:""}
   ];
 
-  function card(p){
-    const tags = (p.tags||[]).map(t => `<span class='tag'>\${t}</span>`).join(' ');
-    const statusTag = p.status === 'Coming Soon' ? "<span class='tag'>Coming Soon</span>" : "";
-    const link = p.url ? `<a class="cta" href="\${p.url}" target="_blank" rel="noopener">View repository</a>` : "<span class='muted'>Repository link available at launch</span>";
-    return `<article class="card panel fade-in">
-      <h3 class="title">\${p.title}</h3>
-      <p class="muted" style="margin:6px 0"><strong>\${p.industry}</strong> \${statusTag}</p>
-      <p class="muted">\${p.summary}</p>
-      <div style="margin:10px 0; display:flex; gap:8px; flex-wrap:wrap;">\${tags}</div>
-      <div>\${link}</div>
-    </article>`;
+  function buildOptions(selectEl, values) {
+    values.sort();
+    values.forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = v; opt.textContent = v;
+      selectEl.appendChild(opt);
+    });
   }
 
-  function render(list){ document.getElementById('grid').innerHTML = list.map(card).join(''); }
+  function unique(list) {
+    return Array.from(new Set(list));
+  }
 
-  function applyFilters(){
+  function initFilters() {
+    const industryEl = document.getElementById('filterIndustry');
+    const capabilityEl = document.getElementById('filterCapability');
+
+    const industries = unique(PROJECTS.map(p => p.industry));
+    const capabilities = unique(PROJECTS.flatMap(p => p.tags || []));
+
+    buildOptions(industryEl, industries);
+    buildOptions(capabilityEl, capabilities);
+  }
+
+  function matchesFilters(p) {
     const ind = document.getElementById('filterIndustry').value;
-    const st = document.getElementById('filterStatus').value;
-    const filtered = PROJECTS.filter(p => (ind ? p.industry === ind : true) && (st ? p.status === st : true));
-    render(filtered);
+    const cap = document.getElementById('filterCapability').value;
+    const rd = document.getElementById('filterReadiness').value;
+    const okIndustry = ind ? p.industry === ind : true;
+    const okCapability = cap ? (p.tags || []).includes(cap) : true;
+    const okReadiness = rd ? p.readiness === rd : true;
+    return okIndustry && okCapability && okReadiness;
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('filterIndustry').addEventListener('change', applyFilters);
-    document.getElementById('filterStatus').addEventListener('change', applyFilters);
-    applyFilters();
+  function clearChildren(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+
+  function cardElement(p) {
+    const art = document.createElement('article');
+    art.className = 'card panel fade-in';
+
+    const h3 = document.createElement('h3');
+    h3.className = 'title';
+    h3.textContent = p.title;
+    art.appendChild(h3);
+
+    const meta = document.createElement('p');
+    meta.className = 'muted';
+    meta.style.margin = '6px 0';
+    meta.innerHTML = '<strong>' + p.industry + '</strong>' + (p.readiness === 'Coming Soon' ? " <span class=\"tag\">Coming Soon</span>" : '');
+    art.appendChild(meta);
+
+    const sum = document.createElement('p');
+    sum.className = 'muted';
+    sum.textContent = p.summary;
+    art.appendChild(sum);
+
+    const tagWrap = document.createElement('div');
+    tagWrap.style.margin = '10px 0';
+    tagWrap.style.display = 'flex';
+    tagWrap.style.gap = '8px';
+    tagWrap.style.flexWrap = 'wrap';
+    (p.tags || []).forEach(t => {
+      const s = document.createElement('span');
+      s.className = 'tag';
+      s.textContent = t;
+      tagWrap.appendChild(s);
+    });
+    art.appendChild(tagWrap);
+
+    const linkWrap = document.createElement('div');
+    if (p.url) {
+      const a = document.createElement('a');
+      a.className = 'cta';
+      a.href = p.url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = 'View repository';
+      linkWrap.appendChild(a);
+    } else {
+      const span = document.createElement('span');
+      span.className = 'muted';
+      span.textContent = 'Repository link available at launch';
+      linkWrap.appendChild(span);
+    }
+    art.appendChild(linkWrap);
+
+    return art;
+  }
+
+  function render() {
+    const grid = document.getElementById('grid');
+    clearChildren(grid);
+    PROJECTS.filter(matchesFilters).forEach(p => grid.appendChild(cardElement(p)));
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initFilters();
+    ['filterIndustry','filterCapability','filterReadiness'].forEach(id => {
+      document.getElementById(id).addEventListener('change', render);
+    });
+    render();
   });
   </script>
 </body>
