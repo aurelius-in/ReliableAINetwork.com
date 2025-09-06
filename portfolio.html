@@ -1,9 +1,8 @@
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Project Gallery | Reliable AI Network</title>
+  <title>Portfolio | Reliable AI Network</title>
   <meta name="description" content="Agentic AI portfolio: healthcare, AIOps, claims, wellness, recruiting, governance, document AI, AdOps, music, perception lab.">
   <link rel="icon" href="./rain-social.png" type="image/png">
   <link rel="stylesheet" href="./styles.css">
@@ -18,6 +17,15 @@
     .small{font-size:12px;color:#94a3b8}
     .card .title{margin-bottom:4px}
     .muted{color:#94a3b8}
+
+    /* Minimal media styling for poster/hover animation */
+    .proj-card .proj-media{
+      border-radius:10px; overflow:hidden; margin:-2px -2px 8px;
+      background:#0b1220; border:1px solid rgba(148,163,184,.15)
+    }
+    .proj-card .thumb{
+      display:block; width:100%; aspect-ratio:16/9; object-fit:cover;
+    }
   </style>
 </head>
 <body>
@@ -25,15 +33,14 @@
     <div class="nav-inner container">
       <a class="brand" href="./"><img src="./rain-social.png" alt="RAIN logo"><span class="name">Reliable AI Network</span></a>
       <nav class="nav-links">
-        <a href="./estimator.html" class="cta">Get a Quote</a>
-        <a href="./portfolio.html" class="btn-dark">Project Gallery</a>
-        <a href="./consultation.html" class="btn-dark">Consultation</a>
+        <a href="./estimator.html" class="cta">Quote</a>
+        <a href="./portfolio.html" class="btn-dark">Portfolio</a>
       </nav>
     </div>
   </header>
 
   <main class="container section portfolio">
-    <h1 style="margin:0 0 8px">Project Gallery</h1>
+    <h1 style="margin:0 0 8px">Portfolio</h1>
     <p class="lead">Filter by industry, capability, or status. Every project includes agentic orchestration, traces, and a usable UI.</p>
 
     <div class="filters">
@@ -88,27 +95,26 @@
 
   <footer class="footer">
     <p>© 2025 Reliable AI Network, LLC</p>
-    <p><a href="./portfolio.html">Project Gallery</a> · <a href="./estimator.html">Get a Quote</a> · <a href="./consultation.html">Consultation</a></p>
   </footer>
 
   <script>
     const PROJS = [
       { id:"health-nav", title:"Agentic AI Health Navigator",
-        summary:"Healthcare navigation with multi‑agent triage, provider match, and coverage checks.",
+        summary:"Healthcare navigation with multi-agent triage, provider match, and coverage checks.",
         industries:["Healthcare"],
         caps:["Agentic","Retrieval (RAG)","Guardrails","Evals","UI & Traces","Compliance"],
         status:"Ready",
         repo:"https://github.com/aurelius-in/AI-Health-Navigator-for-Patients"
       },
       { id:"autoops", title:"AutoOps Sentinel",
-        summary:"Agentic AIOps: anomaly detection, incident forecasting, safe auto‑remediation, exec‑ready narratives.",
+        summary:"Agentic AIOps: anomaly detection, incident forecasting, safe auto-remediation, exec-ready narratives.",
         industries:["DevOps / SRE","Platform / IT"],
         caps:["Agentic","Anomaly / Forecast","UI & Traces","Guardrails","Compliance"],
         status:"Ready",
         repo:"https://github.com/aurelius-in/AutoOps-Sentinel"
       },
       { id:"claims", title:"Agentic Claims Triage AI",
-        summary:"Agent‑driven claims classification, risk scoring, routing, and audit trails with explainability.",
+        summary:"Agent-driven claims classification, risk scoring, routing, and audit trails with explainability.",
         industries:["Insurance","Healthcare","Finance & Legal"],
         caps:["Agentic","Retrieval (RAG)","Document AI","UI & Traces","Compliance","Guardrails"],
         status:"Ready",
@@ -121,15 +127,15 @@
         status:"Ready",
         repo:"https://github.com/aurelius-in/MindTrace"
       },
-      { id:"hire-falcon", title:"High‑Volume Recruiter Agent",
-        summary:"End‑to‑end outreach → consent → screening → scheduling → ATS sync with live ops UI.",
+      { id:"hire-falcon", title:"High-Volume Recruiter Agent",
+        summary:"End-to-end outreach → consent → screening → scheduling → ATS sync with live ops UI.",
         industries:["HR & Recruiting"],
         caps:["Agentic","Recruiting / ATS","UI & Traces","Compliance"],
         status:"Ready",
         repo:"https://github.com/aurelius-in/high-volume-recruiter-ai-agent"
       },
       { id:"governance", title:"AI Governance Dashboard",
-        summary:"LLM proxy, policies‑as‑code guardrails, compliance checks, real‑time cost monitoring.",
+        summary:"LLM proxy, policies-as-code guardrails, compliance checks, real-time cost monitoring.",
         industries:["Platform / IT","Finance & Legal"],
         caps:["Governance","Guardrails","Compliance","UI & Traces","Agentic"],
         status:"Ready",
@@ -150,11 +156,14 @@
         repo:"https://github.com/aurelius-in/MuseAgent"
       },
       { id:"adops", title:"AdOps Flightdeck",
-        summary:"Multi‑agent AdOps for planning, creative QA, pacing, anomaly response, attribution, reporting.",
+        summary:"Multi-agent AdOps for planning, creative QA, pacing, anomaly response, attribution, reporting.",
         industries:["Marketing / AdOps"],
         caps:["Agentic","AdOps","Anomaly / Forecast","UI & Traces","Governance"],
         status:"Ready",
-        repo:"https://github.com/aurelius-in/adops-flightdeck-multi-agent"
+        repo:"https://github.com/aurelius-in/adops-flightdeck-multi-agent",
+        /* --- media just for this one item --- */
+        poster:"./adops-demo-poster.webp",
+        gif:"./adops-demo.webp"
       },
       { id:"perception", title:"Perception Lab",
         summary:"Interactive CV environment: detection + fusion pipelines, performance monitoring, eval exports.",
@@ -196,8 +205,21 @@
         const inds = p.industries.map(t => '<span class="badge">'+t+'</span>').join('');
         const link = p.repo ? '<a class="repo" href="'+p.repo+'" target="_blank" rel="noopener">View Repository</a>' : '<span class="repo disabled">Coming Soon</span>';
         const statusPill = '<span class="pill small">'+p.status+'</span>';
+
+        // Optional media (poster + animated webp on hover/tap)
+        const media = (p.poster || p.gif) ? `
+          <div class="proj-media">
+            <img class="thumb"
+                 src="${p.poster || ''}"
+                 ${p.poster ? 'loading="lazy"' : ''}
+                 ${p.gif ? `data-gif="${p.gif}"` : ''}
+                 ${p.poster ? `data-poster="${p.poster}"` : ''}
+                 alt="${p.title} preview">
+          </div>` : '';
+
         return `
-          <article class="card panel">
+          <article class="card panel proj-card">
+            ${media}
             <h3 class="title">${p.title}</h3>
             <div class="muted">${p.summary}</div>
             <div style="margin-top:10px">${inds}</div>
@@ -209,6 +231,59 @@
           </article>
         `;
       }).join('');
+
+      // After injecting cards, enable hover/tap media swaps
+      wireMediaSwaps();
+    }
+
+    function wireMediaSwaps(){
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const thumbs = document.querySelectorAll('.proj-card .thumb');
+
+      thumbs.forEach(img => {
+        const gif = img.dataset.gif;
+        const poster = img.dataset.poster;
+
+        if (!gif || prefersReduced) return;
+
+        let loadedGif = false;
+        let isPlaying = false;
+
+        const play = () => {
+          if (isPlaying) return;
+          if (!loadedGif) {
+            img.src = gif;     // lazy-load on first hover/tap
+            loadedGif = true;
+          } else {
+            img.src = gif;
+          }
+          isPlaying = true;
+        };
+
+        const stop = () => {
+          if (!isPlaying) return;
+          if (poster) img.src = poster;
+          isPlaying = false;
+        };
+
+        // Desktop hover
+        img.addEventListener('mouseenter', play);
+        img.addEventListener('mouseleave', stop);
+
+        // Mobile tap toggle
+        img.addEventListener('click', (e) => {
+          if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            isPlaying ? stop() : play();
+            e.preventDefault();
+          }
+        });
+
+        // If the image scrolls out of view, revert to poster
+        const io = new IntersectionObserver((entries)=>{
+          entries.forEach(en => { if (!en.isIntersecting) stop(); });
+        }, {threshold: 0});
+        io.observe(img);
+      });
     }
 
     fIndustry.addEventListener('change', render);
