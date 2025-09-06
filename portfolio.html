@@ -18,7 +18,7 @@
     .card .title{margin-bottom:4px}
     .muted{color:#94a3b8}
 
-    /* Minimal media styling for poster/hover animation */
+    /* Media (poster + hover/tap animation) */
     .proj-card .proj-media{
       border-radius:10px; overflow:hidden; margin:-2px -2px 8px;
       background:#0b1220; border:1px solid rgba(148,163,184,.15)
@@ -104,56 +104,72 @@
         industries:["Healthcare"],
         caps:["Agentic","Retrieval (RAG)","Guardrails","Evals","UI & Traces","Compliance"],
         status:"Ready",
-        repo:"https://github.com/aurelius-in/AI-Health-Navigator-for-Patients"
+        repo:"https://github.com/aurelius-in/AI-Health-Navigator-for-Patients",
+        poster:"./agentic-ai-health-nav-poster.webp",
+        gif:"./agentic-ai-health-nav.webp"
       },
       { id:"autoops", title:"AutoOps Sentinel",
         summary:"Agentic AIOps: anomaly detection, incident forecasting, safe auto-remediation, exec-ready narratives.",
         industries:["DevOps / SRE","Platform / IT"],
         caps:["Agentic","Anomaly / Forecast","UI & Traces","Guardrails","Compliance"],
         status:"Ready",
-        repo:"https://github.com/aurelius-in/AutoOps-Sentinel"
+        repo:"https://github.com/aurelius-in/AutoOps-Sentinel",
+        poster:"./autoOps-sentinel-poster.webp",
+        gif:"./autoOps-sentinel.webp"
       },
       { id:"claims", title:"Agentic Claims Triage AI",
         summary:"Agent-driven claims classification, risk scoring, routing, and audit trails with explainability.",
         industries:["Insurance","Healthcare","Finance & Legal"],
         caps:["Agentic","Retrieval (RAG)","Document AI","UI & Traces","Compliance","Guardrails"],
         status:"Ready",
-        repo:"https://github.com/aurelius-in/Claims-Triage-AI"
+        repo:"https://github.com/aurelius-in/Claims-Triage-AI",
+        poster:"./claims-demo-poster.webp",
+        gif:"./claims-demo.webp"
       },
       { id:"mindtrace", title:"Enterprise Wellness AI (MindTrace)",
         summary:"Companion, Recommendation, Risk, Analytics, Privacy agents for organizational wellness.",
         industries:["HR & Recruiting","Healthcare"],
         caps:["Agentic","UI & Traces","Evals","Compliance"],
         status:"Ready",
-        repo:"https://github.com/aurelius-in/MindTrace"
+        repo:"https://github.com/aurelius-in/MindTrace",
+        poster:"./enterprise-wellness-mindtrace-poster.webp",
+        gif:"./enterprise-wellness-mindtrace.webp"
       },
       { id:"hire-falcon", title:"High-Volume Recruiter Agent",
         summary:"End-to-end outreach → consent → screening → scheduling → ATS sync with live ops UI.",
         industries:["HR & Recruiting"],
         caps:["Agentic","Recruiting / ATS","UI & Traces","Compliance"],
         status:"Ready",
-        repo:"https://github.com/aurelius-in/high-volume-recruiter-ai-agent"
+        repo:"https://github.com/aurelius-in/high-volume-recruiter-ai-agent",
+        poster:"./high-volume-recruiter-hire-falcon-poster.webp",
+        gif:"./high-volume-recruiter-hire-falcon.webp"
       },
       { id:"governance", title:"AI Governance Dashboard",
         summary:"LLM proxy, policies-as-code guardrails, compliance checks, real-time cost monitoring.",
         industries:["Platform / IT","Finance & Legal"],
         caps:["Governance","Guardrails","Compliance","UI & Traces","Agentic"],
         status:"Ready",
-        repo:"https://github.com/aurelius-in/AI-Governance"
+        repo:"https://github.com/aurelius-in/AI-Governance",
+        poster:"./ai-governance-dashboard-poster.webp",
+        gif:"./ai-governance-dashboard.webp"
       },
       { id:"aida", title:"AI Document Agent (aiDa)",
         summary:"Ingest, classify, extract, assess risk, and monitor compliance with audit trails and live agent traces.",
         industries:["Finance & Legal","Platform / IT","Insurance"],
         caps:["Agentic","Document AI","Retrieval (RAG)","UI & Traces","Compliance"],
         status:"Ready",
-        repo:"https://github.com/aurelius-in/Smart-Document-Bot"
+        repo:"https://github.com/aurelius-in/Smart-Document-Bot",
+        poster:"./aiDa-dashboard-poster.webp",
+        gif:"./aiDa-dashboard.webp"
       },
       { id:"muse", title:"MuseAgent",
         summary:"Music intelligence: feature extraction, embeddings, tagging, explainable recs, and PDF reports.",
         industries:["Media & Entertainment"],
         caps:["Agentic","Music Intelligence","Retrieval (RAG)","UI & Traces","Evals"],
         status:"Ready",
-        repo:"https://github.com/aurelius-in/MuseAgent"
+        repo:"https://github.com/aurelius-in/MuseAgent",
+        poster:"./muse-agent-poster.webp",
+        gif:"./muse-agent.webp"
       },
       { id:"adops", title:"AdOps Flightdeck",
         summary:"Multi-agent AdOps for planning, creative QA, pacing, anomaly response, attribution, reporting.",
@@ -161,7 +177,6 @@
         caps:["Agentic","AdOps","Anomaly / Forecast","UI & Traces","Governance"],
         status:"Ready",
         repo:"https://github.com/aurelius-in/adops-flightdeck-multi-agent",
-        /* --- media just for this one item --- */
         poster:"./adops-demo-poster.webp",
         gif:"./adops-demo.webp"
       },
@@ -170,7 +185,9 @@
         industries:["Industrial & Field Ops","Edge AI & Computer Vision"],
         caps:["Agentic","CV (Computer Vision)","Edge","UI & Traces","Evals"],
         status:"Ready",
-        repo:"https://github.com/aurelius-in/perception-lab"
+        repo:"https://github.com/aurelius-in/perception-lab",
+        poster:"./perceptionLab-poster.webp",
+        gif:"./perceptionLab.webp"
       },
       { id:"edgesight", title:"EdgeSight QA",
         summary:"Edge QA for vision systems—scenario suites, device benchmarking, and exportable evals.",
@@ -178,6 +195,7 @@
         caps:["Agentic","CV (Computer Vision)","Edge","Evals","UI & Traces"],
         status:"Coming Soon",
         repo:null
+        // no media yet
       }
     ];
 
@@ -206,7 +224,6 @@
         const link = p.repo ? '<a class="repo" href="'+p.repo+'" target="_blank" rel="noopener">View Repository</a>' : '<span class="repo disabled">Coming Soon</span>';
         const statusPill = '<span class="pill small">'+p.status+'</span>';
 
-        // Optional media (poster + animated webp on hover/tap)
         const media = (p.poster || p.gif) ? `
           <div class="proj-media">
             <img class="thumb"
@@ -232,7 +249,6 @@
         `;
       }).join('');
 
-      // After injecting cards, enable hover/tap media swaps
       wireMediaSwaps();
     }
 
@@ -251,12 +267,8 @@
 
         const play = () => {
           if (isPlaying) return;
-          if (!loadedGif) {
-            img.src = gif;     // lazy-load on first hover/tap
-            loadedGif = true;
-          } else {
-            img.src = gif;
-          }
+          if (!loadedGif) { img.src = gif; loadedGif = true; }
+          else { img.src = gif; }
           isPlaying = true;
         };
 
@@ -266,11 +278,9 @@
           isPlaying = false;
         };
 
-        // Desktop hover
         img.addEventListener('mouseenter', play);
         img.addEventListener('mouseleave', stop);
 
-        // Mobile tap toggle
         img.addEventListener('click', (e) => {
           if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
             isPlaying ? stop() : play();
@@ -278,7 +288,6 @@
           }
         });
 
-        // If the image scrolls out of view, revert to poster
         const io = new IntersectionObserver((entries)=>{
           entries.forEach(en => { if (!en.isIntersecting) stop(); });
         }, {threshold: 0});
