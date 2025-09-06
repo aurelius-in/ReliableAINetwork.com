@@ -1,48 +1,17 @@
-// RAIN site small scripts
-
 document.addEventListener('DOMContentLoaded', () => {
-  // ----- Splash logic -----
   const splash = document.getElementById('splash');
-  if (splash) {
-    const skip = document.getElementById('skipSplash');
-    const showLogoAtMs = 8000;  // 8 seconds on GIF
-    const exitAtMs = 10000;     // +2 seconds on logo, then exit
+  const skip = document.getElementById('skipSplash');
 
-    const showLogoTimer = setTimeout(() => {
-      splash.classList.add('show-logo');
-    }, showLogoAtMs);
+  const hide = () => { if (splash) splash.style.display = 'none'; };
 
-    const exitTimer = setTimeout(() => {
-      splash.classList.add('fade-out');
-    }, exitAtMs);
-
-    splash.addEventListener('transitionend', (e) => {
-      // When overlay itself has finished fading
-      if (e.target === splash && splash.classList.contains('fade-out')) {
-        splash.setAttribute('hidden', '');
-      }
-    });
-
-    const skipAll = () => {
-      clearTimeout(showLogoTimer);
-      clearTimeout(exitTimer);
-      splash.classList.add('fade-out');
-    };
-    if (skip) skip.addEventListener('click', skipAll);
+  // Respect reduced motion
+  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (mediaQuery.matches) {
+    hide();
+    return;
   }
 
-  // ----- Tabs (index only) -----
-  const tabs = document.querySelectorAll('.tab-btn');
-  const panels = document.querySelectorAll('[data-tab]');
-  if (tabs.length && panels.length) {
-    const activate = (btn) => {
-      tabs.forEach(t => t.setAttribute('aria-selected','false'));
-      panels.forEach(p => p.hidden = true);
-      btn.setAttribute('aria-selected','true');
-      const id = btn.getAttribute('data-target');
-      const panel = document.getElementById(id);
-      if (panel) panel.hidden = false;
-    };
-    tabs.forEach(btn => btn.addEventListener('click', () => activate(btn)));
-  }
+  // Auto-skip after ~2.4s
+  const t = setTimeout(hide, 2400);
+  if (skip) skip.addEventListener('click', () => { clearTimeout(t); hide(); });
 });

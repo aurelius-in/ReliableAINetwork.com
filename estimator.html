@@ -52,8 +52,8 @@
     <div class="nav-inner container">
       <a class="brand" href="./"><img src="./rain-social.png" alt="RAIN logo"><span class="name">Reliable AI Network</span></a>
       <nav class="nav-links">
-        <a href="./estimator.html" class="cta">Quote</a>
-        <a href="./portfolio.html" class="btn-dark">Portfolio</a>
+        <a href="./estimator.html" class="cta">Get a Quote</a>
+        <a href="./project-gallery.html" class="btn-dark">Project Gallery</a>
       </nav>
     </div>
   </header>
@@ -61,8 +61,8 @@
   <main class="container section estimator">
     <h1 class="hero-title">Build your quote</h1>
     <p class="lead">
-      Provide a few details. We’ll estimate low-side senior-engineer hours and generate a clear quote you can print or save as a PDF.<br>
-      <strong>Send us your locked-in quote when you’re ready to begin!</strong>
+      Provide a few details. We’ll estimate low‑side senior‑engineer hours and generate a clear quote you can print or save as a PDF.<br>
+      <strong>Send us your locked‑in quote when you’re ready to begin!</strong>
     </p>
 
     <div class="wrap">
@@ -115,9 +115,9 @@
           <div>
             <label for="deploy">Deployment</label>
             <select id="deploy" class="input">
-              <option value="1.0">Cloud PaaS, single-tenant</option>
+              <option value="1.0">Cloud PaaS, single‑tenant</option>
               <option value="1.3">Hybrid or multiple clouds</option>
-              <option value="1.5">On-prem / self-hosted models</option>
+              <option value="1.5">On‑prem / self‑hosted models</option>
             </select>
             <div class="hint">Impacts infra, CI/CD & integration enablement—not the entire scope.</div>
           </div>
@@ -126,9 +126,9 @@
             <select id="ux" class="input">
               <option value="1.0">Chat + traces</option>
               <option value="1.2">Dashboards + reports</option>
-              <option value="1.4">Multi-role app &amp; admin</option>
+              <option value="1.4">Multi‑role app &amp; admin</option>
             </select>
-            <div class="hint">UI scope and roles; applied to UI-heavy portions only.</div>
+            <div class="hint">UI scope and roles; applied to UI‑heavy portions only.</div>
           </div>
           <div>
             <label for="weeks">Target timeline</label>
@@ -152,7 +152,7 @@
             <select id="payStyle" class="input">
               <option value="milestone" selected>Milestones (default)</option>
               <option value="weekly">Weekly installments</option>
-              <option value="biweekly">Bi-weekly installments</option>
+              <option value="biweekly">Bi‑weekly installments</option>
               <option value="monthly">Monthly invoices</option>
             </select>
             <div class="hint">Milestones map to Alpha, Beta, Launch. Installments split the remainder evenly after deposit.</div>
@@ -163,7 +163,7 @@
           <button id="printQuote" class="btn secondary no-print" disabled>Print</button>
           <button id="savepdf" class="btn secondary no-print" disabled title="Browsers require a save dialog for PDFs. This opens Save as PDF.">Export PDF</button>
         </div>
-        <p class="footnote no-print" style="margin-top:4px">Note: For security/privacy, browsers require a save dialog for PDFs—direct auto-save isn’t allowed.</p>
+        <p class="footnote no-print" style="margin-top:4px">Note: For security/privacy, browsers require a save dialog for PDFs—direct auto‑save isn’t allowed.</p>
       </section>
 
       <!-- Outputs (hidden until calculated) -->
@@ -174,7 +174,6 @@
             <div id="quote" class="quote-num">—</div>
             <div id="discountLine" class="muted" style="margin-top:6px"></div>
 
-            <!-- Toggle + hidden breakdown moved into LEFT card -->
             <button id="toggleBreakdown" class="btn secondary" style="margin-top:8px;padding:8px 10px;font-size:13px">
               Show hours breakdown
             </button>
@@ -197,14 +196,13 @@
 
         <div id="schedule" class="panel" style="margin-top:12px"></div>
 
-        <!-- Removed standalone Hours breakdown panel -->
         <div class="panel" style="margin-top:12px">
           <h4 class="small-title">How this is calculated</h4>
           <div id="calcExplain" class="calc-list muted"></div>
         </div>
 
         <p class="footnote" style="margin-top:8px">
-          <span class="badge">P50</span> is the most-likely effort; <span class="badge">P90</span> includes typical unknowns (vendor auth, data cleanup, policy reviews).
+          <span class="badge">P50</span> is the most‑likely effort; <span class="badge">P90</span> includes typical unknowns (vendor auth, data cleanup, policy reviews).
           Pricing reflects P50 with deposit discount. If scope changes, we’ll update before proceeding.
         </p>
       </section>
@@ -212,9 +210,9 @@
 
     <!-- Hidden print area for PDF -->
     <section id="printArea" style="display:none; background:#fff; color:#000;">
-      <div style="background:#0b1220;padding:16px 20px;display:flex;align-items:center;gap:12px">
-        <img src="./rain-white.png" alt="Reliable AI Network" style="height:100px;width:auto"> 
-        <div style="color:#dbe7fb;font-weight:800;letter-spacing:.2px">Reliable AI Network — Quote</div>
+      <div style="background:#fff;padding:16px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #ddd">
+        <img src="./rain-white.png" alt="Reliable AI Network" style="height:48px;width:auto">
+        <div style="color:#111;font-weight:800;letter-spacing:.2px;font-size:18px">Reliable AI Network — Quote</div>
       </div>
       <div id="printContent" style="padding:20px"></div>
       <div style="padding:0 20px 20px">
@@ -226,7 +224,7 @@
                 Architecture • Agents • Integrations • Data • Safety • Deployment • UX • Testing • Docs • Handover
               </td>
               <td style="padding:6px 4px;border-bottom:1px solid #eee">
-                Eval-harness • Guardrails • Observability • On-prem connector • Training workshop
+                Eval‑harness • Guardrails • Observability • On‑prem connector • Training workshop
               </td>
             </tr>
           </tbody>
@@ -234,7 +232,6 @@
         <p style="font-size:11px;color:#444;margin-top:8px">Generated on <span id="genDate"></span>. Rates: $110/hr, standard Net 15. Simple and clear—ask if you prefer weekly ACH.</p>
       </div>
       <script>
-        // Print date
         (function () {
           const d = new Date();
           const fmt = d.toLocaleDateString(undefined, { year:'numeric', month:'2-digit', day:'2-digit' });
@@ -282,7 +279,6 @@
 
         let per = Math.floor(remaining / periods);
         let paid = upfront + per * periods;
-        // Adjust last payment for rounding
         const delta = netPrice - paid;
         for (let i=1;i<=periods;i++){
           if (i === periods) rows.push([label + i, per + delta]);
@@ -297,69 +293,56 @@
       const agents = +document.getElementById('agents').value;
       const integrations = +document.getElementById('integrations').value;
       const dataSources = +document.getElementById('dataSources').value;
-      const etl = +document.getElementById('etl').value;            // 1.0 / 1.2 / 1.5
-      const safetySel = +document.getElementById('safety').value;   // 1.0 / 1.2 / 1.5  -> adder mapping below
-      const deploy = +document.getElementById('deploy').value;      // 1.0 / 1.3 / 1.5
-      const ux = +document.getElementById('ux').value;              // 1.0 / 1.2 / 1.4
+      const etl = +document.getElementById('etl').value;
+      const safetySel = +document.getElementById('safety').value;
+      const deploy = +document.getElementById('deploy').value;
+      const ux = +document.getElementById('ux').value;
       let weeks = document.getElementById('weeks').value;
       const [downPctStr, discPctStr] = document.getElementById('plan').value.split('|');
       const downPct = +downPctStr/100;
       const discPct = +discPctStr/100;
       const payStyle = document.getElementById('payStyle').value;
 
-      // Normalize weeks to a number for math; if "<5 weeks" option, use 4 as working value
-      weeks = +weeks; // '4' for <5 weeks; '6'..'12' otherwise
+      weeks = +weeks;
       const isRush = (weeks === 4);
 
-      // ---- Base components (before scoped adjustments)
       const base = 200;
       const h_agents_raw = 32 * agents;
       const h_integrations_raw = 24 * integrations;
       const h_data_raw = 28 * dataSources;
 
-      // ---- Scope-aware adjustments
-      // Data complexity applies fully to data and 30% of integrations
       const h_data_adj = h_data_raw * etl;
       const h_integrations_adj = h_integrations_raw * (1 + 0.30 * (etl - 1));
 
-      // Subtotal of core build work
       const subtotal_core = base + h_agents_raw + h_integrations_adj + h_data_adj;
 
-      // Deployment applies to infra-heavy portions (50% of base + all integrations)
       const deploy_scope = (base * 0.50) + h_integrations_adj;
       const deploy_add = deploy_scope * (deploy - 1);
 
-      // UX applies to UI-heavy portions (30% of base + 20% of agent work)
       const ux_scope = (base * 0.30) + (h_agents_raw * 0.20);
       const ux_add = ux_scope * (ux - 1);
 
-      // Safety/Compliance as an adder on a targeted scope fraction (35% of subtotal)
-      // Map selection to adders (not multipliers): 1.0 -> 0.00, 1.2 -> 0.15, 1.5 -> 0.30
       const safetyAdder = safetySel === 1.5 ? 0.30 : (safetySel === 1.2 ? 0.15 : 0.00);
       const safety_scope = subtotal_core * 0.35;
       const safety_add = safety_scope * safetyAdder;
 
-      // P50 hours = subtotal + targeted adds
       const hoursP50 = Math.ceil(subtotal_core + deploy_add + ux_add + safety_add);
 
-      // P90 contingency factor depends on complexity & constraints
       let p90Factor = (etl === 1.5 ? 1.25 : (etl === 1.2 ? 1.18 : 1.10));
-      if (safetySel === 1.5) p90Factor += 0.05;        // regulated workflows
-      if (deploy >= 1.5) p90Factor += 0.05;            // on-prem/self-host
+      if (safetySel === 1.5) p90Factor += 0.05;
+      if (deploy >= 1.5) p90Factor += 0.05;
       p90Factor = Math.min(p90Factor, 1.35);
       const hoursP90 = Math.ceil(hoursP50 * p90Factor);
 
-      const grossPrice = RATE * hoursP50;              // pricing at P50 (transparent)
+      const grossPrice = RATE * hoursP50;
       const discount = Math.round(grossPrice * discPct);
       const priceAfterDiscount = grossPrice - discount;
 
-      // Rush surcharge +5% only when <5 weeks is chosen
       const rushFee = isRush ? Math.round(priceAfterDiscount * 0.05) : 0;
       const netPrice = priceAfterDiscount + rushFee;
 
       const hoursPerWeek = Math.ceil(hoursP50 / weeks);
 
-      // ---- Set headline KPIs
       document.getElementById('hours').textContent = fmtH(hoursP50) + ' h';
       document.getElementById('hoursP90').textContent = fmtH(hoursP90) + ' h';
       const timelineLabel = isRush ? '<5 weeks' : `${weeks} weeks`;
@@ -372,7 +355,6 @@
       if (isRush) dl += ' · Rush surcharge +5% applied for <5 weeks timeline.';
       document.getElementById('discountLine').textContent = dl;
 
-      // ---- Milestones list (always shown as context)
       const w1 = Math.max(1, Math.round(weeks/3));
       const w2 = Math.max(w1+1, Math.round(2*weeks/3));
       const w3 = weeks;
@@ -383,10 +365,8 @@
       ];
       document.getElementById('milestones').innerHTML = msList.map(s => `<li>${s}</li>`).join('');
 
-      // ---- Payment schedule (deposit + milestones or installments)
       const rows = buildScheduleRows(payStyle, weeks, netPrice, downPct);
 
-      // Render schedule
       const sched = document.getElementById('schedule');
       let rowsHtml = rows.map(r => `<tr><td>${r[0]}</td><td style="text-align:right">${fmtUSD(r[1])}</td></tr>`).join('');
       const title = 'Payment Schedule';
@@ -401,7 +381,6 @@
         sched.innerHTML += `<p class="muted" style="margin-top:6px">Prefer installments instead? Switch “Payment style” above.</p>`;
       }
 
-      // ---- Hours breakdown table (now in the left card)
       const rowsBD = [
         ['Base', fmtH(base)],
         ['Agents', `${fmtH(h_agents_raw)} (= 32 × ${agents})`],
@@ -417,29 +396,25 @@
       document.getElementById('hoursBreakdownCard').innerHTML =
         '<tbody>' + rowsBD.map(([k,v])=>`<tr><td style="width:56%">${k}</td><td style="text-align:right">${v}</td></tr>`).join('') + '</tbody>';
 
-      // Reset collapse state after each compute
       const wrap = document.getElementById('breakdownWrap');
       if (wrap) wrap.style.display = 'none';
       const btn = document.getElementById('toggleBreakdown');
       if (btn) btn.textContent = 'Show hours breakdown';
 
-      // ---- "How this is calculated" narrative
       const calcExplain = document.getElementById('calcExplain');
       calcExplain.innerHTML =
         `<div><strong>Baseline</strong> = 200 + 32×agents + 24×integrations + 28×data sources.</div>
          <div><strong>Data complexity</strong> (${etl}×) applies to data work in full and to <em>30%</em> of integrations.</div>
-         <div><strong>Deployment</strong> (${deploy}×) is applied only to infra scope (50% of base + integrations) as an add-on, not to all work.</div>
+         <div><strong>Deployment</strong> (${deploy}×) is applied only to infra scope (50% of base + integrations) as an add‑on, not to all work.</div>
          <div><strong>UX depth</strong> (${ux}×) is applied only to UI scope (30% of base + 20% of agent work).</div>
          ${isRush ? '<div><strong>Rush surcharge</strong> +5% applied for timelines under 5 weeks.</div>' : ''}
          <div><strong>P50/P90</strong> hours reflect typical contingency based on your complexity/deployment choices.</div>
          <div><strong>Rate</strong> $${RATE} / hour · <strong>Discount</strong> ${Math.round(discPct*100)}% for selected deposit.</div>`;
 
-      // ---- Enable outputs & buttons
       document.getElementById('outputs').style.display = 'block';
       document.getElementById('printQuote').disabled = false;
       document.getElementById('savepdf').disabled = false;
 
-      // ---- Prepare printable content
       const printableRows = rows.map(r => `<tr><td>${r[0]}</td><td style="text-align:right">${fmtUSD(r[1])}</td></tr>`).join('');
       const details =
         `<div style="font-size:18px;margin:0 0 4px"><strong>Total</strong>: ${fmtUSD(netPrice)}</div>
@@ -472,7 +447,6 @@
 
       document.getElementById('printContent').innerHTML = details;
       } catch (err) { console.error(err); alert('Oops — the calculator hit an error: ' + err.message); }
-    
     }
 
     function openPrintWindow(){
@@ -488,14 +462,13 @@
     }
 
     function printQuote(){ const w = openPrintWindow(); w.focus(); w.print(); }
-    function savePDF(){ const w = openPrintWindow(); w.focus(); w.print(); } // Browsers require a dialog to save PDFs
+    function savePDF(){ const w = openPrintWindow(); w.focus(); w.print(); }
 
     document.addEventListener('DOMContentLoaded', function(){
       document.getElementById('calc').addEventListener('click', compute);
       document.getElementById('printQuote').addEventListener('click', printQuote);
       document.getElementById('savepdf').addEventListener('click', savePDF);
 
-      // Toggle for the breakdown in the left card
       const toggleBtn = document.getElementById('toggleBreakdown');
       if (toggleBtn) {
         toggleBtn.addEventListener('click', function(){
@@ -507,7 +480,6 @@
       }
 
       var paySel = document.getElementById('payStyle'); if (paySel) paySel.addEventListener('change', () => {
-        // Recompute schedule quickly if a quote is already visible
         if (document.getElementById('outputs').style.display !== 'none') compute();
       });
     });
