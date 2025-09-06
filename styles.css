@@ -99,29 +99,33 @@ label{display:block;margin:6px 0 4px;color:#cbd5e1;font-size:14px;font-weight:70
   @keyframes fade{from{opacity:0; transform: translateY(8px)} to{opacity:1; transform:none}}
 }
 
-/* ----- Splash sequencing & crossfade ----- */
+/* Splash layout: make media fill the viewport height, centered */
 .splash{position:fixed;inset:0;background:#000;z-index:9999;display:block;opacity:1;transition:opacity 400ms ease}
 .splash.fade-out{opacity:0;pointer-events:none}
 .splash .layer{position:absolute;inset:0;display:grid;place-items:center}
-.splash .splash-media{max-width:min(90vw,920px);max-height:80vh}
 
-/* start with GIF visible, logo hidden */
+/* Important: full-height media from top to bottom, width auto */
+.splash .splash-media{
+  height: min(100dvh, 100svh, 100vh);
+  width: auto;
+  max-width: none;       /* prevent shrinking on wide screens */
+  display: block;
+}
+
+/* Crossfade states (assumes the JS adds these classes) */
 .splash.sequence-start .gif-layer{opacity:1;transition:opacity 400ms ease}
 .splash.sequence-start .logo-layer{opacity:0;transition:opacity 400ms ease}
-
-/* when show-logo is added, crossfade */
 .splash.show-logo .gif-layer{opacity:0}
 .splash.show-logo .logo-layer{opacity:1}
 
-/* ----- Skip button: mostly transparent, dark blue, light grey text ----- */
+/* Skip button: mostly transparent dark blue w/ light gray text */
 .splash .skip{
   position:absolute;right:16px;bottom:16px;
   padding:6px 10px;border-radius:999px;
-  background:rgba(17,34,64,.32); /* dark navy, mostly transparent */
+  background:rgba(17,34,64,.32); /* dark navy, subtle */
   border:1px solid rgba(148,163,184,.35);
-  color:#cbd5e1; /* light gray text */
-  font-weight:600;letter-spacing:.2px;
-  box-shadow:none;backdrop-filter:blur(2px);
+  color:#cbd5e1; font-weight:600; letter-spacing:.2px;
+  box-shadow:none; backdrop-filter:blur(2px);
 }
 .splash .skip:hover{background:rgba(17,34,64,.45);color:#e2e8f0}
 .splash .skip:focus-visible{outline:2px solid rgba(99,102,241,.6);outline-offset:2px}
