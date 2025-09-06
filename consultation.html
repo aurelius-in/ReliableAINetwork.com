@@ -1,12 +1,23 @@
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Consultation & Advisory | Reliable AI Network</title>
-  <meta name="description" content="Hands‑on AI consultation: strategy, design reviews, evals, safety, and risk audits.">
+  <meta name="description" content="Book consultation and advisory with Reliable AI Network (RAIN): architecture, scoping, safety/compliance, evals, retrieval, and deployment guidance.">
   <link rel="icon" href="./rain-social.png" type="image/png">
   <link rel="stylesheet" href="./styles.css">
+  <style>
+    /* Local to this page */
+    .two-col {
+      display:grid;
+      gap:12px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      align-items:start;
+    }
+    .two-col .panel h3 { margin:0 0 6px }
+    .two-col ul { margin:6px 0 0 18px }
+    .cta-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:12px }
+  </style>
 </head>
 <body>
   <header class="nav">
@@ -15,45 +26,51 @@
       <nav class="nav-links">
         <a href="./estimator.html" class="cta">Get a Quote</a>
         <a href="./portfolio.html" class="btn-dark">Project Gallery</a>
-        <a href="./consultation.html" class="btn-dark">Consultation</a>
       </nav>
     </div>
   </header>
 
   <main class="container section">
-    <h1>Consultation & Advisory</h1>
-    <p class="lead">When you need signal fast. We help you make sharper decisions and de‑risk builds without adding headcount.</p>
+    <h1 style="margin:0 0 8px">Consultation & Advisory</h1>
+    <p class="lead">Fast, practical guidance to unblock decisions—architecture, data/retrieval, safety & compliance, evaluation, and deployment choices.</p>
 
-    <section class="panel" style="margin-top:12px">
-      <h2 style="margin:0 0 6px">What we cover</h2>
-      <ul class="muted">
-        <li>Architecture & agent patterns</li>
-        <li>Retrieval/data design and quality checks</li>
-        <li>Guardrails, safety budgets, and policy prompts</li>
-        <li>Evaluation harnesses and golden sets</li>
-        <li>Cost controls, tracing, and observability</li>
-        <li>Deployment choices and runbooks</li>
-      </ul>
+    <!-- Two-column section -->
+    <section class="two-col" aria-label="Consultation details">
+      <article class="panel" aria-labelledby="cover-title">
+        <h3 id="cover-title">What we cover</h3>
+        <ul class="muted">
+          <li>Project scoping & architecture options (single agent vs graph, tools, handoffs)</li>
+          <li>Data & retrieval: ingestion, chunking, indexing, grounding strategy</li>
+          <li>Guardrails & compliance: policy prompts, probes, budget thresholds</li>
+          <li>Evaluation: golden sets, regression jobs, KPIs & dashboards</li>
+          <li>Model & cost strategy: vendors, latency/throughput, fallbacks</li>
+          <li>Deployment: staging→prod, CI/CD, observability, runbooks</li>
+          <li>Build vs buy: vendor fit, integration risk, licensing considerations</li>
+        </ul>
+      </article>
+
+      <article class="panel" aria-labelledby="how-title">
+        <h3 id="how-title">How it works</h3>
+        <ul class="muted">
+          <li><strong>Intake</strong> (brief): goals, constraints, data landscape</li>
+          <li><strong>Working session</strong> (60–90 min): whiteboard + decisions</li>
+          <li><strong>Artifacts</strong>: notes, action list, recommended architecture</li>
+          <li><strong>Follow-ups</strong>: async Q&A and doc review</li>
+          <li><strong>Optional</strong>: quick prototypes or eval harness seed</li>
+        </ul>
+        <div class="cta-row">
+          <a class="btn" href="https://calendly.com/oliveraellison/15min" target="_blank" rel="noopener">Book Consultation</a>
+          <a class="btn secondary" href="./portfolio.html">See Project Gallery</a>
+          <a class="btn secondary" href="./estimator.html">Get a Quote</a>
+        </div>
+      </article>
     </section>
 
-    <section class="panel" style="margin-top:12px">
-      <h2 style="margin:0 0 6px">How it works</h2>
-      <ul class="muted">
-        <li>We review context (docs, demos) async first.</li>
-        <li>Two 60‑min working sessions/month + async Q&A.</li>
-        <li>Clear recommendations and next‑step plan.</li>
-      </ul>
-      <div style="margin-top:8px">
-        <a class="btn" href="https://calendly.com/oliveraellison/15min" target="_blank" rel="noopener">Book an intro</a>
-        <a class="btn secondary" href="./portfolio.html" style="margin-left:8px">See Project Gallery</a>
-      </div>
-    </section>
+    <!-- You can keep additional sections (testimonials, FAQs) below if you had them previously -->
   </main>
 
   <footer class="footer">
     <p>© 2025 Reliable AI Network, LLC</p>
-    <p><a href="./portfolio.html">Project Gallery</a> · <a href="./estimator.html">Get a Quote</a> · <a href="./consultation.html">Consultation</a></p>
   </footer>
-  <script src="./script.js" defer></script>
 </body>
 </html>
