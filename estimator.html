@@ -49,7 +49,7 @@
 <body>
   <header class="nav">
     <div class="nav-inner container">
-      <a class="brand" href="./"><img src="./rain-social.png" alt="RAIN logo"><span class="name">Reliable AI Network</span></a>
+      <a class="brand" href="./"><img src="./rain-white.png" alt="RAIN logo"><span class="name">Reliable AI Network</span></a>
       <nav class="nav-links">
         <a href="./estimator.html" class="cta">Quote</a>
         <a href="./portfolio.html" class="btn-dark">Portfolio</a>
@@ -134,7 +134,7 @@
             <select id="weeks" class="input">
               <option>3</option><option>4</option><option selected>6</option><option>8</option><option>10</option><option>12</option>
             </select>
-            <div class="hint">We’ll calculate weekly effort and a milestone payment schedule.</div>
+            <div class="hint">We’ll calculate weekly effort and a payment schedule.</div>
           </div>
           <div>
             <label for="plan">Deposit / Retainer</label>
@@ -145,12 +145,23 @@
             </select>
             <div class="hint">Bigger deposit → bigger discount.</div>
           </div>
+          <div>
+            <label for="payStyle">Payment style</label>
+            <select id="payStyle" class="input">
+              <option value="milestone" selected>Milestones (recommended)</option>
+              <option value="weekly">Weekly installments</option>
+              <option value="biweekly">Bi-weekly installments</option>
+              <option value="monthly">Monthly invoices</option>
+            </select>
+            <div class="hint">Milestones map to Alpha, Beta, Launch. Installments split the remainder evenly after deposit.</div>
+          </div>
         </div>
         <div class="cta-row">
           <button id="calc" class="btn">Get Quote</button>
-          <button id="printQuote" class="btn secondary no-print" disabled>Print Quote</button>
-          <button id="savepdf" class="btn secondary no-print" disabled>Save Quote (PDF)</button>
+          <button id="printQuote" class="btn secondary no-print" disabled>Print</button>
+          <button id="savepdf" class="btn secondary no-print" disabled title="Browsers require a save dialog for PDFs. This opens Save as PDF.">Export PDF</button>
         </div>
+        <p class="footnote no-print" style="margin-top:4px">Note: For security/privacy, browsers require a save dialog for PDFs—direct auto-save isn’t allowed.</p>
       </section>
 
       <!-- Outputs (hidden until calculated) -->
@@ -194,14 +205,14 @@
     <!-- Hidden print area for PDF -->
     <section id="printArea" style="display:none; background:#fff; color:#000;">
       <div style="background:#0b1220;padding:16px 20px;display:flex;align-items:center;gap:12px">
-        <img src="./rain-white.png" alt="Reliable AI Network" style="height:28px;width:auto">
+        <img src="./rain-social-sm.png" alt="Reliable AI Network" style="height:28px;width:auto">
         <div style="color:#dbe7fb;font-weight:800;letter-spacing:.2px">Reliable AI Network — Quote</div>
       </div>
       <div id="printContent" style="padding:20px"></div>
       <div style="padding:0 20px 20px">
         <table style="width:100%;border-collapse:collapse;font-size:12px">
           <thead><tr><th style="text-align:left;padding:6px 4px;border-bottom:1px solid #ddd">Included</th><th style="text-align:left;padding:6px 4px;border-bottom:1px solid #ddd">Optional Adds</th></tr></thead>
-       	  <tbody>
+          <tbody>
             <tr>
               <td style="padding:6px 4px;border-bottom:1px solid #eee">
                 Architecture • Agents • Integrations • Data • Safety • Deployment • UX • Testing • Docs • Handover
@@ -234,9 +245,44 @@
     const RATE = 110; // USD/hour — fixed
 
     function ceil(x){ return Math.ceil(x); }
-    function round(n, d=0){ const p = 10**d; return Math.round(n*p)/p; }
     function fmtUSD(n){ return n.toLocaleString(undefined, {style:'currency', currency:'USD', maximumFractionDigits:0}); }
     function fmtH(n){ return n.toLocaleString(undefined); }
+
+    function buildScheduleRows(payStyle, weeks, netPrice, downPct){
+      const rows = [];
+      const upfront = Math.round(netPrice * downPct);
+      rows.push(['Deposit (at signing)', upfront]);
+      const remaining = netPrice - upfront;
+
+      if (payStyle === 'milestone'){
+        const w1 = Math.max(1, Math.round(weeks/3));
+        const w2 = Math.max(w1+1, Math.round(2*weeks/3));
+        const w3 = weeks;
+        const per = Math.floor(remaining / 3);
+        const paidSoFar = upfront + (per * 2);
+        const last = netPrice - paidSoFar;
+        rows.push([`Milestone 1 — Architecture freeze (Alpha) (~Week ${w1})`, per]);
+        rows.push([`Milestone 2 — Integrated agents passing evals (Beta) (~Week ${w2})`, per]);
+        rows.push([`Milestone 3 — Launch & knowledge transfer (~Week ${w3})`, last]);
+      } else {
+        const isWeekly = payStyle === 'weekly';
+        const isBiWeekly = payStyle === 'biweekly';
+        const periods = Math.max(1,
+          isWeekly ? weeks : (isBiWeekly ? Math.ceil(weeks/2) : Math.ceil(weeks/4))
+        );
+        const label = isWeekly ? 'Weekly payment ' : (isBiWeekly ? 'Bi-weekly payment ' : 'Monthly invoice ');
+
+        let per = Math.floor(remaining / periods);
+        let paid = upfront + per * periods;
+        // Adjust last payment for rounding
+        const delta = netPrice - paid;
+        for (let i=1;i<=periods;i++){
+          if (i === periods) rows.push([label + i, per + delta]);
+          else rows.push([label + i, per]);
+        }
+      }
+      return rows;
+    }
 
     function compute(){
       const agents = +document.getElementById('agents').value;
@@ -250,6 +296,7 @@
       const [downPctStr, discPctStr] = document.getElementById('plan').value.split('|');
       const downPct = +downPctStr/100;
       const discPct = +discPctStr/100;
+      const payStyle = document.getElementById('payStyle').value;
 
       // ---- Base components (before scoped adjustments)
       const base = 200;
@@ -280,20 +327,20 @@
       const safety_add = safety_scope * safetyAdder;
 
       // P50 hours = subtotal + targeted adds
-      const hoursP50 = ceil(subtotal_core + deploy_add + ux_add + safety_add);
+      const hoursP50 = Math.ceil(subtotal_core + deploy_add + ux_add + safety_add);
 
       // P90 contingency factor depends on complexity & constraints
       let p90Factor = (etl === 1.5 ? 1.25 : (etl === 1.2 ? 1.18 : 1.10));
       if (safetySel === 1.5) p90Factor += 0.05;        // regulated workflows
       if (deploy >= 1.5) p90Factor += 0.05;            // on-prem/self-host
       p90Factor = Math.min(p90Factor, 1.35);
-      const hoursP90 = ceil(hoursP50 * p90Factor);
+      const hoursP90 = Math.ceil(hoursP50 * p90Factor);
 
       const grossPrice = RATE * hoursP50;              // pricing at P50 (transparent)
       const discount = Math.round(grossPrice * discPct);
       const netPrice = grossPrice - discount;
 
-      const hoursPerWeek = ceil(hoursP50 / weeks);
+      const hoursPerWeek = Math.ceil(hoursP50 / weeks);
 
       // ---- Set headline KPIs
       document.getElementById('hours').textContent = fmtH(hoursP50) + ' h';
@@ -305,7 +352,7 @@
         : ('Deposit: ' + Math.round(downPct*100) + '% (no discount).')
       );
 
-      // ---- Milestones (labels + approximate week markers)
+      // ---- Milestones list (always shown as context)
       const w1 = Math.max(1, Math.round(weeks/3));
       const w2 = Math.max(w1+1, Math.round(2*weeks/3));
       const w3 = weeks;
@@ -316,27 +363,25 @@
       ];
       document.getElementById('milestones').innerHTML = msList.map(s => `<li>${s}</li>`).join('');
 
-      // ---- Payment schedule (deposit + 3 milestone payments)
-      const sched = document.getElementById('schedule');
-      const upfront = Math.round(netPrice * downPct);
-      let remaining = netPrice - upfront;
-      const per = Math.floor(remaining / 3);
-      const rows = [];
-      rows.push(['Deposit (at signing)', upfront]);
-      rows.push([`Milestone 1 — Architecture freeze (Alpha) (~Week ${w1})`, per]);
-      rows.push([`Milestone 2 — Integrated agents passing evals (Beta) (~Week ${w2})`, per]);
-      const paidSoFar = upfront + (per * 2);
-      const last = netPrice - paidSoFar;
-      rows.push([`Milestone 3 — Launch & knowledge transfer (~Week ${w3})`, last]);
+      // ---- Payment schedule (deposit + milestones or installments)
+      const rows = buildScheduleRows(payStyle, weeks, netPrice, downPct);
 
+      // Render schedule
+      const sched = document.getElementById('schedule');
       let rowsHtml = rows.map(r => `<tr><td>${r[0]}</td><td style="text-align:right">${fmtUSD(r[1])}</td></tr>`).join('');
-      sched.innerHTML = '<h3 class="title" style="margin:0 0 6px">Payment schedule</h3>' +
-        '<table style="width:100%; border-collapse:collapse">' +
-        '<thead><tr><th style="text-align:left">Milestone</th><th style="text-align:right">Amount</th></tr></thead>' +
-        '<tbody>' + rowsHtml + '</tbody>' +
-        '<tfoot><tr><td style="text-align:right"><strong>Total</strong></td><td style="text-align:right"><strong>' + fmtUSD(netPrice) + '</strong></td></tr></tfoot>' +
-        '</table>' +
-        `<p class="muted" style="margin-top:6px">Prefer weekly or biweekly installments instead? We can map these milestone amounts to your cadence on request.</p>`;
+      const titleSuffix = payStyle === 'milestone' ? '— Milestones' :
+                          (payStyle === 'weekly' ? '— Weekly installments' :
+                          (payStyle === 'biweekly' ? '— Bi-weekly installments' : '— Monthly invoices'));
+      sched.innerHTML = `<h3 class="title" style="margin:0 0 6px">Payment schedule ${titleSuffix}</h3>
+        <table style="width:100%; border-collapse:collapse">
+          <thead><tr><th style="text-align:left">Milestone/Installment</th><th style="text-align:right">Amount</th></tr></thead>
+          <tbody>${rowsHtml}</tbody>
+          <tfoot><tr><td style="text-align:right"><strong>Total</strong></td><td style="text-align:right"><strong>${fmtUSD(netPrice)}</strong></td></tr></tfoot>
+        </table>`;
+
+      if (payStyle === 'milestone') {
+        sched.innerHTML += `<p class="muted" style="margin-top:6px">Prefer installments instead? Switch “Payment style” above.</p>`;
+      }
 
       // ---- Hours breakdown table
       const rowsBD = [
@@ -346,7 +391,7 @@
         ['Data', `${fmtH(Math.ceil(h_data_adj))} (= 28 × ${dataSources} × data complexity ${etl}×)`],
         ['Deployment add', fmtH(Math.ceil(deploy_add)) + ` (applied to infra scope)`],
         ['UX add', fmtH(Math.ceil(ux_add)) + ` (applied to UI scope)`],
-        ['Safety add', fmtH(Math.ceil(safety_add)) + ` (35% scope × ${Math.round(safetyAdder*100)}% adder)`],
+        ['Safety add', fmtH(Math.ceil(safety_add)) + ` (35% scope × ${Math.round((safetySel===1.5?0.30:(safetySel===1.2?0.15:0))*100)}% adder)`],
         ['Total P50', `<strong>${fmtH(hoursP50)}</strong>`],
         ['Total P90', `<strong>${fmtH(hoursP90)}</strong>`]
       ];
@@ -360,7 +405,7 @@
          <div><strong>Data complexity</strong> (${etl}×) applies to data work in full and to <em>30%</em> of integrations.</div>
          <div><strong>Deployment</strong> (${deploy}×) is applied only to infra scope (50% of base + integrations) as an add-on, not to all work.</div>
          <div><strong>UX depth</strong> (${ux}×) is applied only to UI scope (30% of base + 20% of agent work).</div>
-         <div><strong>Safety/compliance</strong> adds <em>${Math.round(safetyAdder*100)}%</em> to a targeted <em>35%</em> scope fraction (policy design, eval harness, validation).</div>
+         <div><strong>Safety/compliance</strong> adds to a targeted <em>35%</em> scope fraction (policy design, eval harness, validation).</div>
          <div><strong>P50/P90</strong> hours reflect typical contingency based on your complexity/deployment choices.</div>
          <div><strong>Rate</strong> $${RATE} / hour · <strong>Discount</strong> ${Math.round(discPct*100)}% for selected deposit.</div>`;
 
@@ -374,13 +419,13 @@
       const details =
         `<div style="font-size:18px;margin:0 0 4px"><strong>Total</strong>: ${fmtUSD(netPrice)}</div>
          <div style="margin:2px 0"><strong>Effort</strong>: ${fmtH(hoursP50)} h (P50) · ${fmtH(hoursP90)} h (P90)</div>
-         <div style="margin:2px 0"><strong>Timeline</strong>: ${weeks} weeks · ${fmtH(hoursPerWeek)} h/week</div>
+         <div style="margin:2px 0"><strong>Timeline</strong>: ${weeks} weeks · ${fmtH(Math.ceil(hoursP50/weeks))} h/week</div>
          <div style="margin:2px 0"><strong>Rate</strong>: $${RATE}/hour</div>
-         <div style="margin:2px 0"><strong>Deposit</strong>: ${Math.round(downPct*100)}% · <strong>Discount</strong>: ${Math.round(discPct*100)}% (${fmtUSD(discount)})</div>
+         <div style="margin:2px 0"><strong>Deposit</strong>: ${Math.round(downPct*100)}% · <strong>Discount</strong>: ${Math.round(discPct*100)}% (${fmtUSD(Math.round(RATE*hoursP50*discPct))})</div>
          <hr style="margin:10px 0">
-         <div style="font-weight:600;margin:6px 0 4px">Milestone payments</div>
+         <div style="font-weight:600;margin:6px 0 4px">Payment schedule ${titleSuffix}</div>
          <table style="width:100%; border-collapse:collapse">
-           <thead><tr><th style="text-align:left;padding:6px 4px;border-bottom:1px solid #ddd">Milestone</th><th style="text-align:right;padding:6px 4px;border-bottom:1px solid #ddd">Amount</th></tr></thead>
+           <thead><tr><th style="text-align:left;padding:6px 4px;border-bottom:1px solid #ddd">Milestone/Installment</th><th style="text-align:right;padding:6px 4px;border-bottom:1px solid #ddd">Amount</th></tr></thead>
            <tbody>${printableRows}</tbody>
            <tfoot><tr><td style="text-align:right;padding:6px 4px;border-top:2px solid #000"><strong>Total</strong></td><td style="text-align:right;padding:6px 4px;border-top:2px solid #000"><strong>${fmtUSD(netPrice)}</strong></td></tr></tfoot>
          </table>
@@ -415,12 +460,16 @@
     }
 
     function printQuote(){ const w = openPrintWindow(); w.focus(); w.print(); }
-    function savePDF(){ const w = openPrintWindow(); w.focus(); w.print(); } // "Save as PDF" via print dialog
+    function savePDF(){ const w = openPrintWindow(); w.focus(); w.print(); } // Browsers require a dialog to save PDFs
 
     document.addEventListener('DOMContentLoaded', function(){
       document.getElementById('calc').addEventListener('click', compute);
       document.getElementById('printQuote').addEventListener('click', printQuote);
       document.getElementById('savepdf').addEventListener('click', savePDF);
+      document.getElementById('payStyle').addEventListener('change', () => {
+        // Recompute schedule quickly if a quote is already visible
+        if (document.getElementById('outputs').style.display !== 'none') compute();
+      });
     });
   </script>
 </body>
