@@ -7,23 +7,43 @@
   <link rel="icon" href="./rain-social.png" type="image/png">
   <link rel="stylesheet" href="./styles.css">
   <style>
+    :root{
+      --ink:#e2e8f0;
+      --muted:#94a3b8;
+      --panel:#0b1220;
+      --brand1:#4f46e5;
+      --brand2:#06b6d4;
+    }
     .estimator h1.hero-title{font-size:clamp(24px,3vw,36px);line-height:1.15;margin:0 0 6px;color:#dbe7fb}
     .estimator p.lead{color:#9fb3ca;max-width:980px;margin:8px 0 18px}
     .estimator .wrap{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
     .estimator .input-grid{display:grid;gap:12px}
     @media (min-width: 980px){ .estimator .input-grid{grid-template-columns:1fr 1fr} }
-    .estimator label{font-weight:700;color:#e2e8f0}
-    .hint{font-size:12px;color:#94a3b8;margin-top:4px}
-    .muted{color:#94a3b8}
+    .estimator label{font-weight:700;color:var(--ink)}
+    .hint{font-size:12px;color:var(--muted);margin-top:4px}
+    .muted{color:var(--muted)}
     .estimator .cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
     .estimator .two-up{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .estimator .three-up{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
     .quote-num{font-size:22px;font-weight:800}
     .num-xxl{font-size:20px;font-weight:800}
     .num-lg{font-size:18px;font-weight:700}
-    .btn{display:inline-block;padding:12px 16px;border-radius:12px;font-weight:700;background:linear-gradient(135deg,#4f46e5,#06b6d4);color:white;box-shadow:0 8px 20px rgba(0,0,0,.35)}
-    .btn.secondary{background:rgba(2,6,23,.6);border:1px solid rgba(148,163,184,.18);color:#e2e8f0}
-    .small-title{font-size:13px;letter-spacing:.2px;color:#94a3b8;margin:0}
-    @media print{.nav,.cta-row,.no-print,header,footer{display:none !important} body{background:#fff;color:#000} .panel{border:1px solid #999; box-shadow:none} a{color:#000;text-decoration:none} }
+    .btn{display:inline-block;padding:12px 16px;border-radius:12px;font-weight:700;background:linear-gradient(135deg,var(--brand1),var(--brand2));color:white;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+    .btn.secondary{background:rgba(2,6,23,.6);border:1px solid rgba(148,163,184,.18);color:var(--ink)}
+    .small-title{font-size:13px;letter-spacing:.2px;color:var(--muted);margin:0}
+    .calc-list div{margin:2px 0}
+    .kpi{display:flex;align-items:baseline;gap:8px}
+    .kpi .label{font-size:12px;color:var(--muted)}
+    .breakdown-table{width:100%;border-collapse:collapse;margin-top:6px}
+    .breakdown-table td,.breakdown-table th{padding:6px 4px;border-bottom:1px solid rgba(148,163,184,.18)}
+    .badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;background:rgba(148,163,184,.18);color:var(--ink)}
+    .footnote{font-size:12px;color:var(--muted)}
+    @media print{
+      .nav,.cta-row,.no-print,header,footer{display:none !important}
+      body{background:#fff;color:#000}
+      .panel{border:1px solid #999; box-shadow:none}
+      a{color:#000;text-decoration:none}
+    }
   </style>
 </head>
 <body>
@@ -40,8 +60,8 @@
   <main class="container section estimator">
     <h1 class="hero-title">Build your quote</h1>
     <p class="lead">
-      Provide a few details. We’ll estimate low‑side senior‑engineer hours and generate a clear quote you can print or save as a PDF.<br>
-      <strong>Send us your locked‑in quote when you’re ready to begin!</strong>
+      Provide a few details. We’ll estimate low-side senior-engineer hours and generate a clear quote you can print or save as a PDF.<br>
+      <strong>Send us your locked-in quote when you’re ready to begin!</strong>
     </p>
 
     <div class="wrap">
@@ -80,7 +100,7 @@
               <option value="1.2">Moderate — 100k–1M rows or 51–200 cols</option>
               <option value="1.5">Complex — ≥1M rows or ≥200 cols</option>
             </select>
-            <div class="hint">Applies to hours, not rate. Thresholds reflect typical ETL/validation effort.</div>
+            <div class="hint">Applied to data work (and 30% of integrations), not the whole project.</div>
           </div>
           <div>
             <label for="safety">Safety &amp; Compliance</label>
@@ -89,49 +109,41 @@
               <option value="1.2">Enhanced / light compliance</option>
               <option value="1.5">Regulated workflows</option>
             </select>
-            <div class="hint">Hours increase with stricter policies & validation.</div>
+            <div class="hint">Adds targeted effort for policy, evals & validation (not a blanket multiplier).</div>
           </div>
           <div>
             <label for="deploy">Deployment</label>
             <select id="deploy" class="input">
-              <option value="1.0">Cloud PaaS, single‑tenant</option>
+              <option value="1.0">Cloud PaaS, single-tenant</option>
               <option value="1.3">Hybrid or multiple clouds</option>
-              <option value="1.5">On‑prem / self‑hosted models</option>
+              <option value="1.5">On-prem / self-hosted models</option>
             </select>
-            <div class="hint">Infra complexity affects integration & CI/CD effort.</div>
+            <div class="hint">Impacts infra, CI/CD & integration enablement—not the entire scope.</div>
           </div>
           <div>
             <label for="ux">UX Depth</label>
             <select id="ux" class="input">
               <option value="1.0">Chat + traces</option>
               <option value="1.2">Dashboards + reports</option>
-              <option value="1.4">Multi‑role app &amp; admin</option>
+              <option value="1.4">Multi-role app &amp; admin</option>
             </select>
-            <div class="hint">UI scope and roles.</div>
+            <div class="hint">UI scope and roles; applied to UI-heavy portions only.</div>
           </div>
           <div>
             <label for="weeks">Target timeline (weeks)</label>
             <select id="weeks" class="input">
               <option>3</option><option>4</option><option selected>6</option><option>8</option><option>10</option><option>12</option>
             </select>
-            <div class="hint">We’ll calculate weekly effort and a payment schedule.</div>
+            <div class="hint">We’ll calculate weekly effort and a milestone payment schedule.</div>
           </div>
           <div>
-            <label for="plan">Down Payment</label>
+            <label for="plan">Deposit / Retainer</label>
             <select id="plan" class="input">
-              <option value="10|0">10% down</option>
-              <option value="20|5">20% down (+5% discount)</option>
-              <option value="50|10">50% down (10% discount)</option>
+              <option value="10|0">10% deposit</option>
+              <option value="20|5">20% deposit (+5% discount)</option>
+              <option value="50|10">50% deposit (10% discount)</option>
             </select>
-            <div class="hint">Bigger down payment → bigger discount.</div>
-          </div>
-          <div>
-            <label for="cadence">Billing cadence</label>
-            <select id="cadence" class="input">
-              <option value="weekly">Weekly</option>
-              <option value="biweekly" selected>Biweekly</option>
-            </select>
-            <div class="hint">We’ll split the remaining balance across your cadence.</div>
+            <div class="hint">Bigger deposit → bigger discount.</div>
           </div>
         </div>
         <div class="cta-row">
@@ -142,45 +154,75 @@
       </section>
 
       <!-- Outputs (hidden until calculated) -->
+      <section id="outputs" class="panel" style="display:none">
+        <div class="three-up">
+          <div class="panel">
+            <div><strong>Your Project Quote</strong></div>
+            <div id="quote" class="quote-num">—</div>
+            <div id="discountLine" class="muted" style="margin-top:6px"></div>
+          </div>
+          <div class="panel">
+            <div class="kpi"><div class="num-xxl" id="hours">—</div><div class="label">P50 hours</div></div>
+            <div class="kpi"><div class="num-lg" id="hoursP90">—</div><div class="label">P90 hours</div></div>
+            <div id="weekly" class="num-lg muted">—</div>
+          </div>
+          <div class="panel">
+            <div><strong>Milestones (typical)</strong></div>
+            <ul id="milestones" class="muted" style="margin:6px 0 0 16px"></ul>
+          </div>
+        </div>
 
-<section id="outputs" class="panel" style="display:none">
-  <div class="two-up">
-    <div class="panel">
-      <div><strong>Your Project Quote</strong></div>
-      <div id="quote" class="quote-num">—</div>
-      <div id="discountLine" class="muted" style="margin-top:6px"></div>
-    </div>
-    <div class="panel">
-      <div><strong>Effort &amp; timeline</strong></div>
-      <div id="hours" class="num-xxl">—</div>
-      <div id="weekly" class="num-lg muted">—</div>
-    </div>
-  </div>
+        <div id="schedule" class="panel" style="margin-top:12px"></div>
 
-  <div id="schedule" class="panel" style="margin-top:12px"></div>
+        <div class="panel" style="margin-top:12px">
+          <h4 class="small-title">Hours breakdown</h4>
+          <table class="breakdown-table" id="hoursBreakdown"></table>
+        </div>
 
-  <div class="panel" style="margin-top:12px">
-    <h4 class="small-title">How this is calculated</h4>
-    <div id="calcExplain" class="calc-list muted"></div>
-  </div>
-</section>
+        <div class="panel" style="margin-top:12px">
+          <h4 class="small-title">How this is calculated</h4>
+          <div id="calcExplain" class="calc-list muted"></div>
+        </div>
 
+        <p class="footnote" style="margin-top:8px">
+          <span class="badge">P50</span> is the most-likely effort; <span class="badge">P90</span> includes typical unknowns (vendor auth, data cleanup, policy reviews).
+          Pricing reflects P50 with deposit discount. If scope changes, we’ll update before proceeding.
+        </p>
+      </section>
     </div>
 
     <!-- Hidden print area for PDF -->
-    <section id="printArea" style="display:none; background:#fff; color:#000; padding:24px">
-      <h1 style="margin:0 0 4px">Reliable AI Network — Quote</h1>
-      <div id="printContent"></div>
-      <p style="margin-top:16px;font-size:12px">Generated on <span id="genDate"></span></p>
-<script>
-// Add this near your other DOMContentLoaded code:
-document.addEventListener('DOMContentLoaded', function () {
-  const d = new Date();
-  const fmt = d.toLocaleDateString(undefined, { year:'numeric', month:'2-digit', day:'2-digit' });
-  const node = document.getElementById('genDate');
-  if (node) node.textContent = fmt;
-});
-</script>
+    <section id="printArea" style="display:none; background:#fff; color:#000;">
+      <div style="background:#0b1220;padding:16px 20px;display:flex;align-items:center;gap:12px">
+        <img src="./rain-white.png" alt="Reliable AI Network" style="height:28px;width:auto">
+        <div style="color:#dbe7fb;font-weight:800;letter-spacing:.2px">Reliable AI Network — Quote</div>
+      </div>
+      <div id="printContent" style="padding:20px"></div>
+      <div style="padding:0 20px 20px">
+        <table style="width:100%;border-collapse:collapse;font-size:12px">
+          <thead><tr><th style="text-align:left;padding:6px 4px;border-bottom:1px solid #ddd">Included</th><th style="text-align:left;padding:6px 4px;border-bottom:1px solid #ddd">Optional Adds</th></tr></thead>
+       	  <tbody>
+            <tr>
+              <td style="padding:6px 4px;border-bottom:1px solid #eee">
+                Architecture • Agents • Integrations • Data • Safety • Deployment • UX • Testing • Docs • Handover
+              </td>
+              <td style="padding:6px 4px;border-bottom:1px solid #eee">
+                Eval-harness • Guardrails • Observability • On-prem connector • Training workshop
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:11px;color:#444;margin-top:8px">Generated on <span id="genDate"></span>. Rates: $110/hr, standard Net 15. Simple and clear—ask if you prefer weekly ACH.</p>
+      </div>
+      <script>
+        // Print date
+        (function () {
+          const d = new Date();
+          const fmt = d.toLocaleDateString(undefined, { year:'numeric', month:'2-digit', day:'2-digit' });
+          const node = document.getElementById('genDate');
+          if (node) node.textContent = fmt;
+        })();
+      </script>
     </section>
   </main>
 
@@ -192,104 +234,171 @@ document.addEventListener('DOMContentLoaded', function () {
     const RATE = 110; // USD/hour — fixed
 
     function ceil(x){ return Math.ceil(x); }
+    function round(n, d=0){ const p = 10**d; return Math.round(n*p)/p; }
     function fmtUSD(n){ return n.toLocaleString(undefined, {style:'currency', currency:'USD', maximumFractionDigits:0}); }
+    function fmtH(n){ return n.toLocaleString(undefined); }
 
     function compute(){
       const agents = +document.getElementById('agents').value;
       const integrations = +document.getElementById('integrations').value;
       const dataSources = +document.getElementById('dataSources').value;
-      const etl = +document.getElementById('etl').value;
-      const safety = +document.getElementById('safety').value;
-      const deploy = +document.getElementById('deploy').value;
-      const ux = +document.getElementById('ux').value;
+      const etl = +document.getElementById('etl').value;            // 1.0 / 1.2 / 1.5
+      const safetySel = +document.getElementById('safety').value;   // 1.0 / 1.2 / 1.5  -> adder mapping below
+      const deploy = +document.getElementById('deploy').value;      // 1.0 / 1.3 / 1.5
+      const ux = +document.getElementById('ux').value;              // 1.0 / 1.2 / 1.4
       const weeks = +document.getElementById('weeks').value;
       const [downPctStr, discPctStr] = document.getElementById('plan').value.split('|');
       const downPct = +downPctStr/100;
       const discPct = +discPctStr/100;
-      const cadence = document.getElementById('cadence').value;
 
-      let base = 200;
-      let h_agents = 32 * agents;
-      let h_integrations = 24 * integrations;
-      let h_data = 28 * dataSources;
+      // ---- Base components (before scoped adjustments)
+      const base = 200;
+      const h_agents_raw = 32 * agents;
+      const h_integrations_raw = 24 * integrations;
+      const h_data_raw = 28 * dataSources;
 
-      let conventional = base + h_agents + h_integrations + h_data;
-      conventional = ceil(conventional * etl);
-      conventional = ceil(conventional * safety);
-      conventional = ceil(conventional * deploy);
-      conventional = ceil(conventional * ux);
+      // ---- Scope-aware adjustments
+      // Data complexity applies fully to data and 30% of integrations
+      const h_data_adj = h_data_raw * etl;
+      const h_integrations_adj = h_integrations_raw * (1 + 0.30 * (etl - 1));
 
-      let hours = ceil(conventional * 0.25 * 0.90);
+      // Subtotal of core build work
+      const subtotal_core = base + h_agents_raw + h_integrations_adj + h_data_adj;
 
-      const grossPrice = RATE * hours;
+      // Deployment applies to infra-heavy portions (50% of base + all integrations)
+      const deploy_scope = (base * 0.50) + h_integrations_adj;
+      const deploy_add = deploy_scope * (deploy - 1);
+
+      // UX applies to UI-heavy portions (30% of base + 20% of agent work)
+      const ux_scope = (base * 0.30) + (h_agents_raw * 0.20);
+      const ux_add = ux_scope * (ux - 1);
+
+      // Safety/Compliance as an adder on a targeted scope fraction (35% of subtotal)
+      // Map selection to adders (not multipliers): 1.0 -> 0.00, 1.2 -> 0.15, 1.5 -> 0.30
+      const safetyAdder = safetySel === 1.5 ? 0.30 : (safetySel === 1.2 ? 0.15 : 0.00);
+      const safety_scope = subtotal_core * 0.35;
+      const safety_add = safety_scope * safetyAdder;
+
+      // P50 hours = subtotal + targeted adds
+      const hoursP50 = ceil(subtotal_core + deploy_add + ux_add + safety_add);
+
+      // P90 contingency factor depends on complexity & constraints
+      let p90Factor = (etl === 1.5 ? 1.25 : (etl === 1.2 ? 1.18 : 1.10));
+      if (safetySel === 1.5) p90Factor += 0.05;        // regulated workflows
+      if (deploy >= 1.5) p90Factor += 0.05;            // on-prem/self-host
+      p90Factor = Math.min(p90Factor, 1.35);
+      const hoursP90 = ceil(hoursP50 * p90Factor);
+
+      const grossPrice = RATE * hoursP50;              // pricing at P50 (transparent)
       const discount = Math.round(grossPrice * discPct);
       const netPrice = grossPrice - discount;
 
-      const hoursPerWeek = ceil(hours / weeks);
+      const hoursPerWeek = ceil(hoursP50 / weeks);
 
-      document.getElementById('hours').textContent = hours + ' hours';
-      document.getElementById('weekly').textContent = weeks + ' weeks · ' + hoursPerWeek + ' hours/week';
+      // ---- Set headline KPIs
+      document.getElementById('hours').textContent = fmtH(hoursP50) + ' h';
+      document.getElementById('hoursP90').textContent = fmtH(hoursP90) + ' h';
+      document.getElementById('weekly').textContent = weeks + ' weeks · ' + fmtH(hoursPerWeek) + ' h/week';
       document.getElementById('quote').textContent = fmtUSD(netPrice);
       document.getElementById('discountLine').textContent = (discount>0
-        ? ('Includes ' + Math.round(discPct*100) + '% discount (' + fmtUSD(discount) + ') for a ' + Math.round(downPct*100) + '% down payment.')
-        : ('Down payment: ' + Math.round(downPct*100) + '% (no discount).')
+        ? ('Includes ' + Math.round(discPct*100) + '% discount (' + fmtUSD(discount) + ') for a ' + Math.round(downPct*100) + '% deposit.')
+        : ('Deposit: ' + Math.round(downPct*100) + '% (no discount).')
       );
 
-      // Payment schedule
+      // ---- Milestones (labels + approximate week markers)
+      const w1 = Math.max(1, Math.round(weeks/3));
+      const w2 = Math.max(w1+1, Math.round(2*weeks/3));
+      const w3 = weeks;
+      const msList = [
+        `Architecture freeze (Alpha) · ~Week ${w1}`,
+        `Integrated agents pass evals (Beta) · ~Week ${w2}`,
+        `Launch & knowledge transfer · ~Week ${w3}`
+      ];
+      document.getElementById('milestones').innerHTML = msList.map(s => `<li>${s}</li>`).join('');
+
+      // ---- Payment schedule (deposit + 3 milestone payments)
       const sched = document.getElementById('schedule');
-      const periods = Math.max(1, cadence === 'weekly' ? weeks : ceil(weeks / 2));
-      const label = cadence === 'weekly' ? 'Weekly payment ' : 'Biweekly payment ';
       const upfront = Math.round(netPrice * downPct);
       let remaining = netPrice - upfront;
-      const per = Math.floor(remaining / periods);
+      const per = Math.floor(remaining / 3);
       const rows = [];
-      rows.push(['Upfront (at signing)', upfront]);
-      for (let i=1;i<=periods;i++){ rows.push([label + i, per]); }
-      const paidSoFar = upfront + per * periods;
-      const delta = netPrice - paidSoFar;
-      rows[rows.length-1][1] += delta;
+      rows.push(['Deposit (at signing)', upfront]);
+      rows.push([`Milestone 1 — Architecture freeze (Alpha) (~Week ${w1})`, per]);
+      rows.push([`Milestone 2 — Integrated agents passing evals (Beta) (~Week ${w2})`, per]);
+      const paidSoFar = upfront + (per * 2);
+      const last = netPrice - paidSoFar;
+      rows.push([`Milestone 3 — Launch & knowledge transfer (~Week ${w3})`, last]);
 
-      let rowsHtml = rows.map(function(r){ return '<tr><td>' + r[0] + '</td><td style="text-align:right">' + fmtUSD(r[1]) + '</td></tr>'; }).join('');
+      let rowsHtml = rows.map(r => `<tr><td>${r[0]}</td><td style="text-align:right">${fmtUSD(r[1])}</td></tr>`).join('');
       sched.innerHTML = '<h3 class="title" style="margin:0 0 6px">Payment schedule</h3>' +
         '<table style="width:100%; border-collapse:collapse">' +
         '<thead><tr><th style="text-align:left">Milestone</th><th style="text-align:right">Amount</th></tr></thead>' +
         '<tbody>' + rowsHtml + '</tbody>' +
         '<tfoot><tr><td style="text-align:right"><strong>Total</strong></td><td style="text-align:right"><strong>' + fmtUSD(netPrice) + '</strong></td></tr></tfoot>' +
-        '</table>';
+        '</table>' +
+        `<p class="muted" style="margin-top:6px">Prefer weekly or biweekly installments instead? We can map these milestone amounts to your cadence on request.</p>`;
 
-const calcExplain = document.getElementById('calcExplain');
-calcExplain.innerHTML =
-  '<div><strong>Baseline</strong> 200 + 32×agents + 24×integrations + 28×data sources</div>' +
-  '<div><strong>Multipliers</strong> Data=' + etl + '× · Safety=' + safety + '× · Deployment=' + deploy + '× · UX=' + ux + '×</div>' +
-  '<div><strong>Hours</strong> Low-side senior estimate (modern tooling)</div>' +
-  '<div><strong>Rate</strong> $' + RATE + ' / hour</div>' +
-  '<div><strong>Discount</strong> ' + Math.round(discPct*100) + '% applied for chosen down payment</div>';
+      // ---- Hours breakdown table
+      const rowsBD = [
+        ['Base', fmtH(base)],
+        ['Agents', `${fmtH(h_agents_raw)} (= 32 × ${agents})`],
+        ['Integrations', `${fmtH(Math.ceil(h_integrations_adj))} (incl. ${Math.round(30*(etl-1))}% data complexity share)`],
+        ['Data', `${fmtH(Math.ceil(h_data_adj))} (= 28 × ${dataSources} × data complexity ${etl}×)`],
+        ['Deployment add', fmtH(Math.ceil(deploy_add)) + ` (applied to infra scope)`],
+        ['UX add', fmtH(Math.ceil(ux_add)) + ` (applied to UI scope)`],
+        ['Safety add', fmtH(Math.ceil(safety_add)) + ` (35% scope × ${Math.round(safetyAdder*100)}% adder)`],
+        ['Total P50', `<strong>${fmtH(hoursP50)}</strong>`],
+        ['Total P90', `<strong>${fmtH(hoursP90)}</strong>`]
+      ];
+      document.getElementById('hoursBreakdown').innerHTML =
+        '<tbody>' + rowsBD.map(([k,v])=>`<tr><td style="width:56%">${k}</td><td style="text-align:right">${v}</td></tr>`).join('') + '</tbody>';
 
-      // Enable outputs & buttons
+      // ---- "How this is calculated" narrative
+      const calcExplain = document.getElementById('calcExplain');
+      calcExplain.innerHTML =
+        `<div><strong>Baseline</strong> = 200 + 32×agents + 24×integrations + 28×data sources.</div>
+         <div><strong>Data complexity</strong> (${etl}×) applies to data work in full and to <em>30%</em> of integrations.</div>
+         <div><strong>Deployment</strong> (${deploy}×) is applied only to infra scope (50% of base + integrations) as an add-on, not to all work.</div>
+         <div><strong>UX depth</strong> (${ux}×) is applied only to UI scope (30% of base + 20% of agent work).</div>
+         <div><strong>Safety/compliance</strong> adds <em>${Math.round(safetyAdder*100)}%</em> to a targeted <em>35%</em> scope fraction (policy design, eval harness, validation).</div>
+         <div><strong>P50/P90</strong> hours reflect typical contingency based on your complexity/deployment choices.</div>
+         <div><strong>Rate</strong> $${RATE} / hour · <strong>Discount</strong> ${Math.round(discPct*100)}% for selected deposit.</div>`;
+
+      // ---- Enable outputs & buttons
       document.getElementById('outputs').style.display = 'block';
       document.getElementById('printQuote').disabled = false;
       document.getElementById('savepdf').disabled = false;
 
-      // Prepare printable content
-      const printableRows = rows.map(function(r){ return '<tr><td>' + r[0] + '</td><td style="text-align:right">' + fmtUSD(r[1]) + '</td></tr>'; }).join('');
+      // ---- Prepare printable content
+      const printableRows = rows.map(r => `<tr><td>${r[0]}</td><td style="text-align:right">${fmtUSD(r[1])}</td></tr>`).join('');
       const details =
-        '<div style="font-size:18px"><strong>Your Project Quote</strong>: ' + fmtUSD(netPrice) + '</div>' +
-        '<div><strong>Effort</strong>: ' + hours + ' hours</div>' +
-        '<div><strong>Timeline</strong>: ' + weeks + ' weeks · ' + hoursPerWeek + ' hours/week</div>' +
-        '<div><strong>Rate</strong>: $' + 110 + '/hour</div>' +
-        '<div><strong>Down payment</strong>: ' + Math.round(downPct*100) + '% · <strong>Discount</strong>: ' + Math.round(discPct*100) + '% (' + fmtUSD(discount) + ')</div>' +
-        '<hr>' +
-        '<div><strong>Project</strong>: Agents=' + agents + ', Other integrations & tools=' + integrations + ', Data sources=' + dataSources + '</div>' +
-        '<div><strong>Scope</strong>: Data=' + etl + '×, Safety=' + safety + '×, Deployment=' + deploy + '×, UX=' + ux + '×</div>' +
-        '<hr>' +
-        '<div><strong>Payment schedule</strong>:</div>' +
-        '<div>' +
-          '<table style="width:100%; border-collapse:collapse">' +
-            '<thead><tr><th style="text-align:left">Milestone</th><th style="text-align:right">Amount</th></tr></thead>' +
-            '<tbody>' + printableRows + '</tbody>' +
-            '<tfoot><tr><td style="text-align:right"><strong>Total</strong></td><td style="text-align:right"><strong>' + fmtUSD(netPrice) + '</strong></td></tr></tfoot>' +
-          '</table>' +
-        '</div>';
+        `<div style="font-size:18px;margin:0 0 4px"><strong>Total</strong>: ${fmtUSD(netPrice)}</div>
+         <div style="margin:2px 0"><strong>Effort</strong>: ${fmtH(hoursP50)} h (P50) · ${fmtH(hoursP90)} h (P90)</div>
+         <div style="margin:2px 0"><strong>Timeline</strong>: ${weeks} weeks · ${fmtH(hoursPerWeek)} h/week</div>
+         <div style="margin:2px 0"><strong>Rate</strong>: $${RATE}/hour</div>
+         <div style="margin:2px 0"><strong>Deposit</strong>: ${Math.round(downPct*100)}% · <strong>Discount</strong>: ${Math.round(discPct*100)}% (${fmtUSD(discount)})</div>
+         <hr style="margin:10px 0">
+         <div style="font-weight:600;margin:6px 0 4px">Milestone payments</div>
+         <table style="width:100%; border-collapse:collapse">
+           <thead><tr><th style="text-align:left;padding:6px 4px;border-bottom:1px solid #ddd">Milestone</th><th style="text-align:right;padding:6px 4px;border-bottom:1px solid #ddd">Amount</th></tr></thead>
+           <tbody>${printableRows}</tbody>
+           <tfoot><tr><td style="text-align:right;padding:6px 4px;border-top:2px solid #000"><strong>Total</strong></td><td style="text-align:right;padding:6px 4px;border-top:2px solid #000"><strong>${fmtUSD(netPrice)}</strong></td></tr></tfoot>
+         </table>
+         <hr style="margin:10px 0">
+         <div style="font-weight:600;margin:6px 0 4px">Hours breakdown</div>
+         <table style="width:100%;border-collapse:collapse;font-size:12px">
+           <tbody>
+             <tr><td style="padding:4px 4px;border-bottom:1px solid #eee">Base</td><td style="text-align:right;padding:4px 4px;border-bottom:1px solid #eee">${fmtH(base)}</td></tr>
+             <tr><td style="padding:4px 4px;border-bottom:1px solid #eee">Agents</td><td style="text-align:right;padding:4px 4px;border-bottom:1px solid #eee">${fmtH(h_agents_raw)}</td></tr>
+             <tr><td style="padding:4px 4px;border-bottom:1px solid #eee">Integrations (adj.)</td><td style="text-align:right;padding:4px 4px;border-bottom:1px solid #eee">${fmtH(Math.ceil(h_integrations_adj))}</td></tr>
+             <tr><td style="padding:4px 4px;border-bottom:1px solid #eee">Data (adj.)</td><td style="text-align:right;padding:4px 4px;border-bottom:1px solid #eee">${fmtH(Math.ceil(h_data_adj))}</td></tr>
+             <tr><td style="padding:4px 4px;border-bottom:1px solid #eee">Deployment add</td><td style="text-align:right;padding:4px 4px;border-bottom:1px solid #eee">${fmtH(Math.ceil(deploy_add))}</td></tr>
+             <tr><td style="padding:4px 4px;border-bottom:1px solid #eee">UX add</td><td style="text-align:right;padding:4px 4px;border-bottom:1px solid #eee">${fmtH(Math.ceil(ux_add))}</td></tr>
+             <tr><td style="padding:4px 4px;border-bottom:1px solid #eee">Safety add</td><td style="text-align:right;padding:4px 4px;border-bottom:1px solid #eee">${fmtH(Math.ceil(safety_add))}</td></tr>
+             <tr><td style="padding:4px 4px;border-top:2px solid #000"><strong>Total P50</strong></td><td style="text-align:right;padding:4px 4px;border-top:2px solid #000"><strong>${fmtH(hoursP50)}</strong></td></tr>
+           </tbody>
+         </table>`;
+
       document.getElementById('printContent').innerHTML = details;
     }
 
@@ -297,8 +406,8 @@ calcExplain.innerHTML =
       const content = document.getElementById('printArea').innerHTML;
       const w = window.open('', 'rain_quote', 'width=900,height=700');
       w.document.write('<!doctype html><html><head><title>RAIN Quote</title>' +
-        '<meta charset=\'utf-8\'><meta name=\'viewport\' content=\'width=device-width,initial-scale=1\'>' +
-        '<style>body{font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial; padding:24px}' +
+        '<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
+        '<style>body{font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial;}' +
         'h1{margin:0 0 8px} table{width:100%; border-collapse:collapse} th,td{padding:6px 4px; border-bottom:1px solid #ddd}' +
         'tfoot td{border-top:2px solid #000} .muted{color:#555}</style></head><body>' + content + '</body></html>');
       w.document.close();
@@ -306,13 +415,12 @@ calcExplain.innerHTML =
     }
 
     function printQuote(){ const w = openPrintWindow(); w.focus(); w.print(); }
-    function savePDF(){ const w = openPrintWindow(); w.focus(); w.print(); } // browsers allow "Save as PDF" from print dialog
+    function savePDF(){ const w = openPrintWindow(); w.focus(); w.print(); } // "Save as PDF" via print dialog
 
     document.addEventListener('DOMContentLoaded', function(){
       document.getElementById('calc').addEventListener('click', compute);
       document.getElementById('printQuote').addEventListener('click', printQuote);
       document.getElementById('savepdf').addEventListener('click', savePDF);
-      // Do not auto-compute; outputs remain hidden until user clicks "Get Quote"
     });
   </script>
 </body>
