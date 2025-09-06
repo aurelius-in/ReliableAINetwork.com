@@ -99,31 +99,29 @@ label{display:block;margin:6px 0 4px;color:#cbd5e1;font-size:14px;font-weight:70
   @keyframes fade{from{opacity:0; transform: translateY(8px)} to{opacity:1; transform:none}}
 }
 
-/* Splash overlay: GIF full-height, crossfade to logo, then out */
-.splash{
-  position:fixed; inset:0; background:#000;
-  display:flex; align-items:flex-start; justify-content:center;
-  z-index:1000; opacity:1; transition: opacity .8s ease;
-}
-.splash .layer{
-  position:absolute; inset:0;
-  display:flex; align-items:flex-start; justify-content:center;
-  opacity:0; transition: opacity 2s ease; /* 2s crossfade */
-}
-.splash .gif-layer{ opacity:1; }           /* start with GIF visible */
-.splash img.splash-media{
-  height:100vh; width:auto; /* fill vertically, maintain aspect */
-  object-fit:contain; object-position: top center;
-  margin:0; border:0;
-}
+/* ----- Splash sequencing & crossfade ----- */
+.splash{position:fixed;inset:0;background:#000;z-index:9999;display:block;opacity:1;transition:opacity 400ms ease}
+.splash.fade-out{opacity:0;pointer-events:none}
+.splash .layer{position:absolute;inset:0;display:grid;place-items:center}
+.splash .splash-media{max-width:min(90vw,920px);max-height:80vh}
+
+/* start with GIF visible, logo hidden */
+.splash.sequence-start .gif-layer{opacity:1;transition:opacity 400ms ease}
+.splash.sequence-start .logo-layer{opacity:0;transition:opacity 400ms ease}
+
+/* when show-logo is added, crossfade */
+.splash.show-logo .gif-layer{opacity:0}
+.splash.show-logo .logo-layer{opacity:1}
+
+/* ----- Skip button: mostly transparent, dark blue, light grey text ----- */
 .splash .skip{
-  position:fixed; bottom:24px; right:24px; background:#111; color:#fff;
-  border:1px solid rgba(255,255,255,.2); padding:10px 14px; border-radius:999px;
-  cursor:pointer; font-weight:700
+  position:absolute;right:16px;bottom:16px;
+  padding:6px 10px;border-radius:999px;
+  background:rgba(17,34,64,.32); /* dark navy, mostly transparent */
+  border:1px solid rgba(148,163,184,.35);
+  color:#cbd5e1; /* light gray text */
+  font-weight:600;letter-spacing:.2px;
+  box-shadow:none;backdrop-filter:blur(2px);
 }
-/* After 8s, show-logo toggles: */
-.splash.show-logo .gif-layer{ opacity:0; }
-.splash.show-logo .logo-layer{ opacity:1; }
-/* Fade out overlay entirely: */
-.splash.fade-out{ opacity:0; }
-.splash[hidden]{ display:none; }
+.splash .skip:hover{background:rgba(17,34,64,.45);color:#e2e8f0}
+.splash .skip:focus-visible{outline:2px solid rgba(99,102,241,.6);outline-offset:2px}
