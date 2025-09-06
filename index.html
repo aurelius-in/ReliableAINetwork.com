@@ -3,33 +3,20 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Reliable AI Network | Agentic AI Consulting</title>
-  <meta name="description" content="RAIN builds agentic AI systems with guardrails, evaluation, retrieval, and a clean UI with traces and cost controls.">
+  <meta name="description" content="Reliable AI Network (RAIN) builds multi-agent systems with guardrails, evaluation, retrieval, and a clean UI with traces and cost controls.">
   <link rel="icon" href="./rain-social.png" type="image/png">
   <link rel="stylesheet" href="./styles.css">
   <link rel="canonical" href="https://reliableainetwork.com/">
   <meta property="og:title" content="Reliable AI Network (RAIN)">
-  <meta property="og:description" content="Agentic AI systems with guardrails, evals, retrieval, and a clean UI with traces and cost controls.">
+  <meta property="og:description" content="Multi-agent systems with guardrails, evals, retrieval, and a clean UI with traces and cost controls.">
   <meta property="og:type" content="website"><meta property="og:url" content="https://reliableainetwork.com/"><meta property="og:image" content="https://reliableainetwork.com/rain-social.png">
   <meta name="twitter:card" content="summary_large_image">
-  <style>
-    .hero h1{font-size:clamp(28px,4vw,48px);line-height:1.1;margin:0 0 10px}
-    .hero-sub{color:#9fb3ca;max-width:820px}
-    .cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-    .btn{display:inline-block;padding:12px 16px;border-radius:12px;font-weight:700;background:linear-gradient(135deg,#4f46e5,#06b6d4);color:white;box-shadow:0 8px 20px rgba(0,0,0,.35)}
-    .btn.secondary{background:rgba(2,6,23,.6);border:1px solid rgba(148,163,184,.18);color:#e2e8f0}
-    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
-    .chip{font-size:12px;padding:4px 8px;border-radius:999px;background:rgba(148,163,184,.18);color:#e2e8f0}
-    .steps{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-    .steps .panel{padding:14px}
-    .gallery-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-    .muted{color:#94a3b8}
-  </style>
 </head>
 <body>
   <!-- Splash overlay -->
   <div id="splash" class="splash" role="dialog" aria-label="Intro animation" aria-modal="true">
-    <div class="layer gif-layer"><img class="splash-media" src="./rain-ani.gif" alt="RAIN intro animation"></div>
-    <div class="layer logo-layer"><img class="splash-media" src="./rain-social.png" alt="RAIN logo"></div>
+    <div class="layer gif-layer"><img class="splash-media gif-full" src="./rain-ani.gif" alt="RAIN intro animation"></div>
+    <div class="layer logo-layer"><img class="splash-media logo-80" src="./rain-social.png" alt="RAIN logo"></div>
     <button id="skipSplash" class="skip" type="button" aria-label="Skip intro">Skip</button>
   </div>
 
@@ -39,128 +26,83 @@
         <img src="./rain-social.png" alt="Reliable AI Network logo (black background)">
         <span class="name">Reliable AI Network</span>
       </a>
-    <nav class="nav-links">
-      <a href="./estimator.html" class="cta">Get a Quote</a>
-      <a href="./portfolio.html" class="btn-dark">Project Gallery</a>
-    </nav>
+      <nav class="nav-links">
+        <a href="./estimator.html" class="cta">Get a Quote</a>
+        <a href="./portfolio.html" class="btn-dark">Project Gallery</a>
+        <a href="./consultation.html" class="btn-dark">Consultation</a>
+      </nav>
     </div>
   </header>
 
   <main id="top">
-    <!-- Hero -->
-    <section class="hero container section">
-      <h1>Agentic AI that ships fast—safe, measurable, and production‑ready.</h1>
-      <p class="hero-sub">We build multi‑agent systems with retrieval, guardrails, evals, and a clean UI with traces and cost controls. Weekly demos, milestone acceptance, and a transfer‑ready runbook.</p>
-      <div class="cta-row">
-        <a href="./estimator.html" class="btn">Get a Quote</a>
-        <a href="./project-gallery.html" class="btn secondary">See Project Gallery</a>
-      </div>
-      <div class="chips" aria-label="Highlights">
-        <span class="chip">Guardrails & Evals</span><span class="chip">Retrieval</span><span class="chip">Agent Graphs</span>
-        <span class="chip">Traces & Cost Controls</span><span class="chip">Staging → Prod</span>
-      </div>
+    <section class="hero container">
+      <h1 class="tight">Multi‑agent systems that ship quickly.</h1>
+      <p class="hero-sub">Safe, measurable, and production‑ready — with guardrails, evals, retrieval, traces, and cost controls.</p>
+      <!-- No duplicate CTA buttons here; use top navigation -->
+      <p class="hero-links">
+        <a href="./portfolio.html">See the Project Gallery →</a> &nbsp;·&nbsp;
+        <a href="./estimator.html">Get a Quote →</a>
+      </p>
     </section>
 
-    <!-- What we deliver -->
     <section class="container section">
-      <h2>What we deliver</h2>
-      <p class="lead">Agent graphs with tools, retrieval, guardrails, and evaluation—plus a usable UI. Every build includes traces, cost reporting, and a clear runbook.</p>
+      <h2>What we build</h2>
+      <p class="lead">Modern agentic apps that can be deployed and owned by you. Everything is observable and testable.</p>
       <div class="grid cols-3">
-        <article class="card panel"><h3 class="title">Agent Graphs</h3><p class="muted">Router · Researcher · Synthesizer (+ Critic/Planner). Deterministic handoffs and bounded autonomy.</p></article>
-        <article class="card panel"><h3 class="title">Retrieval & Data</h3><p class="muted">Clean ingest, indexing, and grounding. We favor golden sets and measurable relevance.</p></article>
-        <article class="card panel"><h3 class="title">Guardrails & Evals</h3><p class="muted">Safety budgets, policy prompts, red‑team probes, and regression jobs tied to your golden questions.</p></article>
-        <article class="card panel"><h3 class="title">UI & Traces</h3><p class="muted">Chat with step‑by‑step traces, replay, exportable reports, and a simple runs dashboard.</p></article>
-        <article class="card panel"><h3 class="title">Deploy & Runbook</h3><p class="muted">Staging then prod, with CI and a clear runbook. Ownership transfers on payment.</p></article>
-        <article class="card panel"><h3 class="title">Weekly Proof</h3><p class="muted">Friday demos, burn report, and a prioritized backlog. Milestone acceptance drives billing.</p></article>
+        <article class="card panel">
+          <h3 class="title">Multi‑Agent Orchestration</h3>
+          <p class="muted">Planner/Router, Researcher, Synthesizer (+ Critic). Deterministic hand‑offs and bounded autonomy.</p>
+        </article>
+        <article class="card panel">
+          <h3 class="title">Retrieval & Data</h3>
+          <p class="muted">Clean ingest, indexing, and grounding. Start with small golden sets and measurable relevance.</p>
+        </article>
+        <article class="card panel">
+          <h3 class="title">Guardrails & Evals</h3>
+          <p class="muted">Safety budgets, policy prompts, red‑team probes, and regression jobs tied to your golden questions.</p>
+        </article>
+        <article class="card panel">
+          <h3 class="title">UI & Traces</h3>
+          <p class="muted">Chat with step‑by‑step traces, replay, exportable reports, and a simple runs dashboard.</p>
+        </article>
+        <article class="card panel">
+          <h3 class="title">Deploy & Runbook</h3>
+          <p class="muted">Staging → prod with CI/CD. Clear runbook; ownership transfers on payment.</p>
+        </article>
+        <article class="card panel">
+          <h3 class="title">Weekly Proof</h3>
+          <p class="muted">Friday demos, burn report, and a prioritized backlog. Milestone acceptance drives billing.</p>
+        </article>
       </div>
     </section>
 
-    <!-- Approach & timeline -->
     <section class="container section">
-      <h2>Approach & timeline</h2>
-      <div class="steps">
-        <div class="panel"><strong>1. Scope</strong><p class="muted">Clarify outcomes and guardrails. Lock Alpha/Beta/Launch milestones.</p></div>
-        <div class="panel"><strong>2. Build</strong><p class="muted">Agents, tools, retrieval, and UI. Traces from day one.</p></div>
-        <div class="panel"><strong>3. Evaluate</strong><p class="muted">Golden tests, policy checks, and regression jobs. Optimize before launch.</p></div>
-        <div class="panel"><strong>4. Launch & Transfer</strong><p class="muted">Staging → Prod, runbook, handover, and training.</p></div>
-      </div>
-      <p class="muted" style="margin-top:8px">We show P50/P90 hours in your quote so you can plan confidently.</p>
-    </section>
-
-    <!-- Consultation -->
-    <section class="container section panel">
       <h2>Consultation & Advisory</h2>
-      <p class="lead">Need expert guidance without a full build? We offer targeted consultations and advisory retainers.</p>
-      <div class="grid cols-3">
-        <article class="card panel">
-          <h3 class="title">One‑off Consultation</h3>
+      <p class="lead">Need a second brain on strategy, architecture, or risk? We offer focused advisory separate from build work.</p>
+      <div class="grid cols-2">
+        <article class="panel">
+          <h3 class="title">What you get</h3>
           <ul class="muted">
-            <li>Architecture & stack reviews</li>
-            <li>Risk & safety audits</li>
-            <li>Agent graphs & retrieval design</li>
+            <li>Architecture and vendor choices, fast.</li>
+            <li>Guardrails & policy prompts sanity check.</li>
+            <li>Eval design & golden‑set selection.</li>
+            <li>Cost controls and observability setup.</li>
           </ul>
-          <p class="muted">Deliverables: written notes + action items. Credited toward a build within 30 days.</p>
-          <div class="cta-row"><a href="https://calendly.com/oliveraellison/15min" target="_blank" rel="noopener" class="btn">Book a 15‑min intro</a></div>
+          <p class="muted">Looking for hands‑on build work? Browse the <a href="./portfolio.html">Project Gallery</a> or <a href="./estimator.html">get a tailored quote</a>.</p>
         </article>
-        <article class="card panel">
-          <h3 class="title">Advisory Retainer</h3>
-          <ul class="muted">
-            <li>Async Q&A and design reviews</li>
-            <li>Policy/guardrail tuning & evals</li>
-            <li>Priority on unblockers & tiny tasks</li>
-          </ul>
-          <p class="muted">Lightweight support for teams building in‑house. Flexible monthly terms.</p>
-          <div class="cta-row"><a href="https://calendly.com/oliveraellison/15min" target="_blank" rel="noopener" class="btn secondary">Discuss retainer</a></div>
-        </article>
-        <article class="card panel">
-          <h3 class="title">Project Delivery</h3>
-          <p class="muted">Ready for a scoped build? Head to the Project Gallery to see example outcomes, then generate your quote.</p>
-          <div class="cta-row">
-            <a href="./project-gallery.html" class="btn secondary">View Project Gallery</a>
-            <a href="./estimator.html" class="btn">Get a Quote</a>
-          </div>
+        <article class="panel">
+          <h3 class="title">Book a consult</h3>
+          <p class="muted">15‑minute intro to scope your needs.</p>
+          <p><a class="btn" href="https://calendly.com/oliveraellison/15min" target="_blank" rel="noopener">Schedule on Calendly</a></p>
         </article>
       </div>
-    </section>
-
-    <!-- Project Gallery teaser -->
-    <section class="container section">
-      <h2>Project Gallery</h2>
-      <p class="lead">A few representative builds. We’ll adapt the pattern to your stack and constraints.</p>
-      <div class="gallery-grid">
-        <article class="card panel"><h3 class="title">Customer Ops Copilot</h3><p class="muted">Agent loop with retrieval & policy checks; cuts handle time 27% in pilot.</p></article>
-        <article class="card panel"><h3 class="title">Vendor Risk Triage</h3><p class="muted">Multi‑agent RAG + evaluator; flags risky clauses, generates summaries.</p></article>
-        <article class="card panel"><h3 class="title">Sales Research Agent</h3><p class="muted">Crawler + synth agent; briefs prospects, logs sources, exports to CRM.</p></article>
-      </div>
-      <div class="cta-row"><a href="./project-gallery.html" class="btn secondary">See all projects</a></div>
-    </section>
-
-    <!-- Pricing entry -->
-    <section class="container section panel">
-      <h2>Pricing & quotes</h2>
-      <p class="lead">Straightforward pricing with P50/P90 hours, milestone schedule, and deposit discount. Generate your quote in seconds.</p>
-      <div class="cta-row">
-        <a href="./estimator.html" class="btn">Get a Quote</a>
-        <a href="./project-gallery.html" class="btn secondary">Browse examples</a>
-      </div>
-      <p class="muted" style="margin-top:8px">Standard terms: $110/hr · Net 15 · Milestone billing. Deposit/retainer available.</p>
-    </section>
-
-    <!-- Safety -->
-    <section class="container section">
-      <h2>Safety & compliance</h2>
-      <ul class="muted">
-        <li>Policy prompts & red‑team probes</li>
-        <li>Incident budgets and safe defaults</li>
-        <li>Regression evals tied to golden questions</li>
-      </ul>
     </section>
   </main>
 
-<footer class="footer">
-  <p>© 2025 Reliable AI Network, LLC · All rights reserved.</p>
-  <p><a href="./portfolio.html">Project Gallery</a> · <a href="./estimator.html">Get a Quote</a></p>
-</footer>
+  <footer class="footer">
+    <p>© 2025 Reliable AI Network, LLC · All rights reserved.</p>
+    <p><a href="./portfolio.html">Project Gallery</a> · <a href="./estimator.html">Get a Quote</a> · <a href="./consultation.html">Consultation</a></p>
+  </footer>
 
   <script src="./script.js" defer></script>
 </body>
