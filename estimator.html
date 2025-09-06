@@ -159,7 +159,7 @@
           </div>
         </div>
         <div class="cta-row">
-          <button id="calc" class="btn">Get Quote</button>
+          <button id="calc" class="btn" onclick="compute()">Get Quote</button>
           <button id="printQuote" class="btn secondary no-print" disabled>Print</button>
           <button id="savepdf" class="btn secondary no-print" disabled title="Browsers require a save dialog for PDFs. This opens Save as PDF.">Export PDF</button>
         </div>
@@ -293,6 +293,7 @@
     }
 
     function compute(){
+      try {
       const agents = +document.getElementById('agents').value;
       const integrations = +document.getElementById('integrations').value;
       const dataSources = +document.getElementById('dataSources').value;
@@ -470,6 +471,8 @@
          </table>`;
 
       document.getElementById('printContent').innerHTML = details;
+      } catch (err) { console.error(err); alert('Oops — the calculator hit an error: ' + err.message); }
+    
     }
 
     function openPrintWindow(){
@@ -503,7 +506,7 @@
         });
       }
 
-      document.getElementById('payStyle').addEventListener('change', () => {
+      var paySel = document.getElementById('payStyle'); if (paySel) paySel.addEventListener('change', () => {
         // Recompute schedule quickly if a quote is already visible
         if (document.getElementById('outputs').style.display !== 'none') compute();
       });
