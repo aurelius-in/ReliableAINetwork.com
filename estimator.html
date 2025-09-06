@@ -362,8 +362,8 @@
       // ---- Set headline KPIs
       document.getElementById('hours').textContent = fmtH(hoursP50) + ' h';
       document.getElementById('hoursP90').textContent = fmtH(hoursP90) + ' h';
-      const timelineLabel = isRush ? '<5 weeks' : `${weeks} weeks';
-      document.getElementById('weekly').textContent = `${timelineLabel} · ${fmtH(hoursPerWeek)} h/week';
+      const timelineLabel = isRush ? '<5 weeks' : `${weeks} weeks`;
+      document.getElementById('weekly').textContent = `${timelineLabel} · ${fmtH(hoursPerWeek)} h/week`;
       document.getElementById('quote').textContent = fmtUSD(netPrice);
       let dl = (discount>0
         ? ('Includes ' + Math.round(discPct*100) + '% discount (' + fmtUSD(discount) + ') for a ' + Math.round(downPct*100) + '% deposit.')
