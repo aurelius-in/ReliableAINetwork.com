@@ -173,6 +173,16 @@
             <div><strong>Your Project Quote</strong></div>
             <div id="quote" class="quote-num">—</div>
             <div id="discountLine" class="muted" style="margin-top:6px"></div>
+
+            <!-- Toggle + hidden breakdown moved into LEFT card -->
+            <button id="toggleBreakdown" class="btn secondary" style="margin-top:8px;padding:8px 10px;font-size:13px">
+              Show hours breakdown
+            </button>
+
+            <div id="breakdownWrap" class="breakdown-wrap" style="display:none;margin-top:8px;border-top:1px solid rgba(148,163,184,.18);padding-top:8px">
+              <h4 class="small-title" style="margin:0 0 4px">Hours breakdown</h4>
+              <table id="hoursBreakdownCard" class="breakdown-table"></table>
+            </div>
           </div>
           <div class="panel">
             <div class="kpi"><div class="num-xxl" id="hours">—</div><div class="label">P50 hours</div></div>
@@ -187,11 +197,7 @@
 
         <div id="schedule" class="panel" style="margin-top:12px"></div>
 
-        <div class="panel" style="margin-top:12px">
-          <h4 class="small-title">Hours breakdown</h4>
-          <table class="breakdown-table" id="hoursBreakdown"></table>
-        </div>
-
+        <!-- Removed standalone Hours breakdown panel -->
         <div class="panel" style="margin-top:12px">
           <h4 class="small-title">How this is calculated</h4>
           <div id="calcExplain" class="calc-list muted"></div>
@@ -355,8 +361,8 @@
       // ---- Set headline KPIs
       document.getElementById('hours').textContent = fmtH(hoursP50) + ' h';
       document.getElementById('hoursP90').textContent = fmtH(hoursP90) + ' h';
-      const timelineLabel = isRush ? '<5 weeks' : `${weeks} weeks`;
-      document.getElementById('weekly').textContent = `${timelineLabel} · ${fmtH(hoursPerWeek)} h/week`;
+      const timelineLabel = isRush ? '<5 weeks' : `${weeks} weeks';
+      document.getElementById('weekly').textContent = `${timelineLabel} · ${fmtH(hoursPerWeek)} h/week';
       document.getElementById('quote').textContent = fmtUSD(netPrice);
       let dl = (discount>0
         ? ('Includes ' + Math.round(discPct*100) + '% discount (' + fmtUSD(discount) + ') for a ' + Math.round(downPct*100) + '% deposit.')
@@ -394,7 +400,7 @@
         sched.innerHTML += `<p class="muted" style="margin-top:6px">Prefer installments instead? Switch “Payment style” above.</p>`;
       }
 
-      // ---- Hours breakdown table
+      // ---- Hours breakdown table (now in the left card)
       const rowsBD = [
         ['Base', fmtH(base)],
         ['Agents', `${fmtH(h_agents_raw)} (= 32 × ${agents})`],
@@ -407,8 +413,14 @@
         ['Total P50', `<strong>${fmtH(hoursP50)}</strong>`],
         ['Total P90', `<strong>${fmtH(hoursP90)}</strong>`]
       ];
-      document.getElementById('hoursBreakdown').innerHTML =
+      document.getElementById('hoursBreakdownCard').innerHTML =
         '<tbody>' + rowsBD.map(([k,v])=>`<tr><td style="width:56%">${k}</td><td style="text-align:right">${v}</td></tr>`).join('') + '</tbody>';
+
+      // Reset collapse state after each compute
+      const wrap = document.getElementById('breakdownWrap');
+      if (wrap) wrap.style.display = 'none';
+      const btn = document.getElementById('toggleBreakdown');
+      if (btn) btn.textContent = 'Show hours breakdown';
 
       // ---- "How this is calculated" narrative
       const calcExplain = document.getElementById('calcExplain');
@@ -417,7 +429,6 @@
          <div><strong>Data complexity</strong> (${etl}×) applies to data work in full and to <em>30%</em> of integrations.</div>
          <div><strong>Deployment</strong> (${deploy}×) is applied only to infra scope (50% of base + integrations) as an add-on, not to all work.</div>
          <div><strong>UX depth</strong> (${ux}×) is applied only to UI scope (30% of base + 20% of agent work).</div>
-         <div><strong>Safety/compliance</strong> adds to a targeted <em>35%</em> scope fraction (policy design, eval harness, validation).</div>
          ${isRush ? '<div><strong>Rush surcharge</strong> +5% applied for timelines under 5 weeks.</div>' : ''}
          <div><strong>P50/P90</strong> hours reflect typical contingency based on your complexity/deployment choices.</div>
          <div><strong>Rate</strong> $${RATE} / hour · <strong>Discount</strong> ${Math.round(discPct*100)}% for selected deposit.</div>`;
@@ -480,6 +491,18 @@
       document.getElementById('calc').addEventListener('click', compute);
       document.getElementById('printQuote').addEventListener('click', printQuote);
       document.getElementById('savepdf').addEventListener('click', savePDF);
+
+      // Toggle for the breakdown in the left card
+      const toggleBtn = document.getElementById('toggleBreakdown');
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', function(){
+          const wrap = document.getElementById('breakdownWrap');
+          const open = wrap && wrap.style.display !== 'none';
+          if (wrap) wrap.style.display = open ? 'none' : 'block';
+          this.textContent = open ? 'Show hours breakdown' : 'Hide hours breakdown';
+        });
+      }
+
       document.getElementById('payStyle').addEventListener('change', () => {
         // Recompute schedule quickly if a quote is already visible
         if (document.getElementById('outputs').style.display !== 'none') compute();
