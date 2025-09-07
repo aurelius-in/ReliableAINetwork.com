@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Project Gallery | Reliable AI Network</title>
-  <meta name="description" content="Agentic AI Project Gallery: healthcare, AIOps, claims, wellness, recruiting, governance, document AI, AdOps, music, perception lab.">
+  <meta name="description" content="Agentic AI Project Gallery: healthcare, AIOps, claims, wellness, recruiting, governance, document AI, AdOps, music, perception lab, edge QA.">
   <link rel="icon" href="./rain-social.png" type="image/png">
   <link rel="stylesheet" href="./styles.css">
   <style>
     .portfolio .filters{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin:8px 0 16px}
+    .portfolio .filters label{font-weight:700}
     .portfolio .grid{grid-template-columns: repeat(auto-fill,minmax(280px,1fr))}
     .portfolio .card .foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
     .portfolio .card .repo{display:inline-block;padding:10px 12px;border-radius:12px;border:1px solid rgba(148,163,184,.25)}
@@ -96,11 +97,6 @@
 
   <footer class="footer">
     <p>© 2025 Reliable AI Network, LLC</p>
-    <p>
-      <a href="./portfolio.html">Project Gallery</a> ·
-      <a href="./estimator.html">Get a Quote</a> ·
-      <a href="./consultation.html">Consultation</a>
-    </p>
   </footer>
 
   <script>
@@ -195,16 +191,21 @@
         poster:"./perceptionLab-poster.webp",
         gif:"./perceptionLab.webp"
       },
+
+      /* NEW: EdgeSight QA (now live, replaces the old Coming Soon stub) */
       { id:"edgesight", title:"EdgeSight QA",
-        summary:"Edge QA for vision systems—scenario suites, device benchmarking, and exportable evals.",
+        summary:"Edge computer-vision QA: multi-camera ingest → on-device inference → Ignition/MQTT/OPC UA write-backs, with offline-safe logging and metrics.",
         industries:["Industrial & Field Ops","Edge AI & Computer Vision"],
-        caps:["Agentic","CV (Computer Vision)","Edge","Evals","UI & Traces"],
-        status:"Coming Soon",
-        repo:null
-        // no media yet
+        caps:["Agentic","CV (Computer Vision)","Edge","UI & Traces","Evals","Governance"],
+        status:"Ready",
+        repo:"https://github.com/aurelius-in/EdgeSight-QA",
+        /* Using assets from your agentic-portfolio repo so you don’t have to re-upload here */
+        poster:"https://raw.githubusercontent.com/aurelius-in/agentic-portfolio/main/docs/images/esqa-preview-poster.webp",
+        gif:"https://raw.githubusercontent.com/aurelius-in/agentic-portfolio/main/docs/images/esqa-preview.webp"
       }
     ];
 
+    // ensure "Agentic" shows in chips even if omitted
     PROJS.forEach(p => { if(!p.caps.includes("Agentic")) p.caps.push("Agentic"); });
 
     const grid = document.getElementById('grid');
@@ -284,11 +285,9 @@
           isPlaying = false;
         };
 
-        // Desktop hover
         img.addEventListener('mouseenter', play);
         img.addEventListener('mouseleave', stop);
 
-        // Mobile tap toggle
         img.addEventListener('click', (e) => {
           if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
             isPlaying ? stop() : play();
@@ -296,7 +295,6 @@
           }
         });
 
-        // Revert when scrolled out of view
         const io = new IntersectionObserver((entries)=>{
           entries.forEach(en => { if (!en.isIntersecting) stop(); });
         }, {threshold: 0});
