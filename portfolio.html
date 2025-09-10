@@ -80,7 +80,7 @@
           <option>Music Intelligence</option>
           <option>CV (Computer Vision)</option>
           <option>Edge</option>
-          <!-- NEW for ACE Lab -->
+          <!-- for ACE Lab -->
           <option>Experimentation</option>
           <option>Video Enhancement</option>
         </select>
@@ -194,8 +194,6 @@
         poster:"./perceptionLab-poster.webp",
         gif:"./perceptionLab.webp"
       },
-
-      /* EdgeSight QA */
       { id:"edgesight", title:"EdgeSight QA",
         summary:"Edge computer-vision QA: multi-camera ingest → on-device inference → Ignition/MQTT/OPC UA write-backs, with offline-safe logging and metrics.",
         industries:["Industrial & Field Ops","Edge AI & Computer Vision"],
@@ -205,8 +203,6 @@
         poster:"https://raw.githubusercontent.com/aurelius-in/agentic-portfolio/main/docs/images/esqa-preview-poster.webp",
         gif:"https://raw.githubusercontent.com/aurelius-in/agentic-portfolio/main/docs/images/esqa-preview.webp"
       },
-
-      /* MyRiskAgent */
       { id:"myriskagent", title:"MyRiskAgent",
         summary:"Agentic risk analysis that ingests claims, filings, and OSINT to score providers/companies with peer-normalized outlier detection, SHAP explainability, and audit-ready evidence.",
         industries:["Finance & Legal","Insurance","Healthcare","Platform / IT"],
@@ -214,10 +210,7 @@
         status:"Ready",
         repo:"https://github.com/aurelius-in/MyRiskAgent",
         poster:"https://raw.githubusercontent.com/aurelius-in/reliable-ai-network/main/mra-placeholder.png"
-        // no animated preview yet
       },
-
-      /* ACE Lab — updated images + video enhancement mention */
       { id:"ace-lab", title:"ACE Lab",
         summary:"React + WebGL2 creative-tools lab where AI agents co-design shaders, enhance & stylize video, auto-tune performance, compose transitions, and enforce brand policy—real-time canvas with presets, policy checks, and WebM export.",
         industries:["Media & Entertainment","Platform / IT","Marketing / AdOps"],
@@ -229,8 +222,8 @@
       }
     ];
 
-    // ensure "Agentic" shows in chips even if omitted
-    PROJS.forEach(p => { if(!p.caps.includes("Agentic")) p.caps.push("Agentic"); });
+    // Ensure "Agentic" chip present if omitted
+    PROJS.forEach(p => { if (!p.caps.includes("Agentic")) p.caps.push("Agentic"); });
 
     const grid = document.getElementById('grid');
     const fIndustry = document.getElementById('fIndustry');
@@ -248,10 +241,13 @@
     }
 
     function render(){
-      const items = PROJS.filter(match);
+      const items = PROJS.filter(match)
+        .slice() // shallow copy
+        .sort((a,b)=>a.title.localeCompare(b.title, undefined, {sensitivity:'base'})); // A→Z titles
+
       grid.innerHTML = items.map(p => {
-        const caps = p.caps.map(t => '<span class="badge">'+t+'</span>').join('');
-        const inds = p.industries.map(t => '<span class="badge">'+t+'</span>').join('');
+        const caps = p.caps.slice().sort((a,b)=>a.localeCompare(b, undefined, {sensitivity:'base'})).map(t => '<span class="badge">'+t+'</span>').join('');
+        const inds = p.industries.slice().sort((a,b)=>a.localeCompare(b, undefined, {sensitivity:'base'})).map(t => '<span class="badge">'+t+'</span>').join('');
         const link = p.repo ? '<a class="repo" href="'+p.repo+'" target="_blank" rel="noopener">View Repository</a>' : '<span class="repo disabled">Coming Soon</span>';
         const statusPill = '<span class="pill small">'+p.status+'</span>';
 
@@ -325,6 +321,26 @@
         io.observe(img);
       });
     }
+
+    // --- Alphabetize dropdown options (keeping the first "All ..." option on top) ---
+    function sortSelectOptions(selectEl){
+      if (!selectEl) return;
+      const opts = Array.from(selectEl.options);
+      if (opts.length === 0) return;
+
+      // Keep first option (the "All ..." choice) pinned
+      const first = opts[0];
+      const rest = opts.slice(1).sort((a,b)=>a.text.localeCompare(b.text, undefined, {sensitivity:'base'}));
+
+      // Rebuild
+      selectEl.innerHTML = '';
+      selectEl.appendChild(first);
+      rest.forEach(o => selectEl.appendChild(o));
+    }
+
+    // Initial setup
+    sortSelectOptions(fIndustry);
+    sortSelectOptions(fCap);
 
     fIndustry.addEventListener('change', render);
     fCap.addEventListener('change', render);
