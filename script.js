@@ -1,6 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Splash sequence: 8s GIF full-height, 2s logo at 80%, then fade
+  // Splash sequence: 4s GIF full-height, 1s logo at 80%, then fade
   const splash = document.getElementById('splash');
   if (splash) {
     const gifLayer = splash.querySelector('.gif-layer');
@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const skipBtn = document.getElementById('skipSplash');
 
     const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const GIF_MS = reduceMotion ? 1000 : 8000;
-    const LOGO_MS = reduceMotion ? 700 : 2000;
+    const GIF_MS = reduceMotion ? 1000 : 4000;
+    const LOGO_MS = reduceMotion ? 700 : 1000;
 
     let finished = false;
     function endSplash(){
