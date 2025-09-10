@@ -50,6 +50,22 @@ body{
 }
 .section{padding:22px 0}
 
+
+/* Global edge padding fix */
+body, main, header, footer, section, article {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.container {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.section {
+  padding-left: 20px;
+  padding-right: 20px;
+}
 /* Panels / Cards */
 .panel{
   background:var(--panel);
