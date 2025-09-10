@@ -322,31 +322,43 @@
       });
     }
 
-    // --- Alphabetize dropdown options (keeping the first "All ..." option on top) ---
-    function sortSelectOptions(selectEl){
-      if (!selectEl) return;
-      const opts = Array.from(selectEl.options);
-      if (opts.length === 0) return;
+   <script>
 
-      // Keep first option (the "All ..." choice) pinned
-      const first = opts[0];
-      const rest = opts.slice(1).sort((a,b)=>a.text.localeCompare(b.text, undefined, {sensitivity:'base'}));
+  // --- Alphabetize dropdown options (keeping the first "All ..." option on top) ---
+  function sortSelectOptions(selectEl){
+    if (!selectEl) return;
+    const opts = Array.from(selectEl.options);
+    if (opts.length === 0) return;
 
-      // Rebuild
-      selectEl.innerHTML = '';
-      selectEl.appendChild(first);
-      rest.forEach(o => selectEl.appendChild(o));
-    }
+    // Keep first option (the "All ..." choice) pinned
+    const first = opts[0];
+    const rest = opts.slice(1).sort((a,b)=>a.text.localeCompare(b.text, undefined, {sensitivity:'base'}));
 
-    // Initial setup
-    sortSelectOptions(fIndustry);
-    sortSelectOptions(fCap);
+    // Rebuild
+    selectEl.innerHTML = '';
+    selectEl.appendChild(first);
+    rest.forEach(o => selectEl.appendChild(o));
 
-    fIndustry.addEventListener('change', render);
-    fCap.addEventListener('change', render);
-    fStatus.addEventListener('change', render);
+    // Force default to the first option after sorting
+    selectEl.selectedIndex = 0;
+  }
 
-    render(); // initial
-  </script>
-</body>
-</html>
+  // Initial setup (alphabetize)
+  sortSelectOptions(fIndustry);
+  sortSelectOptions(fCap);
+
+  // Force defaults to "All ..." on first load (overrides browser autofill/back-forward cache)
+  [fIndustry, fCap, fStatus].forEach(sel => {
+    if (!sel) return;
+    const hasAll = Array.from(sel.options).some(o => o.value === 'all');
+    if (hasAll) sel.value = 'all';
+    else sel.selectedIndex = 0;
+  });
+
+  // Wire events AFTER forcing defaults
+  fIndustry.addEventListener('change', render);
+  fCap.addEventListener('change', render);
+  fStatus.addEventListener('change', render);
+
+  render(); // initial
+</script>
