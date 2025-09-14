@@ -4,6 +4,7 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Project Gallery | Reliable AI Network</title>
   <meta name="description" content="Agentic AI Project Gallery: healthcare, AIOps, claims, wellness, recruiting, governance, document AI, AdOps, music, perception lab, edge QA.">
+  <meta name="author" content="Oliver Ellison">
   <link rel="icon" href="./rain-social.png" type="image/png">
   <link rel="stylesheet" href="./styles.css">
   <style>
@@ -18,6 +19,7 @@
     .small{font-size:12px;color:#94a3b8}
     .card .title{margin-bottom:4px}
     .muted{color:#94a3b8}
+
     /* Media (poster + hover/tap animation) */
     .proj-card .proj-media{
       border-radius:10px; overflow:hidden; margin:-2px -2px 8px;
@@ -26,12 +28,20 @@
     .proj-card .thumb{
       display:block; width:100%; aspect-ratio:16/9; object-fit:cover;
     }
+
+    /* Byline next to brand (desktop only) */
+    .brand .byline{display:none; margin-left:6px; font-weight:600; color:var(--muted); font-size:12px; white-space:nowrap}
+    @media (min-width: 900px){ .brand .byline{display:inline} }
   </style>
 </head>
 <body>
   <header class="nav">
     <div class="nav-inner container">
-      <a class="brand" href="./"><img src="./rain-social.png" alt="RAIN logo"><span class="name">Reliable AI Network</span></a>
+      <a class="brand" href="./" aria-label="Home">
+        <img src="./rain-social.png" alt="RAIN logo">
+        <span class="name">Reliable AI Network</span>
+        <span class="byline">· Oliver Ellison — Principal Engineer &amp; AI Architect (Founder)</span>
+      </a>
       <nav class="nav-links">
         <a href="./estimator.html" class="cta">Get a Quote</a>
         <a href="./portfolio.html" class="btn-dark">Project Gallery</a>
@@ -43,6 +53,9 @@
   <main class="container section portfolio">
     <h1 style="margin:0 0 8px">Project Gallery</h1>
     <p class="lead">Filter by industry, capability, or status. Every project includes agentic orchestration, traces, and a usable UI.</p>
+    <p class="small" style="margin:6px 0 12px; color:#9fb3ca">
+      All software in this portfolio was designed and built by <strong>Oliver Ellison</strong> d/b/a <strong>Reliable AI Network, LLC</strong> (“RAIN”).
+    </p>
 
     <div class="filters">
       <div>
@@ -95,7 +108,7 @@
   </main>
 
   <footer class="footer">
-    <p>© 2025 Reliable AI Network, LLC</p>
+    <p>© 2025 Reliable AI Network, LLC · Built by Oliver Ellison — Principal Engineer &amp; AI Architect (Founder)</p>
   </footer>
 
   <script>
