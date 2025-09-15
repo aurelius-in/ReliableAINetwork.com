@@ -1,32 +1,38 @@
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Reliable AI Network | Agentic AI Consulting</title>
-  <meta name="description" content="Reliable AI Network (RAIN) builds agentic AI systems with guardrails, evaluation, retrieval, and a clean UI with traces and cost controls.">
+  <title>Project Gallery | Reliable AI Network</title>
+  <meta name="description" content="Agentic AI Project Gallery: healthcare, AIOps, claims, wellness, recruiting, governance, document AI, AdOps, music, perception lab, edge QA.">
   <link rel="icon" href="./rain-social.png" type="image/png">
   <link rel="stylesheet" href="./styles.css">
-  <link rel="canonical" href="https://reliableainetwork.com/">
-  <meta property="og:title" content="Reliable AI Network (RAIN)">
-  <meta property="og:description" content="Agentic AI systems with guardrails, evals, retrieval, and a clean UI with traces and cost controls.">
-  <meta property="og:type" content="website"><meta property="og:url" content="https://reliableainetwork.com/"><meta property="og:image" content="https://reliableainetwork.com/rain-social.png">
-  <meta name="twitter:card" content="summary_large_image">
+  <style>
+    .portfolio .filters{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin:8px 0 16px}
+    .portfolio .filters label{font-weight:700}
+    .portfolio .grid{grid-template-columns: repeat(auto-fill,minmax(280px,1fr))}
+    .portfolio .card .foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+    .portfolio .card .repo{display:inline-block;padding:10px 12px;border-radius:12px;border:1px solid rgba(148,163,184,.25)}
+    .badge{display:inline-block;font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid rgba(148,163,184,.25);background:rgba(148,163,184,.12);margin-right:6px;margin-top:6px}
+    .pill{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(15,23,42,.6);border:1px solid rgba(148,163,184,.2);font-weight:700}
+    .disabled{opacity:.6;pointer-events:none}
+    .small{font-size:12px;color:#94a3b8}
+    .card .title{margin-bottom:4px}
+    .muted{color:#94a3b8}
+
+    /* Media (poster + hover/tap animation) */
+    .proj-card .proj-media{
+      border-radius:10px; overflow:hidden; margin:-2px -2px 8px;
+      background:#0b1220; border:1px solid rgba(148,163,184,.15)
+    }
+    .proj-card .thumb{
+      display:block; width:100%; aspect-ratio:16/9; object-fit:cover;
+    }
+  </style>
 </head>
 <body>
-  <!-- Splash overlay -->
-  <div id="splash" class="splash" role="dialog" aria-label="Intro animation" aria-modal="true">
-    <div class="layer gif-layer"><img class="splash-media" src="./rain-ani.gif" alt="RAIN intro animation"></div>
-    <div class="layer logo-layer"><img class="splash-media" src="./rain-social.png" alt="RAIN logo"></div>
-    <button id="skipSplash" class="skip" type="button" aria-label="Skip intro">Skip</button>
-  </div>
-
-  <header class="nav" role="banner">
-    <div class="nav-inner container" role="navigation" aria-label="Primary">
-      <a class="brand" href="./" aria-label="Home">
-        <img src="./rain-social.png" alt="Reliable AI Network logo (black background)">
-        <span class="name">Reliable AI Network</span>
-      </a>
+  <header class="nav">
+    <div class="nav-inner container">
+      <a class="brand" href="./"><img src="./rain-social.png" alt="RAIN logo"><span class="name">Reliable AI Network</span></a>
       <nav class="nav-links">
         <a href="./estimator.html" class="cta">Get a Quote</a>
         <a href="./portfolio.html" class="btn-dark">Project Gallery</a>
@@ -35,51 +41,323 @@
     </div>
   </header>
 
-  <main id="top">
-    <section class="hero container">
-      <h1>Agentic AI that ships fast—safe, measurable, production‑ready.</h1>
-      <p class="hero-sub">Multi‑agent orchestration, retrieval, guardrails, evals, and a clean UI with traces & cost controls.</p>
-      <p class="links">
-        Explore the <a href="./portfolio.html">Project Gallery</a> or <a href="./estimator.html">Get a Quote</a>. For advisory work, see <a href="./consultation.html">Consultation</a>.
-      </p>
-    </section>
+  <main class="container section portfolio">
+    <h1 style="margin:0 0 8px">Project Gallery</h1>
+    <p class="lead">Filter by industry, capability, or status. Every project includes agentic orchestration, traces, and a usable UI.</p>
 
-    <section class="container section">
-      <h2>What we build</h2>
-      <div class="grid-3">
-        <article class="card panel">
-          <h3 class="title">Multi‑Agent Orchestration</h3>
-          <p class="muted">Router, Researcher, Synthesizer (+ Critic/Planner). Deterministic handoffs with bounded autonomy.</p>
-        </article>
-        <article class="card panel">
-          <h3 class="title">Retrieval & Data</h3>
-          <p class="muted">Clean ingest, indexing, grounding. Small golden sets, measurable relevance, and data hygiene.</p>
-        </article>
-        <article class="card panel">
-          <h3 class="title">Guardrails & Evals</h3>
-          <p class="muted">Policies, probes, budgets, and regression jobs tied to your golden questions.</p>
-        </article>
-        <article class="card panel">
-          <h3 class="title">UI & Traces</h3>
-          <p class="muted">Chat with step‑by‑step traces, replay, exportable reports, and a simple runs dashboard.</p>
-        </article>
-        <article class="card panel">
-          <h3 class="title">Deploy & Runbook</h3>
-          <p class="muted">Staging→prod with CI/CD. Clear handover with a runbook; ownership transfers when paid.</p>
-        </article>
-        <article class="card panel">
-          <h3 class="title">Weekly Proof</h3>
-          <p class="muted">Friday demos, burn report, prioritized backlog. Milestone acceptance drives billing.</p>
-        </article>
+    <div class="filters">
+      <div>
+        <label for="fIndustry">Industry</label>
+        <select id="fIndustry" class="input">
+          <option value="all">All industries</option>
+          <option>DevOps / SRE</option>
+          <option>Edge AI & Computer Vision</option>
+          <option>Finance & Legal</option>
+          <option>Healthcare</option>
+          <option>HR & Recruiting</option>
+          <option>Industrial & Field Ops</option>
+          <option>Marketing / AdOps</option>
+          <option>Media & Entertainment</option>
+          <option>Platform / IT</option>
+        </select>
       </div>
-    </section>
+      <div>
+        <label for="fCap">Capability</label>
+        <select id="fCap" class="input">
+          <option value="all">All capabilities</option>
+          <option>AdOps</option>
+          <option>Agentic</option>
+          <option>Anomaly / Forecast</option>
+          <option>Compliance</option>
+          <option>CV (Computer Vision)</option>
+          <option>Document AI</option>
+          <option>Edge</option>
+          <option>Evals</option>
+          <option>Experimentation</option>
+          <option>Governance</option>
+          <option>Music Intelligence</option>
+          <option>Recruiting / ATS</option>
+          <option>Retrieval (RAG)</option>
+          <option>UI & Traces</option>
+          <option>Video Enhancement</option>
+        </select>
+      </div>
+      <div>
+        <label for="fStatus">Status</label>
+        <select id="fStatus" class="input">
+          <option value="all">All</option>
+          <option>Ready</option>
+          <option>Coming Soon</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="grid" class="grid"></div>
   </main>
 
   <footer class="footer">
-    <p>© 2025 Reliable AI Network, LLC · All rights reserved.</p>
-    <p><a href="./portfolio.html">Project Gallery</a> · <a href="./estimator.html">Get a Quote</a> · <a href="./consultation.html">Consultation</a></p>
+    <p>© 2025 Reliable AI Network, LLC</p>
   </footer>
 
-  <script src="./script.js" defer></script>
+  <script>
+    const PROJS = [
+      { id:"health-nav", title:"Agentic AI Health Navigator",
+        summary:"Healthcare navigation with multi-agent triage, provider match, and coverage checks.",
+        industries:["Healthcare"],
+        caps:["Agentic","Retrieval (RAG)","Guardrails","Evals","UI & Traces","Compliance"],
+        status:"Ready",
+        repo:"https://github.com/aurelius-in/AI-Health-Navigator-for-Patients",
+        poster:"./agentic-ai-health-nav-poster.webp",
+        gif:"./agentic-ai-health-nav.webp"
+      },
+      { id:"autoops", title:"AutoOps Sentinel",
+        summary:"Agentic AIOps: anomaly detection, incident forecasting, safe auto-remediation, exec-ready narratives.",
+        industries:["DevOps / SRE","Platform / IT"],
+        caps:["Agentic","Anomaly / Forecast","UI & Traces","Guardrails","Compliance"],
+        status:"Ready",
+        repo:"https://github.com/aurelius-in/AutoOps-Sentinel",
+        poster:"./autoOps-sentinel-poster.webp",
+        gif:"./autoOps-sentinel.webp"
+      },
+      { id:"claims", title:"Agentic Claims Triage AI",
+        summary:"Agent-driven claims classification, risk scoring, routing, and audit trails with explainability.",
+        industries:["Insurance","Healthcare","Finance & Legal"],
+        caps:["Agentic","Retrieval (RAG)","Document AI","UI & Traces","Compliance","Guardrails"],
+        status:"Ready",
+        repo:"https://github.com/aurelius-in/Claims-Triage-AI",
+        poster:"./claims-demo-poster.webp",
+        gif:"./claims-demo.webp"
+      },
+      { id:"mindtrace", title:"Enterprise Wellness AI (MindTrace)",
+        summary:"Companion, Recommendation, Risk, Analytics, Privacy agents for organizational wellness.",
+        industries:["HR & Recruiting","Healthcare"],
+        caps:["Agentic","UI & Traces","Evals","Compliance"],
+        status:"Ready",
+        repo:"https://github.com/aurelius-in/MindTrace",
+        poster:"./enterprise-wellness-mindtrace-poster.webp",
+        gif:"./enterprise-wellness-mindtrace.webp"
+      },
+      { id:"hire-falcon", title:"High-Volume Recruiter Agent",
+        summary:"End-to-end outreach → consent → screening → scheduling → ATS sync with live ops UI.",
+        industries:["HR & Recruiting"],
+        caps:["Agentic","Recruiting / ATS","UI & Traces","Compliance"],
+        status:"Ready",
+        repo:"https://github.com/aurelius-in/high-volume-recruiter-ai-agent",
+        poster:"./high-volume-recruiter-hire-falcon-poster.webp",
+        gif:"./high-volume-recruiter-hire-falcon.webp"
+      },
+      { id:"governance", title:"AI Governance Dashboard",
+        summary:"LLM proxy, policies-as-code guardrails, compliance checks, real-time cost monitoring.",
+        industries:["Platform / IT","Finance & Legal"],
+        caps:["Governance","Guardrails","Compliance","UI & Traces","Agentic"],
+        status:"Ready",
+        repo:"https://github.com/aurelius-in/AI-Governance",
+        poster:"./ai-governance-dashboard-poster.webp",
+        gif:"./ai-governance-dashboard.webp"
+      },
+      { id:"aida", title:"AI Document Agent (aiDa)",
+        summary:"Ingest, classify, extract, assess risk, and monitor compliance with audit trails and live agent traces.",
+        industries:["Finance & Legal","Platform / IT","Insurance"],
+        caps:["Agentic","Document AI","Retrieval (RAG)","UI & Traces","Compliance"],
+        status:"Ready",
+        repo:"https://github.com/aurelius-in/Smart-Document-Bot",
+        poster:"./aiDa-dashboard-poster.webp",
+        gif:"./aiDa-dashboard.webp"
+      },
+      { id:"muse", title:"MuseAgent",
+        summary:"Music intelligence: feature extraction, embeddings, tagging, explainable recs, and PDF reports.",
+        industries:["Media & Entertainment"],
+        caps:["Agentic","Music Intelligence","Retrieval (RAG)","UI & Traces","Evals"],
+        status:"Ready",
+        repo:"https://github.com/aurelius-in/MuseAgent",
+        poster:"./muse-agent-poster.webp",
+        gif:"./muse-agent.webp"
+      },
+      { id:"adops", title:"AdOps Flightdeck",
+        summary:"Multi-agent AdOps for planning, creative QA, pacing, anomaly response, attribution, reporting.",
+        industries:["Marketing / AdOps"],
+        caps:["Agentic","AdOps","Anomaly / Forecast","UI & Traces","Governance"],
+        status:"Ready",
+        repo:"https://github.com/aurelius-in/adops-flightdeck-multi-agent",
+        poster:"./adops-demo-poster.webp",
+        gif:"./adops-demo.webp"
+      },
+      { id:"perception", title:"Perception Lab",
+        summary:"Interactive CV environment: detection + fusion pipelines, performance monitoring, eval exports.",
+        industries:["Industrial & Field Ops","Edge AI & Computer Vision"],
+        caps:["Agentic","CV (Computer Vision)","Edge","UI & Traces","Evals"],
+        status:"Ready",
+        repo:"https://github.com/aurelius-in/perception-lab",
+        poster:"./perceptionLab-poster.webp",
+        gif:"./perceptionLab.webp"
+      },
+      { id:"edgesight", title:"EdgeSight QA",
+        summary:"Edge computer-vision QA: multi-camera ingest → on-device inference → Ignition/MQTT/OPC UA write-backs, with offline-safe logging and metrics.",
+        industries:["Industrial & Field Ops","Edge AI & Computer Vision"],
+        caps:["Agentic","CV (Computer Vision)","Edge","UI & Traces","Evals","Governance"],
+        status:"Ready",
+        repo:"https://github.com/aurelius-in/EdgeSight-QA",
+        poster:"https://raw.githubusercontent.com/aurelius-in/agentic-portfolio/main/docs/images/esqa-preview-poster.webp",
+        gif:"https://raw.githubusercontent.com/aurelius-in/agentic-portfolio/main/docs/images/esqa-preview.webp"
+      },
+      { id:"myriskagent", title:"MyRiskAgent",
+        summary:"Agentic risk analysis that ingests claims, filings, and OSINT to score providers/companies with peer-normalized outlier detection, SHAP explainability, and audit-ready evidence.",
+        industries:["Finance & Legal","Insurance","Healthcare","Platform / IT"],
+        caps:["Agentic","Retrieval (RAG)","Governance","Compliance","UI & Traces","Evals","Document AI"],
+        status:"Ready",
+        repo:"https://github.com/aurelius-in/MyRiskAgent",
+        poster:"https://raw.githubusercontent.com/aurelius-in/reliable-ai-network/main/mra-placeholder.png"
+      },
+      { id:"ace-lab", title:"ACE Lab",
+        summary:"React + WebGL2 creative-tools lab where AI agents co-design shaders, enhance & stylize video, auto-tune performance, compose transitions, and enforce brand policy—real-time canvas with presets, policy checks, and WebM export.",
+        industries:["Media & Entertainment","Platform / IT","Marketing / AdOps"],
+        caps:["Agentic","Experimentation","Evals","Governance","UI & Traces","Video Enhancement"],
+        status:"Ready",
+        repo:"https://github.com/aurelius-in/ACE-Lab",
+        poster:"https://raw.githubusercontent.com/aurelius-in/agentic-portfolio/main/docs/images/ace-lab-desktop.png",
+        gif:"https://raw.githubusercontent.com/aurelius-in/agentic-portfolio/main/docs/images/ace-lab-portfolio.webp"
+      },
+
+      /* NEW: Epiphany AI Art Studio */
+      { id:"epiphany", title:"Epiphany AI Art Studio",
+        summary:"Self-hosted SDXL image & video studio with Next.js UI and FastAPI GPU workers: txt2img/img2img/inpainting + ControlNet, text→video & stylize video, prompt enhancement, safe/research modes, Redis queues, S3 storage, and audit/explainability overlays.",
+        industries:["Media & Entertainment","Marketing / AdOps","Platform / IT"],
+        caps:["Video Enhancement","Experimentation","UI & Traces","Guardrails","Governance"],
+        status:"Ready",
+        repo:"https://github.com/aurelius-in/Epiphany",
+        poster:"https://raw.githubusercontent.com/aurelius-in/reliable-ai-network/main/epiphany.png",
+        gif:"https://raw.githubusercontent.com/aurelius-in/reliable-ai-network/main/epiphany.webp"
+      }
+    ];
+
+    // Ensure "Agentic" chip present if omitted
+    PROJS.forEach(p => { if (!p.caps.includes("Agentic")) p.caps.push("Agentic"); });
+
+    const grid = document.getElementById('grid');
+    const fIndustry = document.getElementById('fIndustry');
+    const fCap = document.getElementById('fCap');
+    const fStatus = document.getElementById('fStatus');
+
+    // --- Alphabetize dropdown options (keeping the first "All ..." option on top) ---
+    function sortSelectOptions(selectEl){
+      if (!selectEl) return;
+      const opts = Array.from(selectEl.options);
+      if (opts.length === 0) return;
+      const first = opts[0]; // keep "All ..." pinned
+      const rest = opts.slice(1).sort((a,b)=>a.text.localeCompare(b.text, undefined, {sensitivity:'base'}));
+      selectEl.innerHTML = '';
+      selectEl.appendChild(first);
+      rest.forEach(o => selectEl.appendChild(o));
+      selectEl.selectedIndex = 0; // ensure "All ..." active
+    }
+
+    // Sort dropdowns once on load
+    sortSelectOptions(fIndustry);
+    sortSelectOptions(fCap);
+
+    // Force defaults to "All ..." on first load (override bfcache/autofill)
+    [fIndustry, fCap, fStatus].forEach(sel => {
+      if (!sel) return;
+      const hasAll = Array.from(sel.options).some(o => o.value === 'all');
+      if (hasAll) sel.value = 'all';
+      else sel.selectedIndex = 0;
+    });
+
+    function match(p){
+      const ind = fIndustry.value;
+      const cap = fCap.value;
+      const st = fStatus.value;
+      const okInd = (ind === 'all') || p.industries.includes(ind);
+      const okCap = (cap === 'all') || p.caps.includes(cap);
+      const okSt  = (st === 'all')  || p.status === st;
+      return okInd && okCap && okSt;
+    }
+
+    function render(){
+      const items = PROJS
+        .filter(match)
+        .slice()
+        .sort((a,b)=>a.title.localeCompare(b.title, undefined, {sensitivity:'base'}));
+
+      grid.innerHTML = items.map(p => {
+        const caps = p.caps.slice().sort((a,b)=>a.localeCompare(b, undefined, {sensitivity:'base'})).map(t => '<span class="badge">'+t+'</span>').join('');
+        const inds = p.industries.slice().sort((a,b)=>a.localeCompare(b, undefined, {sensitivity:'base'})).map(t => '<span class="badge">'+t+'</span>').join('');
+        const link = p.repo ? '<a class="repo" href="'+p.repo+'" target="_blank" rel="noopener">View Repository</a>' : '<span class="repo disabled">Coming Soon</span>';
+        const statusPill = '<span class="pill small">'+p.status+'</span>';
+
+        const media = (p.poster || p.gif) ? `
+          <div class="proj-media">
+            <img class="thumb"
+                 src="${p.poster || ''}"
+                 ${p.poster ? 'loading="lazy"' : ''}
+                 ${p.gif ? `data-gif="${p.gif}"` : ''}
+                 ${p.poster ? `data-poster="${p.poster}"` : ''}
+                 alt="${p.title} preview">
+          </div>` : '';
+
+        return `
+          <article class="card panel proj-card">
+            ${media}
+            <h3 class="title">${p.title}</h3>
+            <div class="muted">${p.summary}</div>
+            <div style="margin-top:10px">${inds}</div>
+            <div style="margin-top:6px">${caps}</div>
+            <div class="foot">
+              ${link}
+              ${statusPill}
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      wireMediaSwaps();
+    }
+
+    function wireMediaSwaps(){
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const thumbs = document.querySelectorAll('.proj-card .thumb');
+      thumbs.forEach(img => {
+        const gif = img.dataset.gif;
+        const poster = img.dataset.poster;
+        if (!gif || prefersReduced) return;
+
+        let loadedGif = false;
+        let isPlaying = false;
+
+        const play = () => {
+          if (isPlaying) return;
+          if (!loadedGif) { img.src = gif; loadedGif = true; }
+          else { img.src = gif; }
+          isPlaying = true;
+        };
+        const stop = () => {
+          if (!isPlaying) return;
+          if (poster) img.src = poster;
+          isPlaying = false;
+        };
+
+        img.addEventListener('mouseenter', play);
+        img.addEventListener('mouseleave', stop);
+        img.addEventListener('click', (e) => {
+          if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            isPlaying ? stop() : play();
+            e.preventDefault();
+          }
+        });
+
+        const io = new IntersectionObserver((entries)=>{
+          entries.forEach(en => { if (!en.isIntersecting) stop(); });
+        }, {threshold: 0});
+        io.observe(img);
+      });
+    }
+
+    // Wire events AFTER forcing defaults
+    fIndustry.addEventListener('change', render);
+    fCap.addEventListener('change', render);
+    fStatus.addEventListener('change', render);
+
+    render(); // initial
+  </script>
 </body>
 </html>
