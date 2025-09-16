@@ -221,15 +221,25 @@
         poster:"https://raw.githubusercontent.com/aurelius-in/reliable-ai-network/main/mra-placeholder.png"
       },
       { id:"ace-lab", title:"ACE Lab",
-        summary: ["Agentic Creative Experience Lab is a real-time, WebGPU-first platform that blends agentic shader design, on-device image generation, and microservice video generation (AnimateDiff for motion, RIFE for interpolation), plus generative fill, style transfer, and policy-safe WebM export."],
+        summary: "Agentic Creative Experience Lab is a real-time, WebGPU-first platform that blends agentic shader design, on-device image generation, and microservice video generation (AnimateDiff for motion, RIFE for interpolation), plus generative fill, style transfer, and policy-safe WebM export.",
         industries:["Media & Entertainment","Platform / IT","Marketing / AdOps"],
         caps:["Agentic","Experimentation","Evals","Governance","UI & Traces","Video Enhancement"],
         status:"Ready",
         repo:"https://github.com/aurelius-in/ACE-Lab",
         poster:"https://raw.githubusercontent.com/aurelius-in/agentic-portfolio/main/docs/images/ace-lab-desktop.png",
         gif:"https://raw.githubusercontent.com/aurelius-in/agentic-portfolio/main/docs/images/ace-lab-portfolio.webp"
+      },
+    { id:"epiphany", title:"Epiphany",
+        summary:"Agentic insight notebook for analysts: ingest notes, links, and documents, extract key findings, link evidence, and generate briefings—with traceable sources.",
+        industries:["Platform / IT"],
+        caps:["Agentic","Retrieval (RAG)","Document AI","UI & Traces"],
+        status:"Ready",
+        repo:"https://github.com/aurelius-in/Epiphany",
+        poster:"https://raw.githubusercontent.com/aurelius-in/reliable-ai-network/main/epiphany.png",
+        gif:"https://raw.githubusercontent.com/aurelius-in/reliable-ai-network/main/epiphany.webp"
       }
     ];
+    
 
     // Ensure "Agentic" chip present if omitted
     PROJS.forEach(p => { if (!p.caps.includes("Agentic")) p.caps.push("Agentic"); });
