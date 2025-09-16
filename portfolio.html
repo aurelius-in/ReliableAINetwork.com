@@ -60,45 +60,17 @@
     <div class="filters">
       <div>
         <label for="fIndustry">Industry</label>
-<select id="fIndustry" class="input">
-  <option value="all">All industries</option>
-  <option>DevOps / SRE</option>
-  <option>Edge AI & Computer Vision</option>
-  <option>Finance & Legal</option>
-  <option>Healthcare</option>
-  <option>HR & Recruiting</option>
-  <option>Industrial & Field Ops</option>
-  <option>Insurance</option> <!-- add this -->
-  <option>Marketing / AdOps</option>
-  <option>Media & Entertainment</option>
-  <option>Platform / IT</option>
-</select>
-
+        <select id="fIndustry" class="input">
+          <option value="all">All industries</option>
+          <!-- options are auto-populated below -->
+        </select>
       </div>
       <div>
         <label for="fCap">Capability</label>
-       <select id="fCap" class="input">
-  <option value="all">All capabilities</option>
-  <option>AdOps</option>
-  <option>Agentic</option>
-  <option>Anomaly / Forecast</option>
-  <option>Compliance</option>
-  <option>CV (Computer Vision)</option>
-  <option>Document AI</option>
-  <option>Edge</option>
-  <option>Evals</option>
-  <option>Experimentation</option>
-  <option>Generative AI</option>
-  <option>Governance</option>
-  <option>Image Editing</option>
-  <option>Image Generation</option>
-  <option>Music Intelligence</option>
-  <option>Recruiting / ATS</option>
-  <option>Retrieval (RAG)</option>
-  <option>UI & Traces</option>
-  <option>Video Enhancement</option>
-  <option>Video Generation</option>
-</select>
+        <select id="fCap" class="input">
+          <option value="all">All capabilities</option>
+          <!-- options are auto-populated below -->
+        </select>
       </div>
       <div>
         <label for="fStatus">Status</label>
@@ -227,27 +199,26 @@
         poster:"https://raw.githubusercontent.com/aurelius-in/reliable-ai-network/main/mra-placeholder.png"
       },
       { id:"ace-lab", title:"ACE Lab",
-        summary: "Agentic Creative Experience Lab is a real-time, WebGPU-first platform that blends agentic shader design, on-device image generation, and microservice video generation (AnimateDiff for motion, RIFE for interpolation), plus generative fill, style transfer, and policy-safe WebM export.",
+        summary:"Agentic Creative Experience Lab is a real-time, WebGPU-first platform that blends agentic shader design, on-device image generation, and microservice video generation (AnimateDiff for motion, RIFE for interpolation), plus generative fill, style transfer, and policy-safe WebM export.",
         industries:["Media & Entertainment","Platform / IT","Marketing / AdOps"],
-        caps:["Agentic","Experimentation","Evals","Governance","UI & Traces","Video Enhancement"],
+        caps:["Agentic","Experimentation","Evals","Governance","UI & Traces","Video Enhancement","Image Generation","Generative AI","Image Editing","Video Generation"],
         status:"Ready",
         repo:"https://github.com/aurelius-in/ACE-Lab",
         poster:"https://raw.githubusercontent.com/aurelius-in/agentic-portfolio/main/docs/images/ace-lab-desktop.png",
         gif:"https://raw.githubusercontent.com/aurelius-in/agentic-portfolio/main/docs/images/ace-lab-portfolio.webp"
       },
-    { id:"epiphany", title:"Epiphany",
-        summary:"Agentic insight notebook for analysts: ingest notes, links, and documents, extract key findings, link evidence, and generate briefings—with traceable sources.",
-        industries:["Platform / IT"],
-        caps:["Agentic","Retrieval (RAG)","Document AI","UI & Traces"],
+      { id:"epiphany", title:"Epiphany",
+        summary:"Self-hosted full-stack diffusion suite for image and video generation with a Next.js UI, Express APIs, and FastAPI GPU workers—supporting SDXL (txt2img/img2img/inpainting/ControlNet), text-to-video, prompt enhancement, Safe→Research→NSFW modes, editing tools (upscale/bg-remove/face-restore), Redis + S3, and explainability (attention heatmaps + audit logs).",
+        industries:["Media & Entertainment","Platform / IT","Marketing / AdOps"],
+        caps:["Generative AI","Image Generation","Video Generation","Image Editing","Video Enhancement","UI & Traces","Governance"],
         status:"Ready",
         repo:"https://github.com/aurelius-in/Epiphany",
         poster:"https://raw.githubusercontent.com/aurelius-in/reliable-ai-network/main/epiphany.png",
         gif:"https://raw.githubusercontent.com/aurelius-in/reliable-ai-network/main/epiphany.webp"
       }
     ];
-    
 
-    // Ensure "Agentic" chip present if omitted
+    // Ensure "Agentic" chip present if omitted (keeps your visual consistency)
     PROJS.forEach(p => { if (!p.caps.includes("Agentic")) p.caps.push("Agentic"); });
 
     const grid = document.getElementById('grid');
@@ -255,30 +226,48 @@
     const fCap = document.getElementById('fCap');
     const fStatus = document.getElementById('fStatus');
 
-    // --- Alphabetize dropdown options (keeping the first "All ..." option on top) ---
-    function sortSelectOptions(selectEl){
-      if (!selectEl) return;
-      const opts = Array.from(selectEl.options);
-      if (opts.length === 0) return;
-      const first = opts[0]; // keep "All ..." pinned
-      const rest = opts.slice(1).sort((a,b)=>a.text.localeCompare(b.text, undefined, {sensitivity:'base'}));
-      selectEl.innerHTML = '';
-      selectEl.appendChild(first);
-      rest.forEach(o => selectEl.appendChild(o));
-      selectEl.selectedIndex = 0; // ensure "All ..." active
+    // --- Build dropdowns from data (with seeded baselines), alphabetize, and default to "All ..." ---
+    const INDUSTRY_BASE = [
+      "DevOps / SRE","Edge AI & Computer Vision","Finance & Legal","Healthcare",
+      "HR & Recruiting","Industrial & Field Ops","Insurance","Marketing / AdOps",
+      "Media & Entertainment","Platform / IT"
+    ];
+    const CAPS_BASE = [
+      "AdOps","Agentic","Anomaly / Forecast","Compliance","CV (Computer Vision)","Document AI",
+      "Edge","Evals","Experimentation","Generative AI","Governance","Image Editing","Image Generation",
+      "Music Intelligence","Recruiting / ATS","Retrieval (RAG)","UI & Traces","Video Enhancement","Video Generation"
+    ];
+
+    function populateSelectsFromData(){
+      const inds = new Set(INDUSTRY_BASE);
+      const caps = new Set(CAPS_BASE);
+      PROJS.forEach(p => {
+        (p.industries||[]).forEach(i => inds.add(i));
+        (p.caps||[]).forEach(c => caps.add(c));
+      });
+
+      const sortedInds = Array.from(inds).sort((a,b)=>a.localeCompare(b, undefined, {sensitivity:'base'}));
+      const sortedCaps = Array.from(caps).sort((a,b)=>a.localeCompare(b, undefined, {sensitivity:'base'}));
+
+      fillSelect(fIndustry, "All industries", sortedInds);
+      fillSelect(fCap, "All capabilities", sortedCaps);
     }
 
-    // Sort dropdowns once on load
-    sortSelectOptions(fIndustry);
-    sortSelectOptions(fCap);
-
-    // Force defaults to "All ..." on first load (override bfcache/autofill)
-    [fIndustry, fCap, fStatus].forEach(sel => {
-      if (!sel) return;
-      const hasAll = Array.from(sel.options).some(o => o.value === 'all');
-      if (hasAll) sel.value = 'all';
-      else sel.selectedIndex = 0;
-    });
+    function fillSelect(selectEl, allLabel, values){
+      // Preserve the first "All ..." option
+      selectEl.innerHTML = "";
+      const first = document.createElement("option");
+      first.value = "all";
+      first.textContent = allLabel;
+      selectEl.appendChild(first);
+      values.forEach(v => {
+        const opt = document.createElement("option");
+        opt.textContent = v;
+        selectEl.appendChild(opt);
+      });
+      // Force default to "All ..."
+      selectEl.value = "all";
+    }
 
     function match(p){
       const ind = fIndustry.value;
@@ -369,7 +358,16 @@
       });
     }
 
-    // Wire events AFTER forcing defaults
+    // --- Init: build dropdowns from data, bind events, render ---
+    populateSelectsFromData();
+
+    [fIndustry, fCap, fStatus].forEach(sel => {
+      if (!sel) return;
+      const hasAll = Array.from(sel.options).some(o => o.value === 'all');
+      if (hasAll) sel.value = 'all';
+      else sel.selectedIndex = 0;
+    });
+
     fIndustry.addEventListener('change', render);
     fCap.addEventListener('change', render);
     fStatus.addEventListener('change', render);
