@@ -106,4 +106,4 @@ We’re stack‑agnostic, but we value **traceability**, **evals**, and **operab
 
 ---
 
-© 2025 Reliable AI Network, LLC. All rights reserved.
+© 2025 Reliable AI Network, Inc.. All rights reserved.
