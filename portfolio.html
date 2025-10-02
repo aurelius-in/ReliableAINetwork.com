@@ -190,14 +190,18 @@
         poster:"https://raw.githubusercontent.com/aurelius-in/agentic-portfolio/main/docs/images/esqa-preview-poster.webp",
         gif:"https://raw.githubusercontent.com/aurelius-in/agentic-portfolio/main/docs/images/esqa-preview.webp"
       },
+
+      /* UPDATED: images + summary */
       { id:"myriskagent", title:"MyRiskAgent",
-        summary:"Agentic risk analysis that ingests claims, filings, and OSINT to score providers/companies with peer-normalized outlier detection, SHAP explainability, and audit-ready evidence.",
+        summary:"Agentic risk intelligence for providers and companies. Ingests claims, filings, and OSINT; computes family risk scores with peer-normalized outlier detection; explains drivers via SHAP; exports audit-ready evidence. Stack: FastAPI, Postgres/pgvector or Chroma, DuckDB, Redis, LangGraph, Prometheus/Grafana, OPA.",
         industries:["Finance & Legal","Insurance","Healthcare","Platform / IT"],
-        caps:["Agentic","Retrieval (RAG)","Governance","Compliance","UI & Traces","Evals","Document AI"],
+        caps:["Agentic","Retrieval (RAG)","Document AI","Governance","Compliance","UI & Traces","Evals","Policy / OPA"],
         status:"Ready",
         repo:"https://github.com/aurelius-in/MyRiskAgent",
-        poster:"https://raw.githubusercontent.com/aurelius-in/reliable-ai-network/main/mra-placeholder.png"
+        poster:"./my_risk_poster.png",
+        gif:"./my_risk_demo.webp"
       },
+
       { id:"ace-lab", title:"ACE Lab",
         summary:"Agentic Creative Experience Lab is a real-time, WebGPU-first platform that blends agentic shader design, on-device image generation, and microservice video generation (AnimateDiff for motion, RIFE for interpolation), plus generative fill, style transfer, and policy-safe WebM export.",
         industries:["Media & Entertainment","Platform / IT","Marketing / AdOps"],
@@ -209,28 +213,27 @@
       },
 
       {
-  id: "rainref",
-  title: "RainRef",
-  summary:
-    "Support Ref: normalize tickets/chats to RefEvents, draft cited answers, propose policy-gated safe actions with signed receipts, and emit Product Signals to Jira/Linear/RainScout.",
-  industries: ["Platform / IT", "SaaS / B2B", "Customer Support & Success"],
-  caps: [
-    "Agentic",
-    "Retrieval (RAG)",
-    "Document AI",
-    "Policy / OPA",
-    "Governance",
-    "Compliance",
-    "UI & Traces",
-    "Product Signals"
-  ],
-  status: "Ready",
-  repo: "https://github.com/aurelius-in/RainRef",
-  poster: "https://raw.githubusercontent.com/aurelius-in/RainRef/main/rr_day.png",
-  gif: "https://raw.githubusercontent.com/aurelius-in/RainRef/main/rr_demo.webp"
-},
+        id: "rainref",
+        title: "RainRef",
+        summary:
+          "Support Ref: normalize tickets/chats to RefEvents, draft cited answers, propose policy-gated safe actions with signed receipts, and emit Product Signals to Jira/Linear/RainScout.",
+        industries: ["Platform / IT", "SaaS / B2B", "Customer Support & Success"],
+        caps: [
+          "Agentic",
+          "Retrieval (RAG)",
+          "Document AI",
+          "Policy / OPA",
+          "Governance",
+          "Compliance",
+          "UI & Traces",
+          "Product Signals"
+        ],
+        status: "Ready",
+        repo: "https://github.com/aurelius-in/RainRef",
+        poster: "https://raw.githubusercontent.com/aurelius-in/RainRef/main/rr_day.png",
+        gif: "https://raw.githubusercontent.com/aurelius-in/RainRef/main/rr_demo.webp"
+      },
 
-      
       { id:"epiphany", title:"Epiphany",
         summary:"Self-hosted full-stack diffusion suite for image and video generation with a Next.js UI, Express APIs, and FastAPI GPU workers—supporting SDXL (txt2img/img2img/inpainting/ControlNet), text-to-video, prompt enhancement, Safe→Research→NSFW modes, editing tools (upscale/bg-remove/face-restore), Redis + S3, and explainability (attention heatmaps + audit logs).",
         industries:["Media & Entertainment","Platform / IT","Marketing / AdOps"],
@@ -259,7 +262,7 @@
     const CAPS_BASE = [
       "AdOps","Agentic","Anomaly / Forecast","Compliance","CV (Computer Vision)","Document AI",
       "Edge","Evals","Experimentation","Generative AI","Governance","Image Editing","Image Generation",
-      "Music Intelligence","Recruiting / ATS","Retrieval (RAG)","UI & Traces","Video Enhancement","Video Generation"
+      "Music Intelligence","Recruiting / ATS","Retrieval (RAG)","UI & Traces","Video Enhancement","Video Generation","Policy / OPA"
     ];
 
     function populateSelectsFromData(){
